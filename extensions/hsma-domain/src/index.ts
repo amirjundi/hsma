@@ -1,10 +1,10 @@
-// Stays "openclaw/plugin-sdk" even though this fork's package is named "ankedo".
+// Stays "openclaw/plugin-sdk" even though this fork's package is named "hsma".
 // The specifier is not resolved by npm: the plugin loader aliases it itself, and
 // PLUGIN_SDK_PACKAGE_PREFIXES in src/plugins/plugin-sdk-native-resolver.ts hardcodes
 // "openclaw/plugin-sdk". Renaming it here makes the plugin fail to load.
 import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
 /**
- * AnkEdo — hate-speech monitoring tools for Arabic and Kurdish social media.
+ * HSMA — hate-speech monitoring tools for Arabic and Kurdish social media.
  *
  * Registers the agent's capabilities as OpenClaw tools. The model never invokes any of
  * this directly: it names a tool, OpenClaw validates the arguments against the schema,
@@ -43,7 +43,7 @@ let store: EvidenceStore | null = null;
 let lexicon: LexiconStore | null = null;
 
 function evidence(config: AnkedoConfig): EvidenceStore {
-  store ??= new EvidenceStore(config.databasePath ?? "./ankedo.db");
+  store ??= new EvidenceStore(config.databasePath ?? "./hsma.db");
   return store;
 }
 
@@ -61,7 +61,7 @@ function platform(config: AnkedoConfig): LexiconStore {
         agentKey: config.agentKey,
         // Always sent: the platform scopes idempotency on (agent_id, key), so an
         // agent omitting it shares the '' namespace with every other agent that does.
-        agentId: config.agentId ?? "ankedo-agent",
+        agentId: config.agentId ?? "hsma-agent",
       }),
       { maxStaleHours: config.maxStaleHours ?? 6, languages: ["ar", "ku"] },
     );
@@ -70,8 +70,8 @@ function platform(config: AnkedoConfig): LexiconStore {
 }
 
 export default defineToolPlugin({
-  id: "ankedo",
-  name: "AnkEdo",
+  id: "hsma",
+  name: "HSMA",
   description:
     "Hate-speech monitoring for Arabic and Kurdish social media targeting Iraqi minorities.",
   configSchema: Type.Object({

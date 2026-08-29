@@ -40,7 +40,7 @@ describe("server pref extraction", () => {
       applyServerUiPrefs(
         configWithPrefs({
           theme: "knot",
-          themeMode: "dark",
+          themeMode: "system",
           accent: "#AbC123",
           locale: "de",
           chatShowThinking: false,
@@ -56,7 +56,7 @@ describe("server pref extraction", () => {
     ).toBe(true);
     expect(onApplied).toHaveBeenCalledWith({
       theme: "knot",
-      themeMode: "dark",
+      themeMode: "system",
       accent: "#abc123",
       locale: "de",
       chatShowThinking: false,
@@ -99,23 +99,25 @@ describe("server pref extraction", () => {
   });
 
   it("preserves authored provenance when a server value equals the product default", () => {
+    // These must be the product defaults themselves -- that is the whole premise of
+    // the test. They are phosphor/dark, not the upstream claw/system.
     const config = configWithPrefs({
-      theme: "claw",
-      themeMode: "system",
+      theme: "phosphor",
+      themeMode: "dark",
       chatSendShortcut: "enter",
     });
 
     expect(resolveServerUiPrefState(config, "theme")).toEqual({
       overridden: true,
       provenance: "synced",
-      resetValue: "claw",
-      value: "claw",
+      resetValue: "phosphor",
+      value: "phosphor",
     });
     expect(resolveServerUiPrefState(config, "themeMode")).toEqual({
       overridden: true,
       provenance: "synced",
-      resetValue: "system",
-      value: "system",
+      resetValue: "dark",
+      value: "dark",
     });
     expect(resolveServerUiPrefState(config, "chatSendShortcut")).toEqual({
       overridden: true,
@@ -131,8 +133,8 @@ describe("server pref extraction", () => {
     expect(state).toEqual({
       overridden: true,
       provenance: "synced",
-      resetValue: "claw",
-      value: "claw",
+      resetValue: "phosphor",
+      value: "phosphor",
     });
     patchSettings({ theme: "knot" });
     expect(
@@ -142,7 +144,7 @@ describe("server pref extraction", () => {
     ).toEqual({
       overridden: true,
       provenance: "device-local",
-      resetValue: "claw",
+      resetValue: "phosphor",
       value: "knot",
     });
 
@@ -155,11 +157,11 @@ describe("server pref extraction", () => {
 describe("applyServerUiPrefs", () => {
   it("applies a server delta to the local mirror once", () => {
     const onApplied = vi.fn();
-    const config = configWithPrefs({ themeMode: "dark" });
+    const config = configWithPrefs({ themeMode: "system" });
 
     expect(applyServerUiPrefs(config, { onApplied })).toBe(true);
-    expect(loadSettings().themeMode).toBe("dark");
-    expect(onApplied).toHaveBeenCalledWith({ themeMode: "dark" });
+    expect(loadSettings().themeMode).toBe("system");
+    expect(onApplied).toHaveBeenCalledWith({ themeMode: "system" });
 
     // The same server value never re-applies, so a later local edit sticks.
     patchSettings({ themeMode: "light" });
@@ -172,17 +174,17 @@ describe("applyServerUiPrefs", () => {
     const oldSnapshot = configWithPrefs({ themeMode: "light" });
     const onApplied = vi.fn();
     applyServerUiPrefs(oldSnapshot, { scope, onApplied });
-    patchSettings({ themeMode: "dark" });
+    patchSettings({ themeMode: "system" });
     const request = vi.fn(async () => ({}));
     const client = createServerPrefsWriter(request, scope);
 
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    pushServerUiPrefs(client, { themeMode: "system" });
     await waitForFast(() =>
       expect(localStorage.getItem(`openclaw.control.serverPrefs.pending.v1:${scope}`)).toBeNull(),
     );
 
     expect(applyServerUiPrefs(oldSnapshot, { scope, onApplied })).toBe(false);
-    expect(loadSettings().themeMode).toBe("dark");
+    expect(loadSettings().themeMode).toBe("system");
   });
 
   it("treats a new object with old content after ack as a genuine LWW restore", async () => {
@@ -190,10 +192,10 @@ describe("applyServerUiPrefs", () => {
     const oldSnapshot = configWithPrefs({ themeMode: "light" });
     const onApplied = vi.fn();
     applyServerUiPrefs(oldSnapshot, { scope, onApplied });
-    patchSettings({ themeMode: "dark" });
+    patchSettings({ themeMode: "system" });
     const request = vi.fn(async () => ({}));
     const client = createServerPrefsWriter(request, scope);
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    pushServerUiPrefs(client, { themeMode: "system" });
     await waitForFast(() =>
       expect(localStorage.getItem(`openclaw.control.serverPrefs.pending.v1:${scope}`)).toBeNull(),
     );
@@ -207,7 +209,7 @@ describe("applyServerUiPrefs", () => {
 
   it("clears the retained-object memo on reset", () => {
     const scope = "ws://memo";
-    const snapshot = configWithPrefs({ themeMode: "dark" });
+    const snapshot = configWithPrefs({ themeMode: "system" });
     const onApplied = vi.fn();
     expect(applyServerUiPrefs(snapshot, { scope, onApplied })).toBe(true);
     patchSettings({ themeMode: "light" });
@@ -220,12 +222,12 @@ describe("applyServerUiPrefs", () => {
     resetServerUiPrefsSync();
 
     expect(applyServerUiPrefs(snapshot, { scope, onApplied })).toBe(true);
-    expect(loadSettings().themeMode).toBe("dark");
+    expect(loadSettings().themeMode).toBe("system");
   });
 
   it("keeps an unpushed local edit across a sync reset (reload/reconnect)", () => {
     const onApplied = vi.fn();
-    const config = configWithPrefs({ themeMode: "dark" });
+    const config = configWithPrefs({ themeMode: "system" });
     applyServerUiPrefs(config, { scope: "ws://gw", onApplied });
     patchSettings({ themeMode: "light" });
 
@@ -238,22 +240,25 @@ describe("applyServerUiPrefs", () => {
 
   it("applies again when the server value actually changes", () => {
     const onApplied = vi.fn();
-    applyServerUiPrefs(configWithPrefs({ themeMode: "dark" }), { onApplied });
+    // The two server values must genuinely differ, which is what the name says this
+    // covers. applyServerUiPrefs short-circuits on an unchanged serialised pref set,
+    // so sending the same value twice returns false regardless of the local edit.
+    applyServerUiPrefs(configWithPrefs({ themeMode: "system" }), { onApplied });
     patchSettings({ themeMode: "light" });
 
-    expect(applyServerUiPrefs(configWithPrefs({ themeMode: "system" }), { onApplied })).toBe(true);
-    expect(loadSettings().themeMode).toBe("system");
+    expect(applyServerUiPrefs(configWithPrefs({ themeMode: "dark" }), { onApplied })).toBe(true);
+    expect(loadSettings().themeMode).toBe("dark");
   });
 
   it("applies only the fields the server actually changed", () => {
     const onApplied = vi.fn();
-    applyServerUiPrefs(configWithPrefs({ themeMode: "dark", locale: "de" }), { onApplied });
+    applyServerUiPrefs(configWithPrefs({ themeMode: "system", locale: "de" }), { onApplied });
     // Unpushable local edit on one field...
     patchSettings({ themeMode: "light" });
 
     // ...survives a server change to a *different* field.
     expect(
-      applyServerUiPrefs(configWithPrefs({ themeMode: "dark", locale: "fr" }), { onApplied }),
+      applyServerUiPrefs(configWithPrefs({ themeMode: "system", locale: "fr" }), { onApplied }),
     ).toBe(true);
     expect(loadSettings().locale).toBe("fr");
     expect(loadSettings().themeMode).toBe("light");
@@ -262,7 +267,7 @@ describe("applyServerUiPrefs", () => {
   it("preserves a local sidebar edit when only another server preference changes", () => {
     const onApplied = vi.fn();
     const sidebarEntries = ["route:usage", "session:agent:main:test"];
-    applyServerUiPrefs(configWithPrefs({ sidebarEntries, themeMode: "dark" }), { onApplied });
+    applyServerUiPrefs(configWithPrefs({ sidebarEntries, themeMode: "system" }), { onApplied });
     patchSettings({ sidebarEntries: ["route:usage"] });
 
     expect(
@@ -282,13 +287,13 @@ describe("applyServerUiPrefs", () => {
     expect(
       applyServerUiPrefs(configWithPrefs({ theme: "custom" }), { onApplied, onThemeChanged }),
     ).toBe(false);
-    expect(loadSettings().theme).toBe("claw");
+    expect(loadSettings().theme).toBe("phosphor");
     expect(onThemeChanged).toHaveBeenLastCalledWith("custom");
 
     expect(
-      applyServerUiPrefs(configWithPrefs({ theme: "claw" }), { onApplied, onThemeChanged }),
+      applyServerUiPrefs(configWithPrefs({ theme: "phosphor" }), { onApplied, onThemeChanged }),
     ).toBe(false);
-    expect(onThemeChanged).toHaveBeenLastCalledWith("claw");
+    expect(onThemeChanged).toHaveBeenLastCalledWith("phosphor");
     expect(onApplied).not.toHaveBeenCalled();
   });
 });
@@ -296,8 +301,12 @@ describe("applyServerUiPrefs", () => {
 describe("changedServerUiPrefs", () => {
   it("returns only the synced keys that changed", () => {
     const previous = loadSettings();
-    const next = { ...previous, themeMode: "dark" as const, navCollapsed: !previous.navCollapsed };
-    expect(changedServerUiPrefs(previous, next)).toEqual({ themeMode: "dark" });
+    const next = {
+      ...previous,
+      themeMode: "system" as const,
+      navCollapsed: !previous.navCollapsed,
+    };
+    expect(changedServerUiPrefs(previous, next)).toEqual({ themeMode: "system" });
     expect(changedServerUiPrefs(previous, { ...previous })).toBeNull();
   });
 
@@ -386,7 +395,7 @@ describe("changedServerUiPrefs", () => {
       }
     });
 
-    const state = resolveServerUiPrefState(configWithPrefs({ theme: "claw" }), "theme", scope);
+    const state = resolveServerUiPrefState(configWithPrefs({ theme: "phosphor" }), "theme", scope);
     resetServerUiPref("theme", state);
 
     await vi.waitFor(() =>
@@ -425,7 +434,7 @@ describe("clearable pref removal from the server", () => {
     applyServerUiPrefs(
       configWithPrefs({
         theme: "knot",
-        themeMode: "dark",
+        themeMode: "system",
         accent: "#48d6c2",
         chatSendShortcut: "modifier-enter",
       }),
@@ -435,8 +444,8 @@ describe("clearable pref removal from the server", () => {
     expect(applyServerUiPrefs(configWithPrefs({}), { onApplied })).toBe(true);
     const reset = loadSettings();
     expect(reset).toMatchObject({
-      theme: "claw",
-      themeMode: "system",
+      theme: "phosphor",
+      themeMode: "dark",
     });
     expect(reset.accent).toBeUndefined();
     expect(reset.chatSendShortcut).toBe("enter");
@@ -473,7 +482,7 @@ describe("pushServerUiPrefs", () => {
     const client = createClient(request, scope);
     const onApplied = vi.fn();
     const onThemeChanged = vi.fn();
-    applyServerUiPrefs(configWithPrefs({ theme: "claw" }), {
+    applyServerUiPrefs(configWithPrefs({ theme: "phosphor" }), {
       scope,
       onApplied,
       onThemeChanged,
@@ -505,11 +514,13 @@ describe("pushServerUiPrefs", () => {
     pushServerUiPrefs(createClient(vi.fn(), scope, false), prefs ?? {});
 
     expect(readPending(scope)).toEqual({ theme: null });
-    expect(resolveServerUiPrefState(configWithPrefs({ theme: "claw" }), "theme", scope)).toEqual({
+    expect(
+      resolveServerUiPrefState(configWithPrefs({ theme: "phosphor" }), "theme", scope),
+    ).toEqual({
       overridden: false,
       provenance: "pending",
-      resetValue: "claw",
-      value: "claw",
+      resetValue: "phosphor",
+      value: "phosphor",
     });
   });
 
@@ -539,7 +550,7 @@ describe("pushServerUiPrefs", () => {
   it("retains rejected appearance edits as device-local state with local-only reset", async () => {
     const scope = "ws://gw";
     const config = configWithPrefs({
-      theme: "claw",
+      theme: "phosphor",
       locale: "de",
       chatFollowUpMode: "queue",
     });
@@ -570,7 +581,7 @@ describe("pushServerUiPrefs", () => {
     expect(themeState).toEqual({
       overridden: true,
       provenance: "device-local",
-      resetValue: "claw",
+      resetValue: "phosphor",
       value: "knot",
     });
     expect(localeState).toEqual({
@@ -589,7 +600,7 @@ describe("pushServerUiPrefs", () => {
     const beforeThemeReset = loadSettings();
     const themeReset = resetServerUiPref("theme", themeState);
     expect(changedServerUiPrefs(beforeThemeReset, themeReset)).toBeNull();
-    expect(themeReset.theme).toBe("claw");
+    expect(themeReset.theme).toBe("phosphor");
     const beforeLocaleReset = loadSettings();
     const localeReset = resetServerUiPref("locale", localeState);
     expect(changedServerUiPrefs(beforeLocaleReset, localeReset)).toBeNull();
@@ -602,7 +613,7 @@ describe("pushServerUiPrefs", () => {
 
   it("retains a rejected local edit until that server key actually changes", async () => {
     const scope = "ws://gw";
-    const initialConfig = configWithPrefs({ theme: "claw", locale: "de" });
+    const initialConfig = configWithPrefs({ theme: "phosphor", locale: "de" });
     const onApplied = vi.fn();
     applyServerUiPrefs(initialConfig, { scope, onApplied });
     const beforeLocalEdit = loadSettings();
@@ -622,18 +633,27 @@ describe("pushServerUiPrefs", () => {
     );
 
     expect(
-      applyServerUiPrefs(configWithPrefs({ theme: "claw", locale: "de" }), { scope, onApplied }),
+      applyServerUiPrefs(configWithPrefs({ theme: "phosphor", locale: "de" }), {
+        scope,
+        onApplied,
+      }),
     ).toBe(false);
     expect(loadSettings().theme).toBe("knot");
 
     resetServerUiPrefsSync();
     expect(
-      applyServerUiPrefs(configWithPrefs({ theme: "claw", locale: "de" }), { scope, onApplied }),
+      applyServerUiPrefs(configWithPrefs({ theme: "phosphor", locale: "de" }), {
+        scope,
+        onApplied,
+      }),
     ).toBe(false);
     expect(loadSettings().theme).toBe("knot");
 
     expect(
-      applyServerUiPrefs(configWithPrefs({ theme: "claw", locale: "fr" }), { scope, onApplied }),
+      applyServerUiPrefs(configWithPrefs({ theme: "phosphor", locale: "fr" }), {
+        scope,
+        onApplied,
+      }),
     ).toBe(true);
     expect(loadSettings()).toMatchObject({ theme: "knot", locale: "fr" });
 
@@ -648,18 +668,18 @@ describe("pushServerUiPrefs", () => {
     const afterCommit = vi.fn();
     const client = createClient(request);
 
-    pushServerUiPrefs(client, { themeMode: "dark" }, { afterCommit });
+    pushServerUiPrefs(client, { themeMode: "system" }, { afterCommit });
     await waitForFast(() => expect(afterCommit).toHaveBeenCalledOnce());
     expect(afterCommit).toHaveBeenCalledWith({ needsRefresh: false });
 
     expect(request).toHaveBeenCalledExactlyOnceWith("config.patch", {
-      raw: JSON.stringify({ ui: { prefs: { themeMode: "dark" } } }),
+      raw: JSON.stringify({ ui: { prefs: { themeMode: "system" } } }),
       note: "control-ui prefs sync",
     });
     expect(request.mock.calls.some(([method]) => method === "config.get")).toBe(false);
     expect(localStorage.getItem(pendingKey("ws://gw"))).toBeNull();
     expect(JSON.parse(localStorage.getItem(lastSeenKey("ws://gw")) ?? "{}")).toEqual({
-      themeMode: "dark",
+      themeMode: "system",
     });
   });
 
@@ -719,9 +739,9 @@ describe("pushServerUiPrefs", () => {
     flushServerUiPrefs(client);
     localStorage.setItem(pendingKey(scope), JSON.stringify({ locale: "fr", themeMode: "light" }));
 
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    pushServerUiPrefs(client, { themeMode: "system" });
 
-    expect(readPending(scope)).toEqual({ locale: "fr", themeMode: "dark" });
+    expect(readPending(scope)).toEqual({ locale: "fr", themeMode: "system" });
   });
 
   it("preserves a newer same-key edit across the older batch ack", async () => {
@@ -738,7 +758,7 @@ describe("pushServerUiPrefs", () => {
     );
     const client = createClient(request);
 
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    pushServerUiPrefs(client, { themeMode: "system" });
     await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(1));
     pushServerUiPrefs(client, { themeMode: "light" });
     resolveFirst?.();
@@ -852,7 +872,7 @@ describe("pushServerUiPrefs", () => {
 
   it("reconciles the refreshed snapshot again after clearing its pending shadow", async () => {
     const refreshedSnapshot = configWithPrefs({ themeMode: "light" });
-    patchSettings({ themeMode: "dark" });
+    patchSettings({ themeMode: "system" });
     const onApplied = vi.fn();
     const request = vi.fn<(method: string, params?: unknown) => Promise<unknown>>(async () => {
       applyServerUiPrefs(refreshedSnapshot, { scope: "ws://gw", onApplied });
@@ -862,7 +882,7 @@ describe("pushServerUiPrefs", () => {
 
     pushServerUiPrefs(
       client,
-      { themeMode: "dark" },
+      { themeMode: "system" },
       {
         afterCommit: ({ needsRefresh }) => {
           expect(needsRefresh).toBe(false);
@@ -888,7 +908,7 @@ describe("pushServerUiPrefs", () => {
       error: "config.get failed",
     });
 
-    pushServerUiPrefs(client, { themeMode: "dark" }, { afterCommit });
+    pushServerUiPrefs(client, { themeMode: "system" }, { afterCommit });
 
     await waitForFast(() =>
       expect(afterCommit).toHaveBeenCalledWith({
@@ -906,8 +926,8 @@ describe("pushServerUiPrefs", () => {
         }),
     );
     const client = createClient(request);
-    patchSettings({ themeMode: "dark" });
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    patchSettings({ themeMode: "system" });
+    pushServerUiPrefs(client, { themeMode: "system" });
 
     const onApplied = vi.fn();
     expect(
@@ -917,7 +937,7 @@ describe("pushServerUiPrefs", () => {
       }),
     ).toBe(true);
     expect(onApplied).toHaveBeenCalledWith({ locale: "de" });
-    expect(loadSettings().themeMode).toBe("dark");
+    expect(loadSettings().themeMode).toBe("system");
     resolveRequest?.();
   });
 
@@ -932,7 +952,7 @@ describe("pushServerUiPrefs", () => {
     const client = createClient(request, "ws://a");
     localStorage.setItem(pendingKey("ws://b"), JSON.stringify({ locale: "de" }));
 
-    pushServerUiPrefs(client, { themeMode: "dark" });
+    pushServerUiPrefs(client, { themeMode: "system" });
     await vi.waitFor(() => expect(request).toHaveBeenCalledOnce());
     applyServerUiPrefs(configWithPrefs({ themeMode: "light", locale: "fr" }), {
       scope: "ws://b",
@@ -1065,13 +1085,13 @@ describe("pushServerUiPrefs", () => {
         throw new Error("offline");
       },
     );
-    pushServerUiPrefs(createClient(offlineRequest, "ws://a", false), { themeMode: "dark" });
+    pushServerUiPrefs(createClient(offlineRequest, "ws://a", false), { themeMode: "system" });
     expect(offlineRequest).not.toHaveBeenCalled();
     pushServerUiPrefs(createClient(offlineRequest, "ws://b", false), { locale: "de" });
     expect(offlineRequest).not.toHaveBeenCalled();
 
     expect(JSON.parse(localStorage.getItem(pendingKey("ws://a")) ?? "{}")).toEqual({
-      themeMode: "dark",
+      themeMode: "system",
     });
     expect(JSON.parse(localStorage.getItem(pendingKey("ws://b")) ?? "{}")).toEqual({
       locale: "de",
@@ -1109,7 +1129,7 @@ describe("pushServerUiPrefs", () => {
     await waitForFast(() => expect(localStorage.getItem(pendingKey("ws://first"))).toBeNull());
     expect(localStorage.getItem(pendingKey(""))).toBeNull();
 
-    localStorage.setItem(pendingKey("ws://second"), JSON.stringify({ themeMode: "dark" }));
+    localStorage.setItem(pendingKey("ws://second"), JSON.stringify({ themeMode: "system" }));
     const secondClient = {
       request,
       gatewayUrl: "ws://second",
@@ -1120,7 +1140,7 @@ describe("pushServerUiPrefs", () => {
 
     await vi.waitFor(() => expect(request).toHaveBeenCalledTimes(2));
     expect(request.mock.calls[1]?.[1]).toMatchObject({
-      raw: JSON.stringify({ ui: { prefs: { themeMode: "dark" } } }),
+      raw: JSON.stringify({ ui: { prefs: { themeMode: "system" } } }),
     });
   });
 

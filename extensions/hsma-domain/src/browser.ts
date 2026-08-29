@@ -105,7 +105,7 @@ export async function launch(options: LaunchOptions = {}): Promise<BrowserSessio
     // command rather than the stack trace: an operator reading this wants the fix.
     throw new BrowserUnavailable(
       `Camoufox will not start: ${err instanceof Error ? err.message : String(err)}. ` +
-        "Try `npx camoufox fetch`, then `ankedo doctor` for the underlying cause.",
+        "Try `npx camoufox fetch`, then `hsma doctor` for the underlying cause.",
     );
   }
 

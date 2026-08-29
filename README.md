@@ -1,6 +1,6 @@
-# AnkEdo — hate-speech monitoring for Iraqi minorities
+# HSMA — Hate Speech Monitoring Agent
 
-AnkEdo watches Arabic and Kurdish social media for speech targeting Iraqi minorities —
+HSMA watches Arabic and Kurdish social media for speech targeting Iraqi minorities —
 Yazidis, Christians and Assyrians, Shabak, Kaka'i, Sabian-Mandaeans, Turkmen, Faili
 Kurds, Baháʼís, Kurds. It collects, judges, keeps its own record, and puts findings in
 front of a human being who decides what happens next.
@@ -11,7 +11,7 @@ looked at.
 
 Built on [OpenClaw](https://github.com/openclaw/openclaw) (MIT, © 2026 OpenClaw
 Foundation), which supplies the agent loop, model providers, the Gateway and the
-Control UI. AnkEdo replaces the personal-assistant persona with a monitoring one and
+Control UI. HSMA replaces the personal-assistant persona with a monitoring one and
 adds the judgement.
 
 ## How it judges
@@ -76,32 +76,32 @@ Node 23.x and 24.11 are excluded despite being numerically higher than 22.22.3.
 This is a pnpm workspace; plain `npm install` at the root is not supported.
 
 ```bash
-git clone https://github.com/amirjundi/ankedo-agent.git
-cd ankedo-agent
+git clone https://github.com/amirjundi/hsma.git
+cd hsma
 pnpm install
 pnpm build
-npm install -g . --allow-scripts=ankedo
+npm install -g . --allow-scripts=hsma
 
-ankedo onboard
+hsma onboard
 ```
 
-`onboard` configures a model provider and seeds the workspace with AnkEdo's persona.
+`onboard` configures a model provider and seeds the workspace with HSMA's persona.
 Then point it at the platform:
 
 ```bash
-ankedo config set plugins.entries.ankedo.config.platformUrl https://ettok.net/api/hermes/
-ankedo config set plugins.entries.ankedo.config.agentKey <key with the hate_speech_scan scope>
-ankedo config set plugins.entries.ankedo.config.agentId ankedo-$(hostname)
-ankedo config set plugins.entries.ankedo.config.databasePath ~/.ankedo/evidence.db
+hsma config set plugins.entries.hsma.config.platformUrl https://ettok.net/api/hermes/
+hsma config set plugins.entries.hsma.config.agentKey <key with the hate_speech_scan scope>
+hsma config set plugins.entries.hsma.config.agentId hsma-$(hostname)
+hsma config set plugins.entries.hsma.config.databasePath ~/.hsma/evidence.db
 
-ankedo gateway run
+hsma gateway run
 ```
 
 `agentId` is not optional in practice: the platform scopes idempotency on
 `(agent_id, key)`, so two machines omitting it share a namespace and one silently
 replays the other's response.
 
-State lives in `~/.ankedo`. An existing `~/.openclaw` is inherited when `~/.ankedo`
+State lives in `~/.hsma`. An existing `~/.openclaw` is inherited when `~/.hsma`
 does not exist yet, so upgrading in place does not orphan a working config — the
 gateway token lives in there, and losing it reads as a broken install rather than a
 moved directory.
@@ -114,8 +114,8 @@ is exactly what social platforms fingerprint, and a fingerprinted worker account
 banned one.
 
 ```bash
-cd extensions/ankedo-domain && npm install camoufox && npx camoufox fetch
-ankedo config set plugins.entries.browser.enabled false
+cd extensions/hsma-domain && npm install camoufox && npx camoufox fetch
+hsma config set plugins.entries.browser.enabled false
 ```
 
 Everything except collection works without a browser. If Camoufox will not start, the
@@ -134,7 +134,7 @@ should stay that way.
 ## Tests
 
 ```bash
-cd extensions/ankedo-domain
+cd extensions/hsma-domain
 npm test          # unit tests for the judgement
 npm run test:e2e  # end-to-end against a stub platform over real HTTP
 ```
@@ -146,9 +146,9 @@ stops working for terms containing yeh or alef maksura and nothing errors.
 ## Relationship to upstream
 
 This is a thin fork. The agent loop, providers, Gateway and Control UI are OpenClaw's
-and are deliberately left alone, so upstream fixes stay cheap to merge. AnkEdo changes
+and are deliberately left alone, so upstream fixes stay cheap to merge. HSMA changes
 the package identity, the config directory, the bundled workspace persona and the CLI
-name, and adds `extensions/ankedo-domain`.
+name, and adds `extensions/hsma-domain`.
 
 Internal identifiers — the `OPENCLAW_*` environment variables, the plugin manifest key,
 daemon service markers, protocol constants — keep their names on purpose. Renaming them

@@ -1,5 +1,5 @@
 {
-  "name": "ankedo",
+  "name": "hsma",
   "version": "2026.8.1",
   "openclaw": {
     "schemaVersions": {
@@ -7,23 +7,23 @@
       "agent": 18
     },
     "extensions": [
-      "./extensions/ankedo-domain/dist/index.js"
+      "./extensions/hsma-domain/dist/index.js"
     ]
   },
-  "description": "Specialised agent for monitoring hate speech against Iraqi minorities on Arabic and Kurdish social media.",
+  "description": "HSMA - Hate Speech Monitoring Agent. Monitors Arabic and Kurdish social media for speech targeting Iraqi minorities.",
   "keywords": [],
-  "homepage": "https://github.com/amirjundi/ankedo-agent#readme",
+  "homepage": "https://github.com/amirjundi/hsma#readme",
   "bugs": {
-    "url": "https://github.com/amirjundi/ankedo-agent/issues"
+    "url": "https://github.com/amirjundi/hsma/issues"
   },
   "license": "MIT",
   "author": "OpenClaw Foundation (https://openclaw.org)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amirjundi/ankedo-agent.git"
+    "url": "git+https://github.com/amirjundi/hsma.git"
   },
   "bin": {
-    "ankedo": "openclaw.mjs"
+    "hsma": "openclaw.mjs"
   },
   "directories": {
     "doc": "docs",

@@ -134,26 +134,26 @@ describe("normalizeE164", () => {
 });
 
 describe("resolveConfigDir", () => {
-  it("uses ~/.ankedo when nothing exists yet", async () => {
-    await withTestDir({ prefix: "ankedo-config-dir-" }, async (root) => {
+  it("uses ~/.hsma when nothing exists yet", async () => {
+    await withTestDir({ prefix: "hsma-config-dir-" }, async (root) => {
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);
-      expect(resolved).toBe(path.join(root, ".ankedo"));
+      expect(resolved).toBe(path.join(root, ".hsma"));
     });
   });
 
-  it("prefers ~/.ankedo over an inherited ~/.openclaw", async () => {
-    await withTestDir({ prefix: "ankedo-config-dir-" }, async (root) => {
-      await fs.promises.mkdir(path.join(root, ".ankedo"), { recursive: true });
+  it("prefers ~/.hsma over an inherited ~/.openclaw", async () => {
+    await withTestDir({ prefix: "hsma-config-dir-" }, async (root) => {
+      await fs.promises.mkdir(path.join(root, ".hsma"), { recursive: true });
       await fs.promises.mkdir(path.join(root, ".openclaw"), { recursive: true });
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);
-      expect(resolved).toBe(path.join(root, ".ankedo"));
+      expect(resolved).toBe(path.join(root, ".hsma"));
     });
   });
 
   it("inherits ~/.openclaw so an upgrade in place keeps its config", async () => {
-    // The gateway token lives in there. Silently moving to an empty ~/.ankedo
+    // The gateway token lives in there. Silently moving to an empty ~/.hsma
     // would read as a broken install rather than a relocated directory.
-    await withTestDir({ prefix: "ankedo-config-dir-" }, async (root) => {
+    await withTestDir({ prefix: "hsma-config-dir-" }, async (root) => {
       const inherited = path.join(root, ".openclaw");
       await fs.promises.mkdir(inherited, { recursive: true });
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);

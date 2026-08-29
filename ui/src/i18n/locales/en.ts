@@ -2933,7 +2933,7 @@ export const en: TranslationMap = {
   },
   onboarding: {
     memoryImport: {
-      title: "Bring your assistant memory with you",
+      title: "Bring your monitoring history with you",
       body: "OpenClaw found memory from other coding assistants. Import it into your agent workspace?",
       plannedCount: "{count} ready to import",
       alreadyImported: "Already imported: {count}",
@@ -3524,7 +3524,7 @@ export const en: TranslationMap = {
   },
   aboutPage: {
     productName: "OpenClaw",
-    tagline: "Your personal AI assistant, running on your own devices.",
+    tagline: "Hate speech monitoring for Arabic and Kurdish social media.",
     waveHello: "Wave hello to Clawd",
     linksLabel: "Community and resources",
     linkWebsite: "Website",

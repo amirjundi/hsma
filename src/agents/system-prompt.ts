@@ -1167,7 +1167,7 @@ export function buildAgentSystemPrompt(params: {
 
   // For "none" mode, return just the basic identity line
   if (promptMode === "none") {
-    return ["You are a personal assistant running inside OpenClaw.", modelIdentityLine]
+    return ["You are a hate-speech monitoring agent running inside HSMA.", modelIdentityLine]
       .filter(Boolean)
       .join("\n");
   }
@@ -1227,7 +1227,7 @@ export function buildAgentSystemPrompt(params: {
   });
   const stablePrefix = cacheStablePromptPrefix(stablePrefixCacheKey, () => {
     const lines = [
-      "You are a personal assistant running inside OpenClaw.",
+      "You are a hate-speech monitoring agent running inside HSMA.",
       "",
       ...(includeToolGuidance
         ? [

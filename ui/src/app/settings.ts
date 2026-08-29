@@ -181,8 +181,11 @@ export function normalizeTextScale(value: unknown, fallback: TextScaleStop = 100
 }
 
 export const UI_APPEARANCE_DEFAULTS = {
-  theme: "claw",
-  themeMode: "system",
+  // HSMA is an operations console, not a chat assistant. phosphor/dark reads as a
+  // monitoring surface, and dark rather than system keeps it consistent on the
+  // shared machines this runs on, where the OS setting is not the operator's.
+  theme: "phosphor",
+  themeMode: "dark",
   textScale: 100,
   sidebarLiveActivity: true,
   chatMessageMaxWidth: "48rem",
@@ -509,7 +512,7 @@ export function loadSettings(): UiSettings {
       token: loadSessionToken(gatewayUrl),
       sessionKey: scopedSessionSelection.sessionKey,
       lastActiveSessionKey: scopedSessionSelection.lastActiveSessionKey,
-      theme: theme === "custom" && !customTheme ? "claw" : theme,
+      theme: theme === "custom" && !customTheme ? "phosphor" : theme,
       themeMode: mode,
       accent: normalizeAccentColor(parsed.accent),
       fontUi: normalizeTypefaceOverride(parsed.fontUi),

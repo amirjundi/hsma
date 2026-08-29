@@ -27,7 +27,7 @@ const ensureSupportedRuntimeVersion = () => {
       return;
     }
     process.stderr.write(
-      "ankedo: this Bun runtime is unsupported because it does not provide node:sqlite.\n" +
+      "hsma: this Bun runtime is unsupported because it does not provide node:sqlite.\n" +
         `Use Node.js ${SUPPORTED_NODE_RANGE}; Bun remains supported for installs and package scripts.\n`,
     );
     process.exit(1);
@@ -37,7 +37,7 @@ const ensureSupportedRuntimeVersion = () => {
   }
 
   process.stderr.write(
-    `ankedo: Node.js ${SUPPORTED_NODE_RANGE} is required (current: v${process.versions.node}).\n` +
+    `hsma: Node.js ${SUPPORTED_NODE_RANGE} is required (current: v${process.versions.node}).\n` +
       "If you use nvm, run:\n" +
       `  nvm install ${RECOMMENDED_NODE_MAJOR}\n` +
       `  nvm use ${RECOMMENDED_NODE_MAJOR}\n` +
@@ -339,7 +339,7 @@ const exists = async (specifier) => {
 };
 
 const buildMissingEntryErrorMessage = async () => {
-  const lines = ["ankedo: missing dist/entry.(m)js (build output)."];
+  const lines = ["hsma: missing dist/entry.(m)js (build output)."];
   if (!(await exists("./src/entry.ts"))) {
     return lines.join("\n");
   }
@@ -580,7 +580,7 @@ function tryOutputLauncherVersion(argv) {
     }
     const version = resolveLauncherVersion();
     const commit = resolveLauncherCommit();
-    process.stdout.write(commit ? `AnkEdo ${version} (${commit})\n` : `AnkEdo ${version}\n`);
+    process.stdout.write(commit ? `HSMA ${version} (${commit})\n` : `HSMA ${version}\n`);
     return true;
   } catch {
     return false;

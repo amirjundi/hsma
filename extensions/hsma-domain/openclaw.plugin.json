@@ -1,7 +1,7 @@
 {
-  "id": "ankedo",
-  "name": "AnkEdo",
-  "description": "Hate-speech monitoring for Arabic and Kurdish social media targeting Iraqi minorities.",
+  "id": "hsma",
+  "name": "HSMA",
+  "description": "HSMA - Hate Speech Monitoring Agent. Arabic and Kurdish social media, Iraqi minorities.",
   "version": "2026.8.1",
   "configSchema": {
     "type": "object",

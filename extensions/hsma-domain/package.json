@@ -1,7 +1,7 @@
 {
-  "name": "@ankedo/agent",
+  "name": "@hsma/domain",
   "version": "0.1.0",
-  "description": "Hate-speech monitoring tools for Arabic and Kurdish social media",
+  "description": "Hate-speech judgement for Arabic and Kurdish social media",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

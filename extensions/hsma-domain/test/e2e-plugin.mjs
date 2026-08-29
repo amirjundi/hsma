@@ -66,7 +66,7 @@ await plugin.register({
   pluginConfig: {
     platformUrl: `http://127.0.0.1:${port}/`,
     agentKey: "test-key",
-    agentId: "ankedo-e2e",
+    agentId: "hsma-e2e",
     databasePath: ":memory:",
     maxStaleHours: 6,
   },
@@ -82,7 +82,7 @@ console.log(`registered ${registered.length} tools: ${Object.keys(byName).join("
 const config = {
   platformUrl: `http://127.0.0.1:${port}/`,
   agentKey: "test-key",
-  agentId: "ankedo-e2e",
+  agentId: "hsma-e2e",
   databasePath: ":memory:",
   maxStaleHours: 6,
 };

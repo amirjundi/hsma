@@ -130,11 +130,11 @@ describe("OpenClaw shell locale preferences", () => {
     expect(recordServerSelection).toHaveBeenLastCalledWith("custom", "ws://theme.test");
 
     state.configSnapshot = {
-      config: { ui: { prefs: { theme: "claw" } } },
-      hash: "theme-claw",
+      config: { ui: { prefs: { theme: "phosphor" } } },
+      hash: "theme-phosphor",
     };
     shell.reconcileServerUiPrefs(runtimeConfig);
-    expect(recordServerSelection).toHaveBeenLastCalledWith("claw", "ws://theme.test");
-    expect(loadSettings().theme).toBe("claw");
+    expect(recordServerSelection).toHaveBeenLastCalledWith("phosphor", "ws://theme.test");
+    expect(loadSettings().theme).toBe("phosphor");
   });
 });

@@ -55,7 +55,7 @@ export function tryHandleRootVersionFastPath(
   resolveVersion()
     .then(({ VERSION, resolveCommitHash }) => {
       const commit = resolveCommitHash({ moduleUrl: deps.moduleUrl ?? import.meta.url });
-      output(commit ? `AnkEdo ${VERSION} (${commit})` : `AnkEdo ${VERSION}`);
+      output(commit ? `HSMA ${VERSION} (${commit})` : `HSMA ${VERSION}`);
       exit(0);
     })
     .catch(onError);

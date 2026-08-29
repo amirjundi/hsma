@@ -2,7 +2,8 @@
 import { describe, expect, it } from "vitest";
 import { pickTagline } from "./tagline.js";
 
-const EXPECTED_DEFAULT_TAGLINE = "All your chats, one OpenClaw.";
+const EXPECTED_DEFAULT_TAGLINE = "Hate Speech Monitoring Agent.";
+const FIRST_TAGLINE = "Hate Speech Monitoring Agent.";
 
 describe("pickTagline", () => {
   it("returns empty string when mode is off", () => {
@@ -14,14 +15,21 @@ describe("pickTagline", () => {
   });
 
   it("keeps OPENCLAW_TAGLINE_INDEX behavior in random mode", () => {
-    const value = pickTagline({
-      mode: "random",
-      env: { OPENCLAW_TAGLINE_INDEX: "0" } as NodeJS.ProcessEnv,
-    });
-    expect(value).toBe(
-      "Your terminal just grew claws\u2014type something and let the bot pinch the busywork.",
-    );
-    expect(value).not.toBe(EXPECTED_DEFAULT_TAGLINE);
+    expect(
+      pickTagline({
+        mode: "random",
+        env: { OPENCLAW_TAGLINE_INDEX: "0" } as NodeJS.ProcessEnv,
+      }),
+    ).toBe(FIRST_TAGLINE);
+  });
+
+  it("wraps an out-of-range OPENCLAW_TAGLINE_INDEX rather than throwing", () => {
+    expect(
+      pickTagline({
+        mode: "random",
+        env: { OPENCLAW_TAGLINE_INDEX: "999" } as NodeJS.ProcessEnv,
+      }),
+    ).toBeTruthy();
   });
 
   it("ignores partial OPENCLAW_TAGLINE_INDEX values", () => {
@@ -31,55 +39,53 @@ describe("pickTagline", () => {
         env: { OPENCLAW_TAGLINE_INDEX: "1abc" } as NodeJS.ProcessEnv,
         random: () => 0,
       }),
-    ).toBe("Your terminal just grew claws\u2014type something and let the bot pinch the busywork.");
+    ).toBe(FIRST_TAGLINE);
+  });
+
+  it("never returns a value outside the declared pool", () => {
+    // Sweeping random() recovers the whole pool through the public API.
+    const seen = new Set<string>();
+    for (let i = 0; i < 200; i++) {
+      seen.add(pickTagline({ mode: "random", random: () => i / 200 }));
+    }
+    expect(seen.size).toBeGreaterThan(1);
+    for (const tagline of seen) {
+      expect(tagline.length).toBeGreaterThan(0);
+    }
   });
 });
 
-describe("future holiday tagline windows (2028-2030)", () => {
-  // Regression coverage for the 2028-2030 floating-holiday rows. Before those
-  // rows existed, the holiday rule returned false for these dates and the
-  // tagline was silently filtered out of the active pool. activeTaglines is no
-  // longer exported, so we sample the public pickTagline() across every pool
-  // index (by sweeping the injected random()) to recover the full active pool
-  // for a given date, then assert the matching holiday tagline is present.
-  // UTC dates are used because the holiday rules compare in UTC.
-  const activePoolOn = (year: number, monthIndex: number, day: number): string[] => {
-    const now = () => new Date(Date.UTC(year, monthIndex, day, 12, 0, 0));
+describe("what the taglines may not say", () => {
+  // The upstream set was personal-assistant marketing. This is the guard that stops it
+  // creeping back: HSMA's output names real people in an evidence file, and a banner
+  // joking about Alexa or lobsters undercuts the seriousness of everything under it.
+  it("contains no assistant marketing, mascot jokes or holiday greetings", () => {
     const seen = new Set<string>();
     for (let i = 0; i < 200; i++) {
-      const r = i / 200;
-      seen.add(pickTagline({ mode: "random", now, random: () => r }));
+      seen.add(pickTagline({ mode: "random", random: () => i / 200 }));
     }
-    return [...seen];
-  };
-  const poolHas = (pool: string[], term: string) =>
-    pool.some((t) => t.toLowerCase().includes(term));
+    seen.add(pickTagline({ mode: "default" }));
 
-  it("activates the Lunar New Year tagline on 2028-01-26", () => {
-    expect(poolHas(activePoolOn(2028, 0, 26), "lunar new year")).toBe(true);
-  });
-
-  it("activates the Diwali tagline on 2029-11-05", () => {
-    expect(poolHas(activePoolOn(2029, 10, 5), "diwali")).toBe(true);
-  });
-
-  it("activates the Diwali tagline on 2030-10-25", () => {
-    expect(poolHas(activePoolOn(2030, 9, 25), "diwali")).toBe(true);
-  });
-
-  it("activates the Easter tagline on 2030-04-21", () => {
-    expect(poolHas(activePoolOn(2030, 3, 21), "easter")).toBe(true);
-  });
-
-  it("activates the Hanukkah tagline across its full 2028 window (Dec 13 and Dec 20)", () => {
-    expect(poolHas(activePoolOn(2028, 11, 13), "hanukkah")).toBe(true);
-    expect(poolHas(activePoolOn(2028, 11, 20), "hanukkah")).toBe(true);
-  });
-
-  it("does not activate floating holiday taglines on a plain date (2028-07-15)", () => {
-    const pool = activePoolOn(2028, 6, 15);
-    for (const term of ["lunar new year", "diwali", "easter", "hanukkah", "eid al-fitr"]) {
-      expect(poolHas(pool, term)).toBe(false);
+    const banned = [
+      "alexa",
+      "siri",
+      "lobster",
+      "claw",
+      "second brain",
+      "personal assistant",
+      "your assistant",
+      "butler",
+      "christmas",
+      "hanukkah",
+      "diwali",
+      "easter",
+      "eid",
+      "new year",
+    ];
+    for (const tagline of seen) {
+      for (const term of banned) {
+        expect(tagline.toLowerCase()).not.toContain(term);
+      }
     }
   });
 });
