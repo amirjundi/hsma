@@ -1,26 +1,29 @@
 {
-  "name": "openclaw",
+  "name": "ankedo",
   "version": "2026.8.1",
   "openclaw": {
     "schemaVersions": {
       "state": 13,
       "agent": 18
-    }
+    },
+    "extensions": [
+      "./extensions/ankedo-domain/dist/index.js"
+    ]
   },
-  "description": "Multi-channel AI gateway with extensible messaging integrations",
+  "description": "Specialised agent for monitoring hate speech against Iraqi minorities on Arabic and Kurdish social media.",
   "keywords": [],
-  "homepage": "https://github.com/openclaw/openclaw#readme",
+  "homepage": "https://github.com/amirjundi/ankedo-agent#readme",
   "bugs": {
-    "url": "https://github.com/openclaw/openclaw/issues"
+    "url": "https://github.com/amirjundi/ankedo-agent/issues"
   },
   "license": "MIT",
   "author": "OpenClaw Foundation (https://openclaw.org)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openclaw/openclaw.git"
+    "url": "git+https://github.com/amirjundi/ankedo-agent.git"
   },
   "bin": {
-    "openclaw": "openclaw.mjs"
+    "ankedo": "openclaw.mjs"
   },
   "directories": {
     "doc": "docs",

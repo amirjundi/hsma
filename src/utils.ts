@@ -73,11 +73,19 @@ export function resolveConfigDir(
   if (configPath) {
     return path.dirname(resolveUserPath(configPath, env, homedir));
   }
-  const newDir = path.join(resolveRequiredHomeDir(env, homedir), ".openclaw");
+  // AnkEdo keeps its state in ~/.ankedo. An existing ~/.openclaw is still honoured
+  // when ~/.ankedo does not exist yet, so upgrading in place does not orphan a
+  // working config -- the gateway token lives there, and losing it looks like a
+  // broken install rather than a moved directory.
+  const home = resolveRequiredHomeDir(env, homedir);
+  const newDir = path.join(home, ".ankedo");
   try {
-    const hasNew = fs.existsSync(newDir);
-    if (hasNew) {
+    if (fs.existsSync(newDir)) {
       return newDir;
+    }
+    const inherited = path.join(home, ".openclaw");
+    if (fs.existsSync(inherited)) {
+      return inherited;
     }
   } catch {
     // best-effort

@@ -1,10 +1,3 @@
----
-summary: "Workspace template for AGENTS.md"
-title: "AGENTS.md template"
-read_when:
-  - Bootstrapping a workspace manually
----
-
 # Operating rules
 
 Loaded every session. These are standing orders, not suggestions — where they conflict

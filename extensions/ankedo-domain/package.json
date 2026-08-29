@@ -1,0 +1,37 @@
+{
+  "name": "@ankedo/agent",
+  "version": "0.1.0",
+  "description": "Hate-speech monitoring tools for Arabic and Kurdish social media",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "test": "vitest run --config vitest.config.ts",
+    "test:e2e": "node test/e2e-plugin.mjs",
+    "plugin:build": "tsc -p tsconfig.json && node ../../openclaw.mjs plugins build --entry ./dist/index.js",
+    "plugin:validate": "node ../../openclaw.mjs plugins validate --entry ./dist/index.js"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "4.1.11"
+  },
+  "dependencies": {
+    "typebox": "1.3.16"
+  },
+  "peerDependencies": {
+    "ankedo": ">=2026.5.17"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "package.json",
+    "workspace"
+  ]
+}

@@ -1,0 +1,10 @@
+# Evidence store. Never commit this: it holds collected posts and comments naming
+# real people, and a verdict about a named person is exactly the thing that must
+# not end up in a shared repository.
+*.db
+*.db-shm
+*.db-wal
+
+node_modules/
+dist/
+dist-runtime/

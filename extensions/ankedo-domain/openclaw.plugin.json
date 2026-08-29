@@ -1,0 +1,44 @@
+{
+  "id": "ankedo",
+  "name": "AnkEdo",
+  "description": "Hate-speech monitoring for Arabic and Kurdish social media targeting Iraqi minorities.",
+  "version": "2026.8.1",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "platformUrl": {
+        "type": "string",
+        "description": "Ettok base URL, e.g. https://ettok.net/api/hermes/"
+      },
+      "agentKey": {
+        "type": "string",
+        "description": "Agent key carrying the hate_speech_scan scope."
+      },
+      "agentId": {
+        "type": "string",
+        "description": "Sent as X-Agent-Id on every request."
+      },
+      "databasePath": {
+        "type": "string",
+        "description": "Local evidence store path."
+      },
+      "maxStaleHours": {
+        "type": "number",
+        "description": "How old the cached lexicon may be. 0 refuses without a fresh pull."
+      }
+    }
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "classify",
+      "lexicon_status",
+      "case_open",
+      "case_status",
+      "review_queue",
+      "next_crawl"
+    ]
+  }
+}
