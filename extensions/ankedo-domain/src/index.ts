@@ -1,7 +1,8 @@
-// Imported from the host package by its own name. This extension is vendored in
-// the AnkEdo fork, so it resolves against the workspace root -- which is named
-// "ankedo". Upstream plugin docs say "openclaw"; that path no longer resolves here.
-import { defineToolPlugin } from "ankedo/plugin-sdk/tool-plugin";
+// Stays "openclaw/plugin-sdk" even though this fork's package is named "ankedo".
+// The specifier is not resolved by npm: the plugin loader aliases it itself, and
+// PLUGIN_SDK_PACKAGE_PREFIXES in src/plugins/plugin-sdk-native-resolver.ts hardcodes
+// "openclaw/plugin-sdk". Renaming it here makes the plugin fail to load.
+import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
 /**
  * AnkEdo — hate-speech monitoring tools for Arabic and Kurdish social media.
  *
