@@ -80,7 +80,7 @@ git clone https://github.com/amirjundi/ankedo-agent.git
 cd ankedo-agent
 pnpm install
 pnpm build
-npm install -g .
+npm install -g . --allow-scripts=ankedo
 
 ankedo onboard
 ```

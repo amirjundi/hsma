@@ -79,13 +79,15 @@ step "Installing the ankedo command"
 # sudo -n, never plain sudo: run as `curl ... | bash` this script is stdin, so a
 # password prompt has no terminal to read from and would hang at the last step of an
 # otherwise finished install.
-if npm install -g . >/dev/null 2>&1; then
+# --allow-scripts is needed for the bundled-plugin postinstall step. npm 11.16+
+# and npm 12 require it; older npm rejects the flag, so fall back without it.
+if npm install -g . --allow-scripts=ankedo >/dev/null 2>&1 || npm install -g . >/dev/null 2>&1; then
   ok "$(command -v ankedo || echo ankedo)"
-elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null && sudo -n npm install -g . >/dev/null 2>&1; then
+elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null && sudo -n npm install -g . --allow-scripts=ankedo >/dev/null 2>&1; then
   ok "$(command -v ankedo || echo ankedo)"
 else
   warn "could not install globally without a password. Run one of these yourself:"
-  printf '  %s  sudo npm install -g %s%s\n' "$DIM" "$DIR" "$NC"
+  printf '  %s  sudo npm install -g --allow-scripts=ankedo %s%s\n' "$DIM" "$DIR" "$NC"
   printf '  %s  npm config set prefix ~/.npm-global && npm install -g %s%s\n' "$DIM" "$DIR" "$NC"
 fi
 
