@@ -151,3 +151,143 @@ export async function probe(): Promise<{ ok: boolean; detail: string }> {
     };
   }
 }
+
+/* ------------------------------------------------------------------------- *
+ * Operator sessions
+ *
+ * The agent does not create accounts. It reuses a session a person established,
+ * which is both the honest arrangement and the durable one: accounts produced by
+ * automated signup get detected and mass-banned, and when they go they take the
+ * collection history with them. A human logging in once, on a profile the agent
+ * then keeps warm, survives.
+ *
+ * This is also what makes the agent flexible rather than blocked. Given a session it
+ * can read anything that account can read; without one it says so and asks, instead
+ * of failing silently or pretending a page was empty.
+ * ------------------------------------------------------------------------- */
+
+import fs from "node:fs";
+import path from "node:path";
+
+/** Where a platform's persistent browser profile lives. */
+export function sessionDir(platform: string, root: string): string {
+  const safe = platform.toLowerCase().replace(/[^a-z0-9._-]/g, "_");
+  return path.join(root, "sessions", safe);
+}
+
+export interface SessionInfo {
+  platform: string;
+  dir: string;
+  present: boolean;
+  /** When the profile was last written, which is the best proxy for last use. */
+  lastUsedAt: string | null;
+}
+
+/** Which platforms already have a usable session. */
+export function listSessions(root: string, platforms: readonly string[]): SessionInfo[] {
+  return platforms.map((platform) => {
+    const dir = sessionDir(platform, root);
+    let present = false;
+    let lastUsedAt: string | null = null;
+    try {
+      const stat = fs.statSync(dir);
+      // An empty directory is not a session: Camoufox creates the profile path before
+      // anything is stored in it, so existence alone would report a login that never
+      // happened.
+      present = stat.isDirectory() && fs.readdirSync(dir).length > 0;
+      lastUsedAt = present ? stat.mtime.toISOString() : null;
+    } catch {
+      present = false;
+    }
+    return { platform, dir, present, lastUsedAt };
+  });
+}
+
+/**
+ * Open a headed window on a persistent profile so a person can sign in.
+ *
+ * Headed and long-lived on purpose. Logins involve CAPTCHAs, one-time codes and
+ * consent screens that only a human can clear, and the whole point is that a human
+ * clears them. The agent waits, then confirms whether anything was actually stored.
+ */
+export async function openForLogin(params: {
+  platform: string;
+  url: string;
+  root: string;
+  /** How long the operator has before the window is closed. */
+  timeoutMs?: number;
+  proxy?: string;
+}): Promise<{ ok: boolean; detail: string; dir: string }> {
+  const dir = sessionDir(params.platform, params.root);
+  fs.mkdirSync(dir, { recursive: true });
+
+  let session: BrowserSession;
+  try {
+    session = await launch({
+      headless: false,
+      userDataDir: dir,
+      ...(params.proxy ? { proxy: params.proxy } : {}),
+    });
+  } catch (err) {
+    return {
+      ok: false,
+      dir,
+      detail: err instanceof Error ? err.message : String(err),
+    };
+  }
+
+  try {
+    await session.goto(params.url);
+    const deadline = Date.now() + (params.timeoutMs ?? 10 * 60_000);
+    // Poll rather than wait on a navigation event: the operator may take several
+    // steps, and any one of them could be the one that sets the cookie.
+    while (Date.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 5_000));
+      if (fs.existsSync(dir) && fs.readdirSync(dir).length > 0) {
+        break;
+      }
+    }
+  } finally {
+    await session.close().catch(() => {});
+  }
+
+  const stored = fs.existsSync(dir) && fs.readdirSync(dir).length > 0;
+  return {
+    ok: stored,
+    dir,
+    detail: stored
+      ? `Session stored for ${params.platform}. Collection can now use it.`
+      : `Nothing was stored for ${params.platform}. The sign-in did not complete, so there is no session to reuse.`,
+  };
+}
+
+/**
+ * Read a page using a stored session.
+ *
+ * Refuses rather than falling back to an anonymous view. A logged-out read of a
+ * restricted page returns a login wall, and treating that as "no hate speech here"
+ * would put a false negative into the record.
+ */
+export async function withSession<T>(
+  params: { platform: string; root: string; headless?: boolean; proxy?: string },
+  run: (session: BrowserSession) => Promise<T>,
+): Promise<T> {
+  const dir = sessionDir(params.platform, params.root);
+  if (!fs.existsSync(dir) || fs.readdirSync(dir).length === 0) {
+    throw new BrowserUnavailable(
+      `No stored session for ${params.platform}. A person has to sign in once first — ` +
+        `run the browser_login tool — and the agent will reuse it from then on. ` +
+        `It does not create accounts.`,
+    );
+  }
+  const session = await launch({
+    headless: params.headless ?? true,
+    userDataDir: dir,
+    ...(params.proxy ? { proxy: params.proxy } : {}),
+  });
+  try {
+    return await run(session);
+  } finally {
+    await session.close().catch(() => {});
+  }
+}

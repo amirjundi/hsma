@@ -13,6 +13,7 @@ import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
  * changes state is separated from anything that merely reads.
  */
 import { Type } from "typebox";
+import { listSessions, openForLogin, probe } from "./browser.js";
 import { ExemptionChecker } from "./exemptions.js";
 import { PlatformClient } from "./platform/client.js";
 import { LexiconStore } from "./platform/lexicon-store.js";
@@ -45,6 +46,15 @@ let lexicon: LexiconStore | null = null;
 function evidence(config: HsmaConfig): EvidenceStore {
   store ??= new EvidenceStore(config.databasePath ?? "./hsma.db");
   return store;
+}
+
+/** Browser profiles live beside the evidence store, under the agent's own state. */
+function sessionRoot(config: HsmaConfig): string {
+  const db = config.databasePath ?? "./hsma.db";
+  // Plain lastIndexOf rather than a path regex: this has to hold for both separators
+  // and the escaping in a character class is easy to get subtly wrong.
+  const cut = Math.max(db.lastIndexOf("/"), db.lastIndexOf(String.fromCharCode(92)));
+  return cut >= 0 ? db.slice(0, cut) || "." : ".";
 }
 
 function platform(config: HsmaConfig): LexiconStore {
@@ -284,6 +294,68 @@ export default defineToolPlugin({
           // Proposals, never applied automatically. Muting stops a page being crawled
           // at all, and a page that goes quiet then erupts is what this exists for.
           stanceProposals: reviewPages(db.pageOutcomes(caseId)).filter((d) => d.stance !== "watch"),
+        };
+      },
+    }),
+
+    tool({
+      name: "browser_login",
+      label: "Sign in to a platform",
+      description:
+        "Open a browser window so a PERSON can sign in to a social platform. The agent " +
+        "never creates accounts and never fills credentials; it opens the window, waits, " +
+        "and reuses whatever session the person establishes. Use this when collection " +
+        "reports that no session exists.",
+      parameters: Type.Object({
+        platform: Type.String({ description: "e.g. facebook, x, youtube, tiktok." }),
+        url: Type.String({ description: "The platform's login page." }),
+        timeoutMinutes: Type.Optional(
+          Type.Number({ description: "How long the person has. Default 10." }),
+        ),
+      }),
+      async execute({ platform, url, timeoutMinutes }, config: HsmaConfig) {
+        const root = sessionRoot(config);
+        const result = await openForLogin({
+          platform,
+          url,
+          root,
+          timeoutMs: Math.max(1, timeoutMinutes ?? 10) * 60_000,
+        });
+        return {
+          ok: result.ok,
+          platform,
+          detail: result.detail,
+          // Said plainly so the model does not report a success it did not get.
+          nextStep: result.ok
+            ? "Collection can use this session now."
+            : "No session was stored. Ask the operator to complete the sign-in.",
+        };
+      },
+    }),
+
+    tool({
+      name: "browser_sessions",
+      label: "Stored sessions",
+      description:
+        "Which platforms the agent can currently read as a signed-in user, and whether " +
+        "a browser is available at all.",
+      parameters: Type.Object({
+        platforms: Type.Optional(Type.Array(Type.String())),
+      }),
+      async execute({ platforms }, config: HsmaConfig) {
+        const known = platforms ?? ["facebook", "x", "youtube", "tiktok", "instagram", "telegram"];
+        const sessions = listSessions(sessionRoot(config), known);
+        const browser = await probe();
+        return {
+          browserAvailable: browser.ok,
+          browserDetail: browser.detail,
+          sessions: sessions.map((s) => ({
+            platform: s.platform,
+            signedIn: s.present,
+            lastUsedAt: s.lastUsedAt,
+          })),
+          // The agent should ask rather than guess when a platform is missing.
+          missing: sessions.filter((s) => !s.present).map((s) => s.platform),
         };
       },
     }),
