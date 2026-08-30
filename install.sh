@@ -95,13 +95,13 @@ step "4/5  Install"
 # sudo -n, never plain sudo: run as `curl ... | bash` this script is stdin, so a
 # password prompt has no terminal to read from and would hang at the final step of an
 # otherwise finished install.
-if npm install -g . --allow-scripts=hsma >/dev/null 2>&1 || npm install -g . >/dev/null 2>&1; then
+if npm install -g . --allow-scripts=openclaw >/dev/null 2>&1 || npm install -g . >/dev/null 2>&1; then
   ok "hsma -> $(command -v hsma 2>/dev/null || echo 'on PATH')"
-elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null && sudo -n npm install -g . --allow-scripts=hsma >/dev/null 2>&1; then
+elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null && sudo -n npm install -g . --allow-scripts=openclaw >/dev/null 2>&1; then
   ok "hsma -> $(command -v hsma 2>/dev/null || echo 'on PATH')"
 else
   warn "could not install globally without a password. Run one of these yourself:"
-  info "  sudo npm install -g --allow-scripts=hsma $DIR"
+  info "  sudo npm install -g --allow-scripts=openclaw $DIR"
   info "  npm config set prefix ~/.npm-global && npm install -g $DIR"
 fi
 

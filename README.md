@@ -80,7 +80,7 @@ git clone https://github.com/amirjundi/hsma.git
 cd hsma
 pnpm install
 pnpm build
-npm install -g . --allow-scripts=hsma
+npm install -g . --allow-scripts=openclaw
 
 hsma onboard
 ```
