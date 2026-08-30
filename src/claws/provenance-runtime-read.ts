@@ -120,7 +120,7 @@ registerOpenClawStateDatabaseLifecycleListener((event) => {
   } else {
     snapshotsByPath.set(event.path, {
       kind: "state-error",
-      error: new Error("OpenClaw state database closed before consent provenance verification."),
+      error: new Error("HSMA state database closed before consent provenance verification."),
       knownAgentIds: knownAgentIds(previous),
       ownershipUnknown: isOwnershipUnknown(previous),
     });
@@ -158,7 +158,7 @@ export function initializeCachedClawInstallSchemaVersions(
           ? {
               kind: "state-error",
               error: new Error(
-                "OpenClaw state database disappeared after Claw ownership was observed.",
+                "HSMA state database disappeared after Claw ownership was observed.",
               ),
               knownAgentIds: previousAgentIds,
               ownershipUnknown: true,

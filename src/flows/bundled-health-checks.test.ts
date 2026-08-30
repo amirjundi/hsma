@@ -379,7 +379,7 @@ describe("registerBundledHealthChecks", () => {
     });
   });
 
-  it("does not load managed Codex health for OpenClaw routes or disabled Codex", () => {
+  it("does not load managed Codex health for HSMA routes or disabled Codex", () => {
     for (const cfg of [
       {
         agents: {

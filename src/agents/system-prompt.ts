@@ -621,7 +621,7 @@ function buildMessagingSection(params: {
       : []),
     subagentOrchestrationGuidance,
     completionEventGuidance,
-    "- Provider messaging: never exec/curl; OpenClaw routes.",
+    "- Provider messaging: never exec/curl; HSMA routes.",
     messageToolAvailable
       ? [
           "",
@@ -713,8 +713,8 @@ function buildDocsSection(params: {
     docsPath ? "Mirror: https://docs.openclaw.ai" : undefined,
     sourcePath ? `Source: ${sourcePath}` : "Source: https://github.com/openclaw/openclaw",
     docsPath
-      ? `OpenClaw behavior questions: docs first${params.readToolName ? ` via \`${params.readToolName}\`/local search` : " using available tools"}. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
-      : "OpenClaw behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
+      ? `HSMA behavior questions: docs first${params.readToolName ? ` via \`${params.readToolName}\`/local search` : " using available tools"}. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
+      : "HSMA behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
     params.hasGateway
       ? "Config field: `gateway(config.schema.lookup)` exact path. Broader: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`."
       : "Configuration docs: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`.",
@@ -909,7 +909,7 @@ export function buildAgentSystemPrompt(params: {
     openclaw: "Gateway restart/system setup/config; changes need human approval",
     gateway: "Read gateway config/schema",
     agents_list: acpSpawnRuntimeEnabled
-      ? "List allowed OpenClaw subagent ids; not ACP ids"
+      ? "List allowed HSMA subagent ids; not ACP ids"
       : "List allowed subagent ids",
     sessions_list: "List visible sessions; filters/last",
     sessions_history: "Read visible session/subagent history",
@@ -1024,7 +1024,7 @@ export function buildAgentSystemPrompt(params: {
   const hasExec = availableTools.has("exec");
   const hasProcess = availableTools.has("process");
   const hasGateway = availableTools.has("gateway");
-  const hasOpenClaw = availableTools.has("openclaw");
+  const hasHSMA = availableTools.has("openclaw");
   const messageToolAvailable = availableTools.has("message");
   const hasAutomations = availableTools.has(AUTOMATIONS_TOOL_NAME);
   const readToolName = resolveToolName("read");
@@ -1192,7 +1192,7 @@ export function buildAgentSystemPrompt(params: {
     capabilityToolNames: [...availableTools].toSorted(),
     renderOpenClawToolWorkflowHints,
     hasGateway,
-    hasOpenClaw,
+    hasHSMA,
     readToolName,
     waitToolHints,
     nativeCommandGuidanceLines,
@@ -1338,9 +1338,9 @@ export function buildAgentSystemPrompt(params: {
         fallback: [],
       }),
       ...safetySection,
-      "## OpenClaw Control",
+      "## HSMA Control",
       "Do not invent commands.",
-      ...(hasOpenClaw
+      ...(hasHSMA
         ? [
             "Gateway restart, config, channels, plugins, agents, models/providers, updates: ask `openclaw`. Never restart the Gateway through shell commands or write your own config.",
           ]
@@ -1434,7 +1434,7 @@ export function buildAgentSystemPrompt(params: {
       params.sandboxInfo?.enabled ? "" : "",
       ...bootstrapSystemPromptSections,
       "## Workspace Files (injected)",
-      "User-editable; OpenClaw loads below as Project Context.",
+      "User-editable; HSMA loads below as Project Context.",
       "",
       ...buildAssistantOutputDirectivesSection({
         isMinimal,

@@ -460,14 +460,14 @@ describe("system agent operations", () => {
     await expect(fs.access(path.join(tempDir, "audit", "system-agent.jsonl"))).rejects.toThrow();
   });
 
-  it("reserves the normalized OpenClaw agent identity before any write or audit", async () => {
+  it("reserves the normalized HSMA agent identity before any write or audit", async () => {
     const tempDir = opTempDirs.make("openclaw-agent-id-reserved-");
     setTestEnvValue("OPENCLAW_STATE_DIR", tempDir);
     const { runtime, lines } = createSystemAgentTestRuntime();
     const createAgent = vi.fn();
     const operation = {
       kind: "create-agent" as const,
-      agentId: "OpenClaw",
+      agentId: "HSMA",
       workspace: "/tmp/work",
     };
 

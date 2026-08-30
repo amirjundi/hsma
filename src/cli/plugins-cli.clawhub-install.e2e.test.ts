@@ -25,7 +25,7 @@ async function readRequestBody(req: IncomingMessage): Promise<string> {
   return Buffer.concat(chunks).toString("utf8");
 }
 
-async function spawnOpenClaw(
+async function spawnHSMA(
   args: string[],
   options: { cwd: string; env: NodeJS.ProcessEnv },
 ): Promise<{ status: number | null; stdout: string; stderr: string }> {
@@ -245,7 +245,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-telemetry-e2e-"));
     try {
       const env = buildEnv(stateDir, testServer.registry);
-      const first = await spawnOpenClaw(
+      const first = await spawnHSMA(
         [
           "plugins",
           "install",
@@ -274,7 +274,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
       );
       expect(testServer.requestLog).toContain(`GET ${PACKAGE_API_PATH}/download`);
 
-      const repeat = await spawnOpenClaw(
+      const repeat = await spawnHSMA(
         [
           "plugins",
           "install",
@@ -305,7 +305,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
     {
       label: "version gateway",
       options: { artifactCompatibility: { minGatewayVersion: "9999.0.0" } },
-      error: "requires OpenClaw >=9999.0.0",
+      error: "requires HSMA >=9999.0.0",
     },
   ])(
     "rejects incompatible $label metadata before trust and download",
@@ -313,7 +313,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
       const testServer = await startClawHubServer(options);
       const stateDir = tempDirs.make("openclaw-plugin-compatibility-e2e-");
       try {
-        const result = await spawnOpenClaw(
+        const result = await spawnHSMA(
           ["plugins", "install", `clawhub:${PACKAGE_NAME}@${PACKAGE_VERSION}`],
           { cwd: process.cwd(), env: buildEnv(stateDir, testServer.registry) },
         );
@@ -337,7 +337,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
     const testServer = await startClawHubServer({ artifactSha256: "0".repeat(64) });
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-telemetry-fail-"));
     try {
-      const result = await spawnOpenClaw(
+      const result = await spawnHSMA(
         ["plugins", "install", `clawhub:${PACKAGE_NAME}@${PACKAGE_VERSION}`],
         { cwd: process.cwd(), env: buildEnv(stateDir, testServer.registry) },
       );
@@ -355,7 +355,7 @@ describe("openclaw plugins install ClawHub E2E", () => {
     const testServer = await startClawHubServer({ telemetryStatus: 503 });
     const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-telemetry-down-"));
     try {
-      const result = await spawnOpenClaw(
+      const result = await spawnHSMA(
         [
           "plugins",
           "install",

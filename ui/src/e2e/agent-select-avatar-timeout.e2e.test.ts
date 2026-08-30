@@ -83,7 +83,7 @@ suite.define(() => {
             },
             "agents.list": {
               agents: [
-                { id: "main", name: "OpenClaw" },
+                { id: "main", name: "HSMA" },
                 { id: "writer", name: "Writer" },
               ],
               defaultId: "main",

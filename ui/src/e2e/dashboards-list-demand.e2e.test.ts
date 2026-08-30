@@ -251,7 +251,7 @@ suite.define(() => {
               };
             };
             if (!app.runtime) {
-              throw new Error("OpenClaw application runtime is unavailable");
+              throw new Error("HSMA application runtime is unavailable");
             }
             app.runtime.context.agentSelection.setScope(null);
             if (app.runtime.context.agentSelection.state.scopeId !== null) {

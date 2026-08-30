@@ -52,7 +52,7 @@ export function registerClawsCli(program: Command) {
   if (!isExperimentalClawsEnabled()) {
     return;
   }
-  const claws = program.command("claws").description("Manage experimental OpenClaw Claws");
+  const claws = program.command("claws").description("Manage experimental HSMA Claws");
 
   claws
     .command("create")

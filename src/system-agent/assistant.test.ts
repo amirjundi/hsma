@@ -38,7 +38,7 @@ function overview(overrides: Partial<SystemAgentOverview["tools"]> = {}): System
   };
 }
 
-describe("OpenClaw assistant", () => {
+describe("HSMA assistant", () => {
   it("teaches both planner and agent-loop prompts about hosted setup flows", () => {
     expect(SYSTEM_AGENT_ASSISTANT_SYSTEM_PROMPT).toContain("- configure skills");
     expect(SYSTEM_AGENT_ASSISTANT_SYSTEM_PROMPT).toContain("- configure search");
@@ -180,8 +180,8 @@ describe("OpenClaw assistant", () => {
     expect(prompt).toContain("Default model: openai/gpt-5.5");
     expect(prompt).toContain("id=main, name=Main, workspace=/tmp/main");
     expect(prompt).toContain("OpenAI API key: found");
-    expect(prompt).toContain("OpenClaw docs: /tmp/openclaw/docs");
-    expect(prompt).toContain("OpenClaw source: /tmp/openclaw");
+    expect(prompt).toContain("HSMA docs: /tmp/openclaw/docs");
+    expect(prompt).toContain("HSMA source: /tmp/openclaw");
   });
 
   it("keeps truncated conversation history valid at a UTF-16 boundary", () => {

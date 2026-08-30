@@ -18,14 +18,14 @@ export const OPENCLAW_RUNTIME_CONTEXT_NOTICE =
   "This context is runtime-generated, not user-authored. Keep internal details private.";
 /** Position-independent instructions for context belonging to the active user turn. */
 export const OPENCLAW_NEXT_TURN_RUNTIME_CONTEXT_HEADER =
-  "OpenClaw runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
+  "HSMA runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
 /** Header for runtime events passed as prompt context. */
-export const OPENCLAW_RUNTIME_EVENT_HEADER = "OpenClaw runtime event.";
+export const OPENCLAW_RUNTIME_EVENT_HEADER = "HSMA runtime event.";
 /** Custom message type used for structured runtime-context messages. */
 export const OPENCLAW_RUNTIME_CONTEXT_CUSTOM_TYPE = "openclaw.runtime-context";
 
 const LEGACY_INTERNAL_CONTEXT_HEADER =
-  ["OpenClaw runtime context (internal):", OPENCLAW_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
+  ["HSMA runtime context (internal):", OPENCLAW_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
 
 const LEGACY_INTERNAL_EVENT_MARKER = "[Internal task completion event]";
 const LEGACY_INTERNAL_EVENT_SEPARATOR = "\n\n---\n\n";
@@ -214,7 +214,7 @@ function stripLegacyInternalRuntimeContext(text: string): string {
 
 const RUNTIME_CONTEXT_PROMPT_HEADERS: readonly string[] = [
   OPENCLAW_NEXT_TURN_RUNTIME_CONTEXT_HEADER,
-  "OpenClaw runtime context for the immediately preceding user message.",
+  "HSMA runtime context for the immediately preceding user message.",
   OPENCLAW_RUNTIME_EVENT_HEADER,
 ];
 

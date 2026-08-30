@@ -151,7 +151,7 @@ suite.define(() => {
           projects: [
             {
               id: "openclaw",
-              displayName: "OpenClaw",
+              displayName: "HSMA",
               repoRoot: TARGET_REPO,
               source: "registered",
             },
@@ -302,7 +302,7 @@ suite.define(() => {
           project.evaluate((element) => (element as HTMLElement & { open: boolean }).open),
         )
         .toBe(true);
-      await project.getByRole("button", { name: "OpenClaw", exact: true }).click();
+      await project.getByRole("button", { name: "HSMA", exact: true }).click();
       await expect.poll(() => projectTrigger.getAttribute("data-project-id")).toBe("openclaw");
       await expect.poll(() => trigger.getAttribute("data-cloud-profile")).toBe("aws");
       expect(await page.locator("#new-session-detail-trigger").count()).toBe(0);
@@ -318,7 +318,7 @@ suite.define(() => {
       }
       await checkoutName.fill("cloud-e2e");
       await pollLocatorText(project.locator(".new-session-page__menu-note").last()).toContain(
-        "Syncs OpenClaw to the selected runner",
+        "Syncs HSMA to the selected runner",
       );
       await captureUiProof(page, "01-cloud-worker-target.png");
       await page.keyboard.press("Escape");

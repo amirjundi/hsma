@@ -314,18 +314,12 @@ describe("update global helpers", () => {
         const trustedLocalAppData = path.join(base, "trusted-local-app-data");
         const injectedGitDir = path.join(
           injectedLocalAppData,
-          "OpenClaw",
+          "HSMA",
           "deps",
           "portable-git",
           "cmd",
         );
-        const trustedGitDir = path.join(
-          trustedLocalAppData,
-          "OpenClaw",
-          "deps",
-          "portable-git",
-          "cmd",
-        );
+        const trustedGitDir = path.join(trustedLocalAppData, "HSMA", "deps", "portable-git", "cmd");
         await fs.mkdir(injectedGitDir, { recursive: true });
         await fs.mkdir(trustedGitDir, { recursive: true });
 

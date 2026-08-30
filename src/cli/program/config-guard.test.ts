@@ -703,7 +703,7 @@ describe("ensureConfigReady", () => {
     const runtime = await runEnsureConfigReady(["message"]);
 
     expect(plainErrorCalls(runtime)).toEqual([
-      "OpenClaw config is invalid",
+      "HSMA config is invalid",
       "File: /tmp/openclaw.json",
       "Problem:",
       "  - channels.quietchat: invalid",
@@ -759,7 +759,7 @@ describe("ensureConfigReady", () => {
 
       const runtime = await runEnsureConfigReady(["message"]);
       const output = plainErrorCalls(runtime).join("\n");
-      const hint = `Config was last written by OpenClaw ${touchedVersion}, but you are running ${VERSION} — upgrade or re-run setup.`;
+      const hint = `Config was last written by HSMA ${touchedVersion}, but you are running ${VERSION} — upgrade or re-run setup.`;
 
       expect(output.includes(hint)).toBe(expected);
     },
@@ -875,7 +875,7 @@ describe("ensureConfigReady", () => {
           ok: false,
           error: {
             type: "cli_error",
-            message: "OpenClaw config is invalid: /tmp/openclaw.json",
+            message: "HSMA config is invalid: /tmp/openclaw.json",
           },
           issues: [{ path: "channels.quietchat", message: "invalid" }],
         });

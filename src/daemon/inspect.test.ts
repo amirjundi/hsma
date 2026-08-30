@@ -20,7 +20,7 @@ vi.mock("./schtasks-exec.js", () => ({
 // Real content from the openclaw-gateway.service unit file (the canonical gateway unit).
 const GATEWAY_SERVICE_CONTENTS = `\
 [Unit]
-Description=OpenClaw Gateway
+Description=HSMA Gateway
 After=network-online.target
 Wants=network-online.target
 
@@ -37,7 +37,7 @@ WantedBy=default.target
 // Real content from the openclaw-test.service unit file (a non-gateway openclaw service).
 const TEST_SERVICE_CONTENTS = `\
 [Unit]
-Description=OpenClaw test service
+Description=HSMA test service
 After=default.target
 
 [Service]
@@ -59,7 +59,7 @@ Environment=HOME=/home/clawdbot
 
 const COMPANION_SERVICE_CONTENTS = `\
 [Unit]
-Description=OpenClaw companion worker
+Description=HSMA companion worker
 After=openclaw-gateway.service
 Requires=openclaw-gateway.service
 
@@ -69,7 +69,7 @@ ExecStart=/usr/bin/node /opt/openclaw-worker/dist/index.js worker
 
 const CUSTOM_OPENCLAW_GATEWAY_CONTENTS = `\
 [Unit]
-Description=Custom OpenClaw gateway
+Description=Custom HSMA gateway
 
 [Service]
 ExecStart=/usr/bin/node /opt/openclaw/dist/entry.js gateway --port 18888
@@ -190,12 +190,12 @@ describe("renderGatewayServiceCleanupHints", () => {
       renderGatewayServiceCleanupHints([
         {
           platform: "win32",
-          label: "\\OpenClaw Gateway Backup",
-          detail: "task: \\OpenClaw Gateway Backup",
+          label: "\\HSMA Gateway Backup",
+          detail: "task: \\HSMA Gateway Backup",
           scope: "system",
         },
       ]),
-    ).toEqual(['schtasks /Delete /TN "\\OpenClaw Gateway Backup" /F']);
+    ).toEqual(['schtasks /Delete /TN "\\HSMA Gateway Backup" /F']);
   });
 
   it.each(["$(Start-Process calc)", "%OPENCLAW_GATEWAY_TASK%", "unsafe&task", "task`name"])(
@@ -493,8 +493,8 @@ describe("findExtraGatewayServices (win32)", () => {
     execSchtasksMock.mockResolvedValueOnce({
       code: 0,
       stdout: [
-        "TaskName:\\OpenClaw Gateway",
-        "Task To Run: C:\\Program Files\\OpenClaw\\openclaw.exe gateway run",
+        "TaskName:\\HSMA Gateway",
+        "Task To Run: C:\\Program Files\\HSMA\\openclaw.exe gateway run",
         "",
         "TaskName: Clawdbot Legacy",
         "Task To Run: C:\\clawdbot\\clawdbot.exe run",
@@ -525,14 +525,14 @@ describe("findExtraGatewayServices (win32)", () => {
     execSchtasksMock.mockResolvedValueOnce({
       code: 0,
       stdout: [
-        "TaskName:\\OpenClaw Gateway",
-        "Task To Run: C:\\Program Files\\OpenClaw\\openclaw.exe gateway run",
+        "TaskName:\\HSMA Gateway",
+        "Task To Run: C:\\Program Files\\HSMA\\openclaw.exe gateway run",
         "",
-        "TaskName:\\OpenClaw Gateway (dev)",
-        "Task To Run: C:\\Program Files\\OpenClaw\\openclaw.exe gateway run --profile dev",
+        "TaskName:\\HSMA Gateway (dev)",
+        "Task To Run: C:\\Program Files\\HSMA\\openclaw.exe gateway run --profile dev",
         "",
-        "TaskName:\\OpenClaw Gateway Backup",
-        "Task To Run: C:\\Program Files\\OpenClaw\\openclaw.exe gateway run",
+        "TaskName:\\HSMA Gateway Backup",
+        "Task To Run: C:\\Program Files\\HSMA\\openclaw.exe gateway run",
         "",
       ].join("\n"),
       stderr: "",
@@ -542,9 +542,9 @@ describe("findExtraGatewayServices (win32)", () => {
     expect(result).toEqual([
       {
         platform: "win32",
-        label: "\\OpenClaw Gateway Backup",
+        label: "\\HSMA Gateway Backup",
         detail:
-          "task: \\OpenClaw Gateway Backup, run: C:\\Program Files\\OpenClaw\\openclaw.exe gateway run",
+          "task: \\HSMA Gateway Backup, run: C:\\Program Files\\HSMA\\openclaw.exe gateway run",
         scope: "system",
         marker: "openclaw",
         legacy: false,

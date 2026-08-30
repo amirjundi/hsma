@@ -47,7 +47,7 @@ function custodianGatewayScenario() {
   };
 }
 
-describeControlUiE2e("Control UI Ask OpenClaw panel toggle mocked Gateway E2E", () => {
+describeControlUiE2e("Control UI Ask HSMA panel toggle mocked Gateway E2E", () => {
   beforeAll(async () => {
     if (!chromiumAvailable) {
       throw new Error(`Playwright Chromium is unavailable at ${chromiumExecutablePath}`);
@@ -134,8 +134,8 @@ describeControlUiE2e("Control UI Ask OpenClaw panel toggle mocked Gateway E2E", 
       // reopens through the Inbox path — the palette click-through composition
       // proved timing-flaky on loaded CI runners without adding coverage.
       await page.locator(".shell-chrome-controls__search").click();
-      await page.getByPlaceholder("Search chats and commands…").fill("Ask OpenClaw");
-      const paletteItem = page.locator(".cmd-palette__item--active", { hasText: "Ask OpenClaw" });
+      await page.getByPlaceholder("Search chats and commands…").fill("Ask HSMA");
+      const paletteItem = page.locator(".cmd-palette__item--active", { hasText: "Ask HSMA" });
       await paletteItem.waitFor();
       await page.screenshot({
         animations: "disabled",

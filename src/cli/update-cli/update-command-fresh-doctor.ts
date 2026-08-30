@@ -107,7 +107,7 @@ export async function runUpdateFinalizationDoctorInFreshProcess(params: {
 }): Promise<void> {
   const entryPath = params.entryPath ?? (await resolveGatewayInstallEntrypoint(params.root));
   if (!entryPath) {
-    throw new Error("Updated OpenClaw entrypoint not found for post-plugin doctor");
+    throw new Error("Updated HSMA entrypoint not found for post-plugin doctor");
   }
   const args = [
     entryPath,
@@ -197,7 +197,7 @@ async function applyFreshPostPluginDoctor(params: {
     return {
       pluginUpdate: createPostPluginDoctorExecutionFailure(
         params.pluginUpdate,
-        "Updated OpenClaw entrypoint not found for post-plugin doctor",
+        "Updated HSMA entrypoint not found for post-plugin doctor",
       ),
       configValid: false,
     };

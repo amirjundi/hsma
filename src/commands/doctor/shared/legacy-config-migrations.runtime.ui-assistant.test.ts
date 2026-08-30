@@ -43,7 +43,7 @@ describe("retired UI assistant identity migration", () => {
 
   it("does not create an agent identity", () => {
     const result = migrateUiAssistant({
-      ui: { assistant: { name: "OpenClaw", avatar: "🦞" } },
+      ui: { assistant: { name: "HSMA", avatar: "🦞" } },
     });
 
     expect(result.raw).toEqual({});

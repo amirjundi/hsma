@@ -96,7 +96,7 @@ describe("official Codex plugin version drift doctor evidence", () => {
         );
         expect(driftNotes).toHaveLength(1);
         expect(driftNotes[0]?.[0]).toContain(
-          `1 active official plugin not on OpenClaw ${gatewayVersion}`,
+          `1 active official plugin not on HSMA ${gatewayVersion}`,
         );
         expect(driftNotes[0]?.[0]).toContain(
           `codex: ${installedVersion} (npm) -> expected ${gatewayVersion}`,

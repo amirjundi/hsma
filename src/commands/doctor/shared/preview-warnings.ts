@@ -248,7 +248,7 @@ function collectVisibleReplyToolPolicyWarnings(cfg: OpenClawConfig): string[] {
     warnings.push(
       `- ${groupPolicy.path} is set to "message_tool", but the message tool is unavailable for ${formatTargets(
         targets,
-      )}; OpenClaw falls back to automatic visible replies, so normal replies may post to the source chat. Enable the message tool or set ${groupPolicy.path} to "automatic".`,
+      )}; HSMA falls back to automatic visible replies, so normal replies may post to the source chat. Enable the message tool or set ${groupPolicy.path} to "automatic".`,
     );
   }
 
@@ -261,7 +261,7 @@ function collectVisibleReplyToolPolicyWarnings(cfg: OpenClawConfig): string[] {
     warnings.push(
       `- messages.visibleReplies is set to "message_tool", but the message tool is unavailable for ${formatTargets(
         targets,
-      )}; OpenClaw falls back to automatic direct-chat replies, so normal replies may post to the source chat. Enable the message tool or set messages.visibleReplies to "automatic".`,
+      )}; HSMA falls back to automatic direct-chat replies, so normal replies may post to the source chat. Enable the message tool or set messages.visibleReplies to "automatic".`,
     );
   }
   return warnings;

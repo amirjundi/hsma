@@ -7,7 +7,7 @@ import { callInProcessGatewayTool, type InProcessGatewayCaller } from "./in-proc
 
 const OpenClawDelegateSchema = Type.Object({
   message: Type.String({ description: "What system must do." }),
-  sessionId: Type.Optional(Type.String({ description: "Continue prior OpenClaw talk." })),
+  sessionId: Type.Optional(Type.String({ description: "Continue prior HSMA talk." })),
 });
 
 const OpenClawDelegateOutputSchema = Type.Object(
@@ -52,7 +52,7 @@ function createOpenClawDelegateTool(options?: {
   );
   return {
     name: "openclaw",
-    label: "OpenClaw",
+    label: "HSMA",
     description:
       "Ask system expert. Gateway restart, config, channels, plugins, agents, models/providers, updates. Changes need human approval.",
     parameters: OpenClawDelegateSchema,

@@ -251,7 +251,7 @@ function filterLegacyStaleRootCandidates(
     }
     if (!cleanupRootPaths.some((rootPath) => isPathInside(rootPath, targetPath))) {
       warnings.push(
-        `Skipped legacy plugin dependency state ${targetPath}: outside OpenClaw cleanup roots`,
+        `Skipped legacy plugin dependency state ${targetPath}: outside HSMA cleanup roots`,
       );
       continue;
     }
@@ -293,7 +293,7 @@ async function resolveSafeRemovalTarget(
   }
   if (!cleanupRoots.some((root) => isPathInside(root.realPath, realPath))) {
     return {
-      warning: `Skipped legacy plugin dependency state ${targetPath}: resolved outside OpenClaw cleanup roots`,
+      warning: `Skipped legacy plugin dependency state ${targetPath}: resolved outside HSMA cleanup roots`,
     };
   }
   return { target: targetPath };

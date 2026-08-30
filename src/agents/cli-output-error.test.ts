@@ -156,7 +156,7 @@ describe("parseCliJsonl errors", () => {
       }),
     ).toBe(
       "Claude CLI stopped after reaching the maximum number of turns (limit: 1). " +
-        "OpenClaw run: run-max-turns. OpenClaw session: openclaw-session-max-turns. " +
+        "HSMA run: run-max-turns. HSMA session: openclaw-session-max-turns. " +
         "Claude session: session-max-turns. Tool actions may already have run; verify their effects before retrying. " +
         "Retry with a higher --max-turns value or a narrower task.",
     );

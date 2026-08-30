@@ -798,8 +798,7 @@ describe("tasks gateway handlers", () => {
       ownerKey: "agent:main:main",
       scopeKind: "session",
       runId: "run-sanitized",
-      label:
-        "Compile artifact\nOpenClaw runtime context (internal): Keep internal details private.",
+      label: "Compile artifact\nHSMA runtime context (internal): Keep internal details private.",
       task: "Compile artifact",
       status: "running",
       deliveryStatus: "pending",
@@ -807,20 +806,20 @@ describe("tasks gateway handlers", () => {
     recordTaskProgressByRunId({
       runId: "run-sanitized",
       progressSummary:
-        "Bundling output\nOpenClaw runtime context (internal): Keep internal details private.",
+        "Bundling output\nHSMA runtime context (internal): Keep internal details private.",
     });
     emitAgentEvent({
       runId: "run-sanitized",
       stream: "assistant",
-      data: { text: "OpenClaw runtime context (internal): Keep internal details private." },
+      data: { text: "HSMA runtime context (internal): Keep internal details private." },
     });
     markTaskTerminalById({
       taskId: task.taskId,
       status: "failed",
       endedAt: Date.now(),
       terminalSummary:
-        "Failed after build\nOpenClaw runtime context (internal): Keep internal details private.",
-      error: "Tool failed\nOpenClaw runtime context (internal): Keep internal details private.",
+        "Failed after build\nHSMA runtime context (internal): Keep internal details private.",
+      error: "Tool failed\nHSMA runtime context (internal): Keep internal details private.",
     });
 
     const { calls, payload } = await getTaskPayload(task.taskId);
@@ -830,7 +829,7 @@ describe("tasks gateway handlers", () => {
     expect(payload?.task?.error).toBe("Tool failed");
     expect(payload?.task).not.toHaveProperty("lastActivity");
     expect(payload?.task?.prompt).toBe("Compile artifact");
-    expect(JSON.stringify(calls[0]?.[1])).not.toContain("OpenClaw runtime context");
+    expect(JSON.stringify(calls[0]?.[1])).not.toContain("HSMA runtime context");
   });
 
   it("exposes tool activity in task summaries", async () => {

@@ -383,9 +383,9 @@ describe("triageCommand", () => {
     });
 
     expect(mocks.select).toHaveBeenCalledWith({
-      message: "Choose an agent to investigate this OpenClaw installation",
+      message: "Choose an agent to investigate this HSMA installation",
       options: [
-        { value: { kind: "embedded" }, label: "OpenClaw embedded agent" },
+        { value: { kind: "embedded" }, label: "HSMA embedded agent" },
         {
           value: { kind: "external", agent: "claude", executablePath: "/usr/local/bin/claude" },
           label: "Claude Code",

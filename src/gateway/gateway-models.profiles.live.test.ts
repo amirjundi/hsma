@@ -1721,7 +1721,7 @@ describe("resolveGatewayLiveModelThinkingLevel", () => {
   });
 
   it.each(["gpt-5.6", "gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"])(
-    "preserves OpenClaw Ultra for openai/%s",
+    "preserves HSMA Ultra for openai/%s",
     (id) => {
       expect(
         resolveGatewayLiveModelThinkingLevel({
@@ -1857,7 +1857,7 @@ describe("resolveGatewayLiveModelThinkingLevel", () => {
 });
 
 describe("buildLiveGatewayConfig", () => {
-  it("pins selected live gateway models to the OpenClaw runtime", () => {
+  it("pins selected live gateway models to the HSMA runtime", () => {
     const cfg = buildLiveGatewayConfig({
       cfg: {},
       candidates: [createGatewayLiveTestModel("openai", "gpt-5.5")],
@@ -5202,10 +5202,10 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
                     idempotencyKey: `idem-${runIdTool}-tool-${toolReadAttempt + 1}`,
                     modelKey,
                     message: strictReply
-                      ? "OpenClaw live tool probe (local, safe): " +
+                      ? "HSMA live tool probe (local, safe): " +
                         `use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolProbePath}"}. ` +
                         "Then reply with exactly the two nonce values from that file, separated by one space. No extra text."
-                      : "OpenClaw live tool probe (local, safe): " +
+                      : "HSMA live tool probe (local, safe): " +
                         `use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolProbePath}"}. ` +
                         "Then reply with the two nonce values you read (include both).",
                     thinkingLevel,
@@ -5297,12 +5297,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
                     idempotencyKey: `idem-${runIdTool}-exec-read-${execReadAttempt + 1}`,
                     modelKey,
                     message: strictReply
-                      ? "OpenClaw live tool probe (local, safe): " +
+                      ? "HSMA live tool probe (local, safe): " +
                         "use the tool named `exec` (or `Exec`) to run this command: " +
                         `mkdir -p "${tempDir}" && printf '%s' '${nonceC}' > "${toolWritePath}". ` +
                         `Then use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolWritePath}"}. ` +
                         "Then reply with exactly the nonce text from that file. No extra text."
-                      : "OpenClaw live tool probe (local, safe): " +
+                      : "HSMA live tool probe (local, safe): " +
                         "use the tool named `exec` (or `Exec`) to run this command: " +
                         `mkdir -p "${tempDir}" && printf '%s' '${nonceC}' > "${toolWritePath}". ` +
                         `Then use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolWritePath}"}. ` +

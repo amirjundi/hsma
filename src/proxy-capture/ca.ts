@@ -148,7 +148,7 @@ export async function ensureDebugProxyCa(certDir: string): Promise<{
   keyPath: string;
 }> {
   return await ensureLocalProxyCa(certDir, {
-    commonName: "OpenClaw Debug Proxy",
+    commonName: "HSMA Debug Proxy",
     purpose: "debug proxy",
     validityDays: 7,
   });
@@ -157,7 +157,7 @@ export async function ensureDebugProxyCa(certDir: string): Promise<{
 /** Generates the root CA for one Gateway-lifetime secret egress proxy. */
 export async function ensureSecretEgressProxyCa(certDir: string): Promise<LocalProxyCaPair> {
   return await ensureLocalProxyCa(certDir, {
-    commonName: "OpenClaw Secret Egress Proxy",
+    commonName: "HSMA Secret Egress Proxy",
     purpose: "secret egress proxy",
     validityDays: 1,
   });

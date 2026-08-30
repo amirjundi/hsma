@@ -65,7 +65,7 @@ afterEach(() => {
   resetAppHostTestGlobals();
 });
 
-describe("OpenClaw shell panel toggles", () => {
+describe("HSMA shell panel toggles", () => {
   it("buffers panel toggle events until the active chat pane mounts", () => {
     const terminalElement = createLazyElementSpec("session terminal panel");
     const shell = document.createElement("openclaw-app-shell") as unknown as ShellPanelToggleState;

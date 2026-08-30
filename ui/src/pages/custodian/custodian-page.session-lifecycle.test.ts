@@ -33,7 +33,7 @@ describe("custodian page session lifecycle", () => {
       .mockRejectedValueOnce(
         new GatewayProtocolRequestError({
           code: "UNAVAILABLE",
-          message: "OpenClaw inference became unavailable.",
+          message: "HSMA inference became unavailable.",
           details: buildSystemAgentSessionInvalidatedErrorDetails(),
         }),
       )
@@ -80,7 +80,7 @@ describe("custodian page session lifecycle", () => {
       .mockRejectedValueOnce(
         new GatewayProtocolRequestError({
           code: "INVALID_REQUEST",
-          message: "No active OpenClaw chat session is awaiting that wizard answer.",
+          message: "No active HSMA chat session is awaiting that wizard answer.",
           details: buildSystemAgentSessionInvalidatedErrorDetails(),
         }),
       )
@@ -131,7 +131,7 @@ describe("custodian page session lifecycle", () => {
       .mockRejectedValueOnce(
         new GatewayProtocolRequestError({
           code: "INVALID_REQUEST",
-          message: "No active OpenClaw chat session is awaiting that wizard cancel.",
+          message: "No active HSMA chat session is awaiting that wizard cancel.",
           details: buildSystemAgentSessionInvalidatedErrorDetails(),
         }),
       )

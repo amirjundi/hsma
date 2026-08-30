@@ -62,7 +62,7 @@ describe("renderChatAvatar", () => {
     expect(textAvatar?.getAttribute("role")).toBe("img");
     expect(textAvatar?.classList.contains("chat-avatar--logo")).toBe(false);
 
-    const localAvatar = renderAvatar(["assistant", { avatar: "/avatar/main", name: "OpenClaw" }]);
+    const localAvatar = renderAvatar(["assistant", { avatar: "/avatar/main", name: "HSMA" }]);
     expect(localAvatar?.getAttribute("src")).toBe("/avatar/main");
     expect(localAvatar?.classList.contains("chat-avatar--logo")).toBe(false);
   });
@@ -70,7 +70,7 @@ describe("renderChatAvatar", () => {
   it("uses the assistant fallback while authenticated avatar routes are loading", () => {
     const avatar = renderAvatar([
       "assistant",
-      { avatar: "/avatar/main", name: "OpenClaw" },
+      { avatar: "/avatar/main", name: "HSMA" },
       undefined,
       "",
       "session-token",

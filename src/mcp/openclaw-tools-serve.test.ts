@@ -21,7 +21,7 @@ afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-describe("OpenClaw tools MCP server", () => {
+describe("HSMA tools MCP server", () => {
   it("exposes cron", async () => {
     const handlers = createPluginToolsMcpHandlers(
       resolveOpenClawToolsForMcp({ agentSessionKey: "agent:worker:main" }),
@@ -184,7 +184,7 @@ describe("OpenClaw tools MCP server", () => {
 
     const text = JSON.stringify(result);
     expect(text).toContain("needs-approval:");
-    expect(text).toContain("OpenClaw operator UI");
+    expect(text).toContain("HSMA operator UI");
     expect(text).toContain("cannot be applied from this chat");
     expect(text).not.toContain("ask the user to reply yes");
   });

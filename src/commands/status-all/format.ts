@@ -59,7 +59,7 @@ type StatusManagedService = {
   label: string;
   installed: boolean | null;
   loadState?: GatewayServiceLoadState;
-  managedByOpenClaw?: boolean;
+  managedByHSMA?: boolean;
   loadedText: string;
   runtimeShort?: string | null;
   runtime?: {
@@ -169,7 +169,7 @@ export function formatStatusServiceValue(params: StatusManagedService): string {
   if (params.installed === false && !inspectionFailed) {
     return `${params.label} not installed`;
   }
-  const installedPrefix = params.managedByOpenClaw ? "installed · " : "";
+  const installedPrefix = params.managedByHSMA ? "installed · " : "";
   const loadedText = inspectionDetail
     ? `${params.loadedText} (inspection failed: ${redactSensitiveText(inspectionDetail, { mode: "tools" })})`
     : params.loadedText;

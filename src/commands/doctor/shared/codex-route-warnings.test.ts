@@ -163,13 +163,13 @@ function disabledCodexPluginWarning(...routes: string[]): string {
   return [
     "- Codex runtime is selected, but the Codex plugin is disabled.",
     ...routes,
-    "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to an OpenClaw runtime policy.",
+    "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to an HSMA runtime policy.",
   ].join("\n");
 }
 
 function codexCompactionWarning(...details: string[]): string {
   return [
-    "- Codex runtime uses native server-side compaction and ignores OpenClaw compaction summarizer overrides.",
+    "- Codex runtime uses native server-side compaction and ignores HSMA compaction summarizer overrides.",
     ...details,
   ].join("\n");
 }
@@ -372,9 +372,9 @@ describe("collectCodexRouteWarnings", () => {
         "- Remove the override to use managed Codex startup, or move script/options to plugins.entries.codex.config.appServer.args.",
       ].join("\n"),
       [
-        "- Custom Codex app-server command bypasses OpenClaw's managed exact-version binary.",
+        "- Custom Codex app-server command bypasses HSMA's managed exact-version binary.",
         "- plugins.entries.codex.config.appServer.command: Doctor did not execute, inspect, or rewrite this command.",
-        "- Remove the override to use managed Codex startup, or verify the custom binary matches the Codex version bundled with this OpenClaw release.",
+        "- Remove the override to use managed Codex startup, or verify the custom binary matches the Codex version bundled with this HSMA release.",
       ].join("\n"),
     ]);
   });
@@ -420,7 +420,7 @@ describe("collectCodexRouteWarnings", () => {
       appServer: { command },
     });
     expect(repaired.warnings.join("\n")).toContain(
-      "Custom Codex app-server command bypasses OpenClaw's managed exact-version binary.",
+      "Custom Codex app-server command bypasses HSMA's managed exact-version binary.",
     );
     expect(repaired.warnings.join("\n")).toContain("agents.defaults.params.temperature");
     expect(repaired.warnings.join("\n")).toContain(
@@ -572,7 +572,7 @@ describe("collectCodexRouteWarnings", () => {
     ]);
   });
 
-  it("warns when Codex runtime has OpenClaw compaction summarizer overrides", () => {
+  it("warns when Codex runtime has HSMA compaction summarizer overrides", () => {
     const warnings = collectCodexRouteWarnings({
       agents: {
         defaults: {
@@ -2257,7 +2257,7 @@ describe("collectCodexRouteWarnings", () => {
 
   itAddsCodexToAllowlist("adds Codex to plugin allowlists when re-enabling Codex", false);
 
-  it("keeps the Codex plugin disabled when OpenAI routes explicitly use the OpenClaw runtime", () => {
+  it("keeps the Codex plugin disabled when OpenAI routes explicitly use the HSMA runtime", () => {
     const result = maybeRepairCodexRoutes({
       plugins: DISABLED_CODEX_PLUGIN_CONFIG,
       models: {
@@ -2273,7 +2273,7 @@ describe("collectCodexRouteWarnings", () => {
   });
 
   itKeepsCodexPluginDisabled(
-    "keeps the Codex plugin disabled when an auth-profiled OpenAI route explicitly uses the OpenClaw runtime",
+    "keeps the Codex plugin disabled when an auth-profiled OpenAI route explicitly uses the HSMA runtime",
     {
       agents: {
         defaults: {
@@ -2371,7 +2371,7 @@ describe("collectCodexRouteWarnings", () => {
     );
   });
 
-  it("keeps repaired OpenAI refs on Codex runtime even when the OpenAI provider is otherwise OpenClaw/API-key routed", () => {
+  it("keeps repaired OpenAI refs on Codex runtime even when the OpenAI provider is otherwise HSMA/API-key routed", () => {
     const result = maybeRepairCodexRoutes({
       models: {
         providers: {
@@ -3161,7 +3161,7 @@ describe("collectCodexRouteWarnings", () => {
     expect(getSession(store, "ordinary").agentHarnessId).toBeUndefined();
   });
 
-  it("preserves explicit OpenClaw runtime pins while repairing legacy session routes", () => {
+  it("preserves explicit HSMA runtime pins while repairing legacy session routes", () => {
     const store: Record<string, SessionEntry> = {
       main: {
         sessionId: "s1",
@@ -3191,7 +3191,7 @@ describe("collectCodexRouteWarnings", () => {
     expect(getSession(store, "main").authProfileOverride).toBe("openai-codex:default");
   });
 
-  it("preserves Codex runtime intent alongside explicit OpenClaw harness pins", () => {
+  it("preserves Codex runtime intent alongside explicit HSMA harness pins", () => {
     const store: Record<string, SessionEntry> = {
       main: {
         sessionId: "s1",
@@ -3363,7 +3363,7 @@ describe("collectCodexRouteWarnings", () => {
     expect(getSession(store, "main").modelOverride).toBe("gpt-5.5");
   });
 
-  it("preserves canonical OpenAI sessions that are explicitly pinned to OpenClaw", () => {
+  it("preserves canonical OpenAI sessions that are explicitly pinned to HSMA", () => {
     const store: Record<string, SessionEntry> = {
       main: {
         sessionId: "s1",

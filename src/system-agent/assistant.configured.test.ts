@@ -106,7 +106,7 @@ function snapshot(config: OpenClawConfig) {
   };
 }
 
-describe("OpenClaw configured-model planner", () => {
+describe("HSMA configured-model planner", () => {
   it("rejects a low-level missing binding before config lookup or model execution", async () => {
     const readConfigFileSnapshot = vi.fn();
     const runCliAgent = vi.fn();

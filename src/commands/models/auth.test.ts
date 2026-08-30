@@ -1269,7 +1269,7 @@ describe("modelsAuthLoginCommand", () => {
     await modelsAuthLoginCommand({ provider: "claude-cli" }, runtime);
 
     expect(prompter.note).toHaveBeenCalledWith(
-      'Provider "claude-cli" uses its own CLI login. Select a provider with an OpenClaw auth flow.',
+      'Provider "claude-cli" uses its own CLI login. Select a provider with an HSMA auth flow.',
       "Provider auth",
     );
     expect(prompter.select).toHaveBeenCalledWith(
@@ -1354,14 +1354,12 @@ describe("modelsAuthLoginCommand", () => {
       },
       agentDir: "/tmp/openclaw/agents/main",
     });
+    expect(runtime.log).toHaveBeenCalledWith("Anthropic setup-token auth is supported in HSMA.");
     expect(runtime.log).toHaveBeenCalledWith(
-      "Anthropic setup-token auth is supported in OpenClaw.",
+      "HSMA prefers Claude CLI reuse when it is available on the host.",
     );
     expect(runtime.log).toHaveBeenCalledWith(
-      "OpenClaw prefers Claude CLI reuse when it is available on the host.",
-    );
-    expect(runtime.log).toHaveBeenCalledWith(
-      "Anthropic staff told us this OpenClaw path is allowed again.",
+      "Anthropic staff told us this HSMA path is allowed again.",
     );
   });
 

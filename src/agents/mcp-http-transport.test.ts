@@ -50,7 +50,7 @@ function initializedFetch(params: {
   });
 }
 
-describe("OpenClaw MCP HTTP lifecycle adapters", () => {
+describe("HSMA MCP HTTP lifecycle adapters", () => {
   it.each([
     "Streamable HTTP error: Error POSTing to endpoint: bearer=body-secret",
     "Error POSTing to endpoint (HTTP 500): bearer=body-secret",

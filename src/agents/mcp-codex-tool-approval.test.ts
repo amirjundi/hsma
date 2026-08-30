@@ -13,7 +13,7 @@ describe("Codex MCP tool approval projection", () => {
     expect(resolveMcpCodexToolApprovalMode("example", server)).toBe("auto");
   });
 
-  it("preserves explicit modes and the loopback OpenClaw approval exception", () => {
+  it("preserves explicit modes and the loopback HSMA approval exception", () => {
     expect(
       resolveMcpCodexToolApprovalMode("example", {
         command: "example-mcp",

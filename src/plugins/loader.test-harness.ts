@@ -455,7 +455,7 @@ export function expectLoadedPluginProvenance(params: {
     params.warnings.some(
       (msg) =>
         msg.includes(params.pluginId) &&
-        msg.includes("OpenClaw can't verify where this plugin came from"),
+        msg.includes("HSMA can't verify where this plugin came from"),
     ),
     params.scenario.label,
   ).toBe(params.expectWarning);

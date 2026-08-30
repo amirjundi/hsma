@@ -40,7 +40,7 @@ export async function requireValidConfigFileSnapshot(
       snapshot.issues.length > 0
         ? renderConfigValidationIssueLines(snapshot).join("\n")
         : "Unknown validation issue.";
-    runtime.error(`OpenClaw config is invalid: ${snapshot.path}\n${issues}`);
+    runtime.error(`HSMA config is invalid: ${snapshot.path}\n${issues}`);
     runtime.error(
       isPluginPackagingRuntimeOutputInvalidConfigSnapshot(snapshot)
         ? `Fix: ${formatPluginPackagingRuntimeOutputRecoveryHint()}`

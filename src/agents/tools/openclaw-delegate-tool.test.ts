@@ -30,7 +30,7 @@ describe("openclaw delegation tool", () => {
       agentChannel: "webchat",
     })[0];
     if (!tool) {
-      throw new Error("expected OpenClaw delegation tool");
+      throw new Error("expected HSMA delegation tool");
     }
     expect(tool.description).toContain("Gateway restart");
     expect(tool.description).toContain("human approval");
@@ -69,7 +69,7 @@ describe("openclaw delegation tool", () => {
       runSessionKey: "agent:main:main",
     })[0];
     if (!tool) {
-      throw new Error("expected OpenClaw delegation tool");
+      throw new Error("expected HSMA delegation tool");
     }
 
     await tool.execute("call-1", { message: "First." });

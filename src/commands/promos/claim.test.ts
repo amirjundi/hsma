@@ -287,7 +287,7 @@ describe("promosClaimCommand", () => {
     mocks.resolveProviderInstallCatalogEntry.mockReturnValue(undefined);
 
     await expect(promosClaimCommand("spring-models", {}, makeRuntime())).rejects.toThrow(
-      /Update OpenClaw/,
+      /Update HSMA/,
     );
     expect(mocks.replaceConfigFile).not.toHaveBeenCalled();
   });

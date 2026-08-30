@@ -99,7 +99,7 @@ async function writeSystemdUnitForAudit(
     unitPath,
     [
       "[Unit]",
-      "Description=OpenClaw Gateway",
+      "Description=HSMA Gateway",
       "[Service]",
       ...lines,
       "ExecStart=/usr/bin/node gateway",
@@ -308,7 +308,7 @@ describe("auditGatewayServiceConfig", () => {
     expect(issue?.detail).toContain("/opt/pnpm/bin");
   });
 
-  it("accepts an expected active OpenClaw bin even when it looks package-managed", async () => {
+  it("accepts an expected active HSMA bin even when it looks package-managed", async () => {
     const expectedServicePath = [
       "/opt/homebrew/opt/node/bin",
       "/Users/testuser/Library/pnpm",

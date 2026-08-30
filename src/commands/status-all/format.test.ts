@@ -161,7 +161,7 @@ describe("status-all format", () => {
       formatStatusServiceValue({
         label: "LaunchAgent",
         installed: true,
-        managedByOpenClaw: true,
+        managedByHSMA: true,
         loadedText: "loaded",
         runtimeShort: "running",
       }),
@@ -189,7 +189,7 @@ describe("status-all format", () => {
     },
     {
       installed: true,
-      managedByOpenClaw: true,
+      managedByHSMA: true,
       loadedText: "unknown",
       runtimeShort: "running (pid 42)",
       expected:
@@ -197,7 +197,7 @@ describe("status-all format", () => {
     },
     {
       installed: true,
-      managedByOpenClaw: false,
+      managedByHSMA: false,
       loadedText: "running (externally managed)",
       runtime: { status: "running", pid: 42 },
       expected:
@@ -288,7 +288,7 @@ describe("status-all format", () => {
         gatewayService: {
           label: "LaunchAgent",
           installed: true,
-          managedByOpenClaw: true,
+          managedByHSMA: true,
           loadedText: "loaded",
           runtimeShort: "running",
         },
@@ -453,7 +453,7 @@ describe("status-all format", () => {
         gatewayService: {
           label: "LaunchAgent",
           installed: true,
-          managedByOpenClaw: true,
+          managedByHSMA: true,
           loadedText: "loaded",
           runtimeShort: "running",
         },

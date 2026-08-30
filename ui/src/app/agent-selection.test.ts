@@ -73,7 +73,7 @@ describe("agent selection", () => {
   });
 
   it("clears system page scopes when the typed roster becomes known", () => {
-    const gateway = createGateway("OpenClaw");
+    const gateway = createGateway("HSMA");
     const roster = createRoster();
     const selection = createAgentSelectionCapability(gateway.gateway, roster.roster);
 

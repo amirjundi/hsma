@@ -454,7 +454,7 @@ suite.define(() => {
       const worktreeModal = await waitForConfirmModal(page);
       await expect
         .poll(() => worktreeModal.textContent())
-        .toContain("OpenClaw could not create a safety snapshot");
+        .toContain("HSMA could not create a safety snapshot");
       await expect.poll(() => worktreeModal.textContent()).toContain("Remove?");
       await captureUiProof(page, "sidebar-delete-preserved-snapshot-failed.png");
       await worktreeModal.getByRole("button", { name: "Cancel", exact: true }).click();

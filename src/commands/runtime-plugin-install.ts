@@ -21,7 +21,7 @@ type RuntimePluginInstallDescriptor = {
   npmSpec: string;
   warningLabel: string;
   /** Keep this official runtime package on the same release cohort as OpenClaw. */
-  versionBoundToOpenClaw?: boolean;
+  versionBoundToHSMA?: boolean;
 };
 
 type RuntimePluginInstallResult =
@@ -63,7 +63,7 @@ const CODEX_RUNTIME_PLUGIN_DESCRIPTOR = {
   label: "Codex",
   npmSpec: "@openclaw/codex",
   warningLabel: "Codex",
-  versionBoundToOpenClaw: true,
+  versionBoundToHSMA: true,
 };
 const COPILOT_RUNTIME_PLUGIN_DESCRIPTOR = {
   pluginId: "copilot",
@@ -197,7 +197,7 @@ async function ensureRuntimePluginForModelSelection(
         defaultChoice: "npm",
       },
       trustedSourceLinkedOfficialInstall: true,
-      ...(params.descriptor.versionBoundToOpenClaw ? { versionBoundToOpenClaw: true } : {}),
+      ...(params.descriptor.versionBoundToHSMA ? { versionBoundToHSMA: true } : {}),
     },
     prompter: io.prompter,
     runtime: io.runtime,

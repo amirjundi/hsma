@@ -142,9 +142,7 @@ async function startCallbackServer(expectedState: string): Promise<CallbackServe
     timeoutMs: CALLBACK_TIMEOUT_MS,
     bindHostname: resolveCallbackHost(),
     renderSuccess: () => ({
-      body: oauthSuccessHtml(
-        "Authorization received; return to the terminal while OpenClaw finishes.",
-      ),
+      body: oauthSuccessHtml("Authorization received; return to the terminal while HSMA finishes."),
       contentType: "text/html; charset=utf-8",
     }),
     renderError: (message) => ({

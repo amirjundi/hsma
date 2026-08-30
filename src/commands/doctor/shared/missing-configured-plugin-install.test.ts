@@ -977,7 +977,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     expect(result.records).toBe(baselineRecords);
   });
 
-  it("installs a missing configured OpenClaw channel plugin from npm by default", async () => {
+  it("installs a missing configured HSMA channel plugin from npm by default", async () => {
     const cfg = {
       security: { installPolicy: { enabled: true } },
       channels: {
@@ -1304,7 +1304,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     expect(result.warnings).toStrictEqual([]);
   });
 
-  it("falls back to npm when an OpenClaw channel plugin artifact is unavailable on ClawHub", async () => {
+  it("falls back to npm when an HSMA channel plugin artifact is unavailable on ClawHub", async () => {
     mocks.installPluginFromClawHub.mockResolvedValueOnce({
       ok: false,
       code: "artifact_unavailable",
@@ -1344,7 +1344,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     expect(result.warnings).toStrictEqual([]);
   });
 
-  it("does not fall back from ClawHub to non-OpenClaw npm packages", async () => {
+  it("does not fall back from ClawHub to non-HSMA npm packages", async () => {
     mocks.installPluginFromClawHub.mockResolvedValueOnce({
       ok: false,
       code: "artifact_download_unavailable",
@@ -1378,7 +1378,7 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     ]);
   });
 
-  it("honors npm-first catalog metadata for missing OpenClaw channel plugins", async () => {
+  it("honors npm-first catalog metadata for missing HSMA channel plugins", async () => {
     mocks.installPluginFromNpmSpec.mockResolvedValueOnce(
       successfulInstall({
         pluginId: "twitch",

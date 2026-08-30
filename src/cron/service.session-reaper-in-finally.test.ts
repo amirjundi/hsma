@@ -363,7 +363,7 @@ describe("CronService - session reaper runs in finally block (#31946)", () => {
     const resolveSessionStorePath = vi.fn((agentId?: string) => {
       if (agentId === unavailableAgentId) {
         throw new Error(
-          `OpenClaw agent database is unavailable while agent ${unavailableAgentId} is deleted.`,
+          `HSMA agent database is unavailable while agent ${unavailableAgentId} is deleted.`,
         );
       }
       return sessionStorePath;

@@ -84,9 +84,7 @@ suite.define(() => {
       const gateway = await openProfilePage(page);
 
       await page.locator(".profile-hero__name").waitFor({ timeout: 10_000 });
-      await expect(page.locator(".profile-hero__name").textContent()).resolves.toContain(
-        "OpenClaw",
-      );
+      await expect(page.locator(".profile-hero__name").textContent()).resolves.toContain("HSMA");
       await expect(page.locator(".profile-hero__handle").textContent()).resolves.toContain("@main");
       await page.locator(".profile-hero__avatar-mascot svg").waitFor({ timeout: 5_000 });
       await page.locator("#settings-profile-identity").waitFor({ timeout: 5_000 });

@@ -934,7 +934,7 @@ describe("launchd runtime state", () => {
 });
 
 describe("launchctl list detection", () => {
-  it("parses stale OpenClaw updater jobs from launchctl list", () => {
+  it("parses stale HSMA updater jobs from launchctl list", () => {
     const jobs = parseLaunchctlListOpenClawUpdateJobs(
       [
         "123 0 ai.openclaw.gateway",
@@ -965,7 +965,7 @@ describe("launchctl list detection", () => {
   });
 
   it.runIf(process.platform === "darwin")(
-    "finds stale OpenClaw updater jobs via launchctl list",
+    "finds stale HSMA updater jobs via launchctl list",
     async () => {
       state.listOutput = "- 127 ai.openclaw.update.2026.5.12\n";
 
@@ -1183,7 +1183,7 @@ describe("launchctl list detection", () => {
   );
 
   it.runIf(process.platform === "darwin")(
-    "disables the current legacy updater launchd job from OpenClaw label env",
+    "disables the current legacy updater launchd job from HSMA label env",
     async () => {
       await expect(
         disableCurrentOpenClawUpdateLaunchdJob({
@@ -1200,7 +1200,7 @@ describe("launchctl list detection", () => {
   );
 
   it.runIf(process.platform === "darwin")(
-    "does not let non-update launchd markers mask the OpenClaw update label",
+    "does not let non-update launchd markers mask the HSMA update label",
     async () => {
       await expect(
         disableCurrentOpenClawUpdateLaunchdJob({
@@ -2139,12 +2139,12 @@ describe("launchd install", () => {
     };
     await installLaunchAgent(
       launchAgentFixture(env, ["node", "node-host.js"], {
-        description: "OpenClaw Node Host",
+        description: "HSMA Node Host",
       }),
     );
 
     const plist = state.files.get(resolveLaunchAgentPlistPath(env)) ?? "";
-    expect(plist).toContain("<key>Comment</key>\n    <string>OpenClaw Node Host</string>");
+    expect(plist).toContain("<key>Comment</key>\n    <string>HSMA Node Host</string>");
     expect(plist).not.toContain("OPENCLAW_SERVICE_VERSION");
   });
 

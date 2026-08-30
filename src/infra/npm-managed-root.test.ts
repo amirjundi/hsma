@@ -267,7 +267,7 @@ describe("managed npm root", () => {
     });
   });
 
-  it("syncs OpenClaw-owned overrides without dropping unrelated local overrides", async () => {
+  it("syncs HSMA-owned overrides without dropping unrelated local overrides", async () => {
     const npmRoot = await makeTempRoot();
     await fs.writeFile(
       path.join(npmRoot, "package.json"),
@@ -1460,7 +1460,7 @@ describe("managed npm root", () => {
     await expectPathMissing(path.join(npmRoot, "node_modules", ".package-lock.json"));
   });
 
-  it("does not repair the active OpenClaw host package in a root-managed install", async () => {
+  it("does not repair the active HSMA host package in a root-managed install", async () => {
     const npmRoot = await makeTempRoot();
     const hostPackageRoot = path.join(npmRoot, "node_modules", "openclaw");
     await fs.mkdir(path.join(hostPackageRoot, "dist"), { recursive: true });

@@ -24,7 +24,7 @@ const prepareOptions = [
     id: "llama-cpp",
     brandId: "llama-cpp",
     label: "llama.cpp",
-    hint: "Install a verified llama.cpp server and run a private GGUF model managed by OpenClaw",
+    hint: "Install a verified llama.cpp server and run a private GGUF model managed by HSMA",
     actionLabel: "Set up model",
   },
   {
@@ -87,7 +87,7 @@ suite.define(() => {
                     id: "llama-cpp-consent",
                     type: "confirm",
                     message:
-                      "OpenClaw will install a verified llama.cpp server and download Gemma 4 E4B IT Q4_K_M (about 5.0 GB) plus the local embedding model (about 0.3 GB). Continue?",
+                      "HSMA will install a verified llama.cpp server and download Gemma 4 E4B IT Q4_K_M (about 5.0 GB) plus the local embedding model (about 0.3 GB). Continue?",
                     initialValue: false,
                   },
                 },
@@ -151,7 +151,7 @@ suite.define(() => {
         const start = await gateway.waitForRequest("openclaw.setup.prepare.start");
         expect(start.params).toMatchObject({ authChoice: "llama-cpp" });
         await page.getByRole("heading", { name: "Set up a local model" }).waitFor();
-        await page.getByText("OpenClaw will install a verified llama.cpp server").waitFor();
+        await page.getByText("HSMA will install a verified llama.cpp server").waitFor();
 
         if (artifactDir) {
           await page.screenshot({

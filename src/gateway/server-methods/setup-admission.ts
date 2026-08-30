@@ -6,7 +6,7 @@ import {
 } from "../../wizard/setup.migration-snapshot.js";
 
 export const SETUP_ADMISSION_BUSY_MESSAGE =
-  "OpenClaw setup is already in progress; try again when it finishes.";
+  "HSMA setup is already in progress; try again when it finishes.";
 
 let wizardSessionInProgress = false;
 const wizardSessionAdmissionSettlements = new WeakMap<object, Promise<unknown>>();

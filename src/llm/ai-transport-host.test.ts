@@ -13,7 +13,7 @@ import "./ai-transport-host.js";
 
 afterEach(resetSecretRedactionRegistryForTest);
 
-describe("OpenClaw provider error redaction", () => {
+describe("HSMA provider error redaction", () => {
   it("redacts registered opaque secrets from ordinary provider error messages", () => {
     const secret = "opaque-configured-provider-value";
     registerSecretValueForRedaction(secret);
@@ -27,7 +27,7 @@ describe("OpenClaw provider error redaction", () => {
   });
 });
 
-describe("OpenClaw provider tool-result redaction", () => {
+describe("HSMA provider tool-result redaction", () => {
   const toolResultContent = [
     {
       type: "resource" as const,

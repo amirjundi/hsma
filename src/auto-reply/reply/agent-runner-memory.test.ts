@@ -2561,7 +2561,7 @@ describe("runMemoryFlushIfNeeded", () => {
     expect(refreshQueuedFollowupSessionMock).not.toHaveBeenCalled();
   });
 
-  it("skips OpenClaw preflight compaction for explicit Codex runtime overrides", async () => {
+  it("skips HSMA preflight compaction for explicit Codex runtime overrides", async () => {
     registerMemoryFlushPlanResolverForTest(() => ({
       softThresholdTokens: 4_000,
       forceFlushTranscriptBytes: 1_000_000_000,
@@ -2702,7 +2702,7 @@ describe("runMemoryFlushIfNeeded", () => {
     expect(compactEmbeddedAgentSessionMock).not.toHaveBeenCalled();
   });
 
-  it("keeps the OpenAI API context window for persisted OpenClaw runtime overrides", async () => {
+  it("keeps the OpenAI API context window for persisted HSMA runtime overrides", async () => {
     registerMemoryFlushPlanResolverForTest(() => ({
       softThresholdTokens: 4_000,
       forceFlushTranscriptBytes: 1_000_000_000,

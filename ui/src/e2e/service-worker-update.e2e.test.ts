@@ -254,7 +254,7 @@ describe("Control UI service-worker production update E2E", () => {
     server = await startProductionControlUiE2eServer(outDir, buildA, {
       assistantAgentId: "research",
       assistantAvatar: "",
-      assistantName: "OpenClaw",
+      assistantName: "HSMA",
       basePath: "/",
       terminalEnabled: true,
     });

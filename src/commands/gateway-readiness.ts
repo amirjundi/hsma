@@ -237,8 +237,8 @@ export async function ensureGatewayReadyForOperation(
   }
 
   const prompt = shouldInstall
-    ? `Gateway is not installed. Install and start it now so OpenClaw can ${options.operation}?`
-    : `Gateway is not running. Start it now so OpenClaw can ${options.operation}?`;
+    ? `Gateway is not installed. Install and start it now so HSMA can ${options.operation}?`
+    : `Gateway is not running. Start it now so HSMA can ${options.operation}?`;
   const approved = await confirmRecovery({
     message: prompt,
     yes: options.yes,

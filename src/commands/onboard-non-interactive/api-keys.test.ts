@@ -125,8 +125,8 @@ describe("resolveNonInteractiveApiKey", () => {
     expect(resolveEnvApiKey).toHaveBeenCalledTimes(testCase.resolvedEnv ? 1 : 0);
     expect(runtime.error).toHaveBeenCalledWith(
       testCase.resolvedEnv
-        ? "Paste the API key value, not an OpenClaw onboarding command. Check ZAI_API_KEY."
-        : "Paste the API key value, not an OpenClaw onboarding command.",
+        ? "Paste the API key value, not an HSMA onboarding command. Check ZAI_API_KEY."
+        : "Paste the API key value, not an HSMA onboarding command.",
     );
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
@@ -153,7 +153,7 @@ describe("resolveNonInteractiveApiKey", () => {
       expect(result).toBeNull();
       expect(resolveEnvApiKey).not.toHaveBeenCalled();
       expect(runtime.error).toHaveBeenCalledWith(
-        "Paste the API key value, not an OpenClaw onboarding command. Check ZAI_API_KEY.",
+        "Paste the API key value, not an HSMA onboarding command. Check ZAI_API_KEY.",
       );
       expect(runtime.exit).toHaveBeenCalledWith(1);
     } finally {

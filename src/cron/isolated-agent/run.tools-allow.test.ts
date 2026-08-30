@@ -127,7 +127,7 @@ function requireEmbeddedAgentCall(): {
       }
     | undefined;
   if (!call) {
-    throw new Error("Expected embedded OpenClaw agent call for toolsAllow passthrough");
+    throw new Error("Expected embedded HSMA agent call for toolsAllow passthrough");
   }
   return call;
 }

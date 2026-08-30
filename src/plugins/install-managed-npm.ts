@@ -228,7 +228,7 @@ export async function installPluginFromManagedNpmRoot(
       } catch (error) {
         return {
           ok: false,
-          error: `${cause.error}, but OpenClaw could not quarantine ${npmRoot} for rebuild: ${String(error)}`,
+          error: `${cause.error}, but HSMA could not quarantine ${npmRoot} for rebuild: ${String(error)}`,
         };
       }
       logger.warn?.(

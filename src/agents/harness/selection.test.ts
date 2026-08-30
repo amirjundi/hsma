@@ -112,7 +112,7 @@ function createTranscriptRecorder(
   };
 }
 
-it("identifies harnesses that expose OpenClaw tools", () => {
+it("identifies harnesses that expose HSMA tools", () => {
   expect(agentHarnessBuildsOpenClawTools("openclaw")).toBe(false);
   expect(agentHarnessBuildsOpenClawTools("codex")).toBe(true);
   expect(agentHarnessBuildsOpenClawTools("copilot")).toBe(true);
@@ -127,7 +127,7 @@ vi.mock("./builtin-openclaw.js", () => ({
   createOpenClawAgentHarness: (): AgentHarness => {
     const harness: AgentHarness = {
       id: "openclaw",
-      label: "OpenClaw embedded agent",
+      label: "HSMA embedded agent",
       contextEngineHostCapabilities: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
       supports: () => ({ supported: true, priority: 0 }),
       runAttempt: agentRunAttempt,
@@ -639,7 +639,7 @@ describe("runAgentHarnessAttempt", () => {
   });
 
   it.each(["codex", "copilot"] as const)(
-    "binds the host OpenClaw tool to the %s SDK construction path without leaking authority",
+    "binds the host HSMA tool to the %s SDK construction path without leaking authority",
     async (harnessId) => {
       let receivedPrivateAuthority = true;
       let hostScopeActive = false;
@@ -897,7 +897,7 @@ describe("runAgentHarnessAttempt", () => {
   it.each([
     { name: "missing", toolsAllow: undefined },
     { name: "broad", toolsAllow: ["openclaw", "read"] },
-  ])("rejects $name allowlists for private OpenClaw authority", async ({ toolsAllow }) => {
+  ])("rejects $name allowlists for private HSMA authority", async ({ toolsAllow }) => {
     const pluginRunAttempt = vi.fn<AgentHarness["runAttempt"]>(async () =>
       createAttemptResult("codex"),
     );
@@ -917,13 +917,13 @@ describe("runAgentHarnessAttempt", () => {
     params.systemAgentTool = { surface: "cli", proposalRef: {}, directiveRef: {} };
 
     await expect(runAgentHarnessAttempt(params)).rejects.toThrow(
-      'OpenClaw host authority requires toolsAllow: ["openclaw"]',
+      'HSMA host authority requires toolsAllow: ["openclaw"]',
     );
     expect(pluginRunAttempt).not.toHaveBeenCalled();
     expect(isHostScopedAgentToolActive("openclaw")).toBe(false);
   });
 
-  it("keeps the host OpenClaw allowlist across global, agent, and sandbox deny-all policy", async () => {
+  it("keeps the host HSMA allowlist across global, agent, and sandbox deny-all policy", async () => {
     const received: Array<{
       toolsAllow: string[] | undefined;
       extraSystemPrompt: string | undefined;
@@ -988,7 +988,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(isHostScopedAgentToolActive("openclaw")).toBe(false);
   });
 
-  it("binds the same host OpenClaw scope to the built-in OpenClaw harness", async () => {
+  it("binds the same host HSMA scope to the built-in HSMA harness", async () => {
     let toolNames: string[] = [];
     agentRunAttempt.mockImplementationOnce(async () => {
       await Promise.resolve();
@@ -1058,14 +1058,14 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).not.toHaveBeenCalled();
   });
 
-  it("falls back to the OpenClaw harness in auto mode when no plugin harness matches", async () => {
+  it("falls back to the HSMA harness in auto mode when no plugin harness matches", async () => {
     const result = await runAgentHarnessAttempt(createAttemptParams());
 
     expect(result.sessionIdUsed).toBe("openclaw");
     expect(agentRunAttempt).toHaveBeenCalledTimes(1);
   });
 
-  it("allows the selected OpenClaw harness to satisfy context-engine pre-prompt assembly", async () => {
+  it("allows the selected HSMA harness to satisfy context-engine pre-prompt assembly", async () => {
     const result = await runAgentHarnessAttempt({
       ...createAttemptParams(providerRuntimeConfig("codex", "openclaw")),
       contextEngine: createContextEngineRequiringAssembly(),
@@ -1075,7 +1075,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).toHaveBeenCalledTimes(1);
   });
 
-  it("surfaces an auto-selected plugin harness failure instead of replaying through OpenClaw", async () => {
+  it("surfaces an auto-selected plugin harness failure instead of replaying through HSMA", async () => {
     registerFailingCodexHarness();
 
     await expect(runAgentHarnessAttempt(createAttemptParams())).rejects.toThrow(
@@ -1146,7 +1146,7 @@ describe("runAgentHarnessAttempt", () => {
     );
   });
 
-  it("surfaces a forced plugin harness failure instead of replaying through OpenClaw", async () => {
+  it("surfaces a forced plugin harness failure instead of replaying through HSMA", async () => {
     registerFailingCodexHarness();
 
     await expect(
@@ -1230,7 +1230,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).not.toHaveBeenCalled();
   });
 
-  it("falls back to OpenClaw when the implicit OpenAI Codex harness is unavailable", async () => {
+  it("falls back to HSMA when the implicit OpenAI Codex harness is unavailable", async () => {
     expect(resolveAgentHarnessPolicy({ provider: "openai", modelId: "gpt-5.4" })).toEqual({
       runtime: "codex",
       runtimeSource: "implicit",
@@ -1250,7 +1250,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).toHaveBeenCalledTimes(1);
   });
 
-  it("honors explicit OpenClaw runtime for OpenAI agent model runs", async () => {
+  it("honors explicit HSMA runtime for OpenAI agent model runs", async () => {
     const result = await runAgentHarnessAttempt({
       ...createAttemptParams(providerRuntimeConfig("openai", "openclaw")),
       provider: "openai",
@@ -1260,7 +1260,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).toHaveBeenCalledTimes(1);
   });
 
-  it("honors provider wildcard OpenClaw runtime policy for OpenAI agent model runs", async () => {
+  it("honors provider wildcard HSMA runtime policy for OpenAI agent model runs", async () => {
     registerSuccessfulCodexHarness();
 
     const result = await runAgentHarnessAttempt({
@@ -1611,7 +1611,7 @@ describe("runAgentHarnessAttempt", () => {
     ).toEqual([]);
   });
 
-  it("leaves OpenClaw harness params unchanged for channel group sender deny-all policy", async () => {
+  it("leaves HSMA harness params unchanged for channel group sender deny-all policy", async () => {
     await runAgentHarnessAttempt({
       ...createAttemptParams(groupSenderDenyAllConfig()),
       sessionKey: "agent:main:telegram:group:test-deny-room",
@@ -1631,7 +1631,7 @@ describe("runAgentHarnessAttempt", () => {
     expect(agentRunAttempt).not.toHaveBeenCalled();
   });
 
-  it("does not let a strict agent model plugin runtime fall back to OpenClaw", async () => {
+  it("does not let a strict agent model plugin runtime fall back to HSMA", async () => {
     await expect(
       runAgentHarnessAttempt({
         ...createAttemptParams(agentModelRuntimeConfig("codex/gpt-5.4", "codex", "strict")),
@@ -1768,7 +1768,7 @@ describe("selectAgentHarness", () => {
     expect(unsupportedSupports).toHaveBeenCalledTimes(1);
   });
 
-  it("honors session-level OpenClaw pins when selecting a harness", () => {
+  it("honors session-level HSMA pins when selecting a harness", () => {
     const supports = vi.fn(() => ({ supported: true as const, priority: 100 }));
     registerAgentHarness({
       id: "codex",
@@ -2355,7 +2355,7 @@ describe("selectAgentHarness", () => {
     ).toBe("codex");
   });
 
-  it("keeps request-scoped transport overrides on the implicit OpenClaw runtime", () => {
+  it("keeps request-scoped transport overrides on the implicit HSMA runtime", () => {
     registerAgentHarness({
       id: "codex",
       label: "Codex",
@@ -2767,7 +2767,7 @@ describe("selectAgentHarness", () => {
     },
   );
 
-  it("honors explicit OpenClaw runtime overrides when selecting a harness", async () => {
+  it("honors explicit HSMA runtime overrides when selecting a harness", async () => {
     registerSuccessfulCodexHarness();
 
     const harness = selectAgentHarness({
@@ -2788,7 +2788,7 @@ describe("selectAgentHarness", () => {
     expect(result.sessionIdUsed).toBe("openclaw");
   });
 
-  it("treats legacy PI runtime overrides as the built-in OpenClaw harness", async () => {
+  it("treats legacy PI runtime overrides as the built-in HSMA harness", async () => {
     registerSuccessfulCodexHarness();
 
     const harness = selectAgentHarness({
@@ -2824,12 +2824,12 @@ describe("selectAgentHarness", () => {
     );
   });
 
-  it("selects OpenClaw when the implicit OpenAI Codex harness is unavailable", () => {
+  it("selects HSMA when the implicit OpenAI Codex harness is unavailable", () => {
     expect(selectAgentHarness({ provider: "openai", modelId: "gpt-5.4" }).id).toBe("openclaw");
   });
 
   it.each(["default", "auto"] as const)(
-    "falls back from configured %s to OpenClaw when implicit Codex is unavailable or unsupported",
+    "falls back from configured %s to HSMA when implicit Codex is unavailable or unsupported",
     (runtime) => {
       const config = providerRuntimeConfig("openai", runtime);
       expect(resolveAgentHarnessPolicy({ provider: "openai", modelId: "gpt-5.4", config })).toEqual(
@@ -2857,7 +2857,7 @@ describe("selectAgentHarness", () => {
   );
 
   it.each(["default", "auto"] as const)(
-    "keeps a custom OpenAI route on implicit OpenClaw with configured %s",
+    "keeps a custom OpenAI route on implicit HSMA with configured %s",
     (runtime) => {
       const supports = vi.fn(() => ({ supported: true as const, priority: 100 }));
       registerAgentHarness(
@@ -2931,7 +2931,7 @@ describe("selectAgentHarness", () => {
     expect(agentRunAttempt).not.toHaveBeenCalled();
   });
 
-  it("keeps an existing session OpenClaw pin when provider policy forces a plugin harness", () => {
+  it("keeps an existing session HSMA pin when provider policy forces a plugin harness", () => {
     registerFailingCodexHarness();
 
     expect(
@@ -2944,7 +2944,7 @@ describe("selectAgentHarness", () => {
     ).toBe("openclaw");
   });
 
-  it("ignores env-forced OpenClaw for OpenAI default runtime selection", () => {
+  it("ignores env-forced HSMA for OpenAI default runtime selection", () => {
     process.env.OPENCLAW_AGENT_RUNTIME = "openclaw";
     registerFailingCodexHarness();
 
@@ -2985,7 +2985,7 @@ describe("selectAgentHarness", () => {
     ).resolves.toBeUndefined();
   });
 
-  it("keeps host auth on the built-in OpenClaw compaction fallback", async () => {
+  it("keeps host auth on the built-in HSMA compaction fallback", async () => {
     await expect(
       maybeCompactAgentHarnessSession(
         createCompactionParams({
@@ -3742,7 +3742,7 @@ describe("selectAgentHarness", () => {
     );
   });
 
-  it("does not compact a selected plugin harness through OpenClaw when the plugin has no compactor", async () => {
+  it("does not compact a selected plugin harness through HSMA when the plugin has no compactor", async () => {
     registerFailingCodexHarness();
 
     await expect(
@@ -3866,7 +3866,7 @@ describe("selectAgentHarness", () => {
     { provider: "anthropic", modelId: "sonnet-4.6", alias: "claude-cli" },
     { provider: "google", modelId: "gemini-3-pro-preview", alias: "google-gemini-cli" },
   ])(
-    "returns OpenClaw for explicit CLI runtime alias $alias on $provider instead of throwing MissingAgentHarnessError",
+    "returns HSMA for explicit CLI runtime alias $alias on $provider instead of throwing MissingAgentHarnessError",
     ({ provider, modelId, alias }) => {
       expect(
         selectAgentHarness({

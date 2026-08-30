@@ -826,7 +826,7 @@ export async function handleOpenResponsesHttpRequest(
         output: [
           createAssistantOutputItem({
             id: outputItemId,
-            text: assistantText || "No response from OpenClaw.",
+            text: assistantText || "No response from HSMA.",
             phase: "final_answer",
             status: "completed",
           }),
@@ -1131,7 +1131,7 @@ export async function handleOpenResponsesHttpRequest(
       const phase = evt.data?.phase;
       if (phase === "end" || phase === "error") {
         const finalText =
-          accumulatedText || bufferedReplaceableAssistantContent || "No response from OpenClaw.";
+          accumulatedText || bufferedReplaceableAssistantContent || "No response from HSMA.";
         const finalStatus = phase === "error" ? "failed" : "completed";
         const errorMessage =
           phase === "error" && typeof evt.data?.error === "string"
@@ -1333,7 +1333,7 @@ export async function handleOpenResponsesHttpRequest(
       // Fallback: if no streaming deltas were received, send the full response as text
       if (!sawAssistantDelta) {
         const content =
-          resultPayloadText || bufferedReplaceableAssistantContent || "No response from OpenClaw.";
+          resultPayloadText || bufferedReplaceableAssistantContent || "No response from HSMA.";
 
         accumulatedText = content;
         sawAssistantDelta = true;

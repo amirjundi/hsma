@@ -94,7 +94,7 @@ async function expectSymlinkSwapDuringPreflightToAvoidErrors(params: {
   });
 }
 
-describe("exec interactive OpenClaw channel login guard", () => {
+describe("exec interactive HSMA channel login guard", () => {
   it("recognizes direct and package-runner channel login commands before execution", async () => {
     await expect(
       detectUnsafeExecControlShellCommand("openclaw channels login --channel whatsapp"),
@@ -116,27 +116,27 @@ describe("exec interactive OpenClaw channel login guard", () => {
       tool.execute("call-openclaw-channel-login", {
         command: "openclaw channels login --channel whatsapp --verbose",
       }),
-    ).rejects.toThrow(/exec cannot run interactive OpenClaw channel login commands/);
+    ).rejects.toThrow(/exec cannot run interactive HSMA channel login commands/);
     await expect(
       tool.execute("call-wrapped-openclaw-channel-login", {
         command: "sudo -u openclaw bash -lc 'openclaw channels login --channel whatsapp'",
       }),
-    ).rejects.toThrow(/exec cannot run interactive OpenClaw channel login commands/);
+    ).rejects.toThrow(/exec cannot run interactive HSMA channel login commands/);
     await expect(
       tool.execute("call-clustered-sudo-channel-login", {
         command: "sudo -EH bash -lc 'openclaw channels login --channel whatsapp'",
       }),
-    ).rejects.toThrow(/exec cannot run interactive OpenClaw channel login commands/);
+    ).rejects.toThrow(/exec cannot run interactive HSMA channel login commands/);
     await expect(
       tool.execute("call-deep-env-channel-login", {
         command: "env env env env env env openclaw channels login --channel whatsapp",
       }),
-    ).rejects.toThrow(/exec cannot run interactive OpenClaw channel login commands/);
+    ).rejects.toThrow(/exec cannot run interactive HSMA channel login commands/);
     await expect(
       tool.execute("call-env-s-trailing-channel-login", {
         command: "env -S 'openclaw channels' login --channel whatsapp",
       }),
-    ).rejects.toThrow(/exec cannot run interactive OpenClaw channel login commands/);
+    ).rejects.toThrow(/exec cannot run interactive HSMA channel login commands/);
   });
 });
 

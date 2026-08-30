@@ -698,9 +698,9 @@ export async function modelsAuthPasteTokenCommand(
   logConfigUpdated(runtime);
   runtime.log(`Auth profile: ${profileId} (${provider}/token)`);
   if (provider === "anthropic") {
-    runtime.log("Anthropic setup-token auth is supported in OpenClaw.");
-    runtime.log("OpenClaw prefers Claude CLI reuse when it is available on the host.");
-    runtime.log("Anthropic staff told us this OpenClaw path is allowed again.");
+    runtime.log("Anthropic setup-token auth is supported in HSMA.");
+    runtime.log("HSMA prefers Claude CLI reuse when it is available on the host.");
+    runtime.log("Anthropic staff told us this HSMA path is allowed again.");
   }
 }
 
@@ -982,7 +982,7 @@ export async function runModelsAuthLoginFlowCore(
   }
   if (useProviderPicker) {
     await prompter.note(
-      `Provider "${requestedProviderId}" uses its own CLI login. Select a provider with an OpenClaw auth flow.`,
+      `Provider "${requestedProviderId}" uses its own CLI login. Select a provider with an HSMA auth flow.`,
       "Provider auth",
     );
   } else if (requestedProviderId && !requestedProvider) {

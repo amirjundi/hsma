@@ -432,7 +432,7 @@ describe("parseSystemAgentOperation", () => {
           },
         },
       ),
-    ).rejects.toThrow("`openclaw onboard` on the machine running OpenClaw");
+    ).rejects.toThrow("`openclaw onboard` on the machine running HSMA");
 
     expect(applySetup).not.toHaveBeenCalled();
   });

@@ -603,7 +603,7 @@ describe("listThinkingLevels", () => {
     ).toEqual(["off", "minimal", "low", "medium", "high"]);
   });
 
-  it("honors provider-owned thinking maps before compat and derives OpenClaw Ultra", () => {
+  it("honors provider-owned thinking maps before compat and derives HSMA Ultra", () => {
     const catalog = [
       {
         provider: "custom",
@@ -718,7 +718,7 @@ describe("listThinkingLevels", () => {
     ).toBe(true);
   });
 
-  it("uses advanced catalog efforts and derives OpenClaw Ultra from Max", () => {
+  it("uses advanced catalog efforts and derives HSMA Ultra from Max", () => {
     const catalog = [
       {
         provider: "myazure",

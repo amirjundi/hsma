@@ -415,7 +415,7 @@ describe("completion-runtime", () => {
 
         expect((await fs.lstat(profilePath)).isSymbolicLink()).toBe(true);
         expect(await fs.readlink(profilePath)).toBe(path.join("managed", "zshrc"));
-        await expect(fs.readFile(targetPath, "utf8")).resolves.toContain("# OpenClaw Completion");
+        await expect(fs.readFile(targetPath, "utf8")).resolves.toContain("# HSMA Completion");
       });
     },
   );
@@ -440,7 +440,7 @@ describe("completion-runtime", () => {
       await fs.writeFile(cachePath, "complete -W 'status' openclaw\n", "utf-8");
       await fs.writeFile(
         path.join(homeDir, ".bash_profile"),
-        "# OpenClaw Completion\nexport IMPORTANT=keep\n",
+        "# HSMA Completion\nexport IMPORTANT=keep\n",
         "utf-8",
       );
 
@@ -453,7 +453,7 @@ describe("completion-runtime", () => {
       const cachePath = resolveCompletionCachePath("bash", "openclaw");
       await fs.writeFile(
         path.join(homeDir, ".bash_profile"),
-        `# OpenClaw Completion\n[ -f "${cachePath}" ] && source "${cachePath}"\n`,
+        `# HSMA Completion\n[ -f "${cachePath}" ] && source "${cachePath}"\n`,
         "utf-8",
       );
 
@@ -483,7 +483,7 @@ describe("completion-runtime", () => {
         const profile = await fs.readFile(resolveCompletionProfilePath(shell), "utf-8");
         expect(profile).toContain(currentCachePath);
         expect(profile).not.toContain(previousCachePath);
-        expect(profile.match(/^# OpenClaw Completion$/gm)).toHaveLength(1);
+        expect(profile.match(/^# HSMA Completion$/gm)).toHaveLength(1);
       });
     },
   );
@@ -538,7 +538,7 @@ describe("completion-runtime", () => {
       await fs.writeFile(cachePath, "complete -W 'status' openclaw\n", "utf-8");
       await fs.writeFile(
         profilePath,
-        `# OpenClaw Completion\nexport IMPORTANT=keep\n${refreshAlias}\n`,
+        `# HSMA Completion\nexport IMPORTANT=keep\n${refreshAlias}\n`,
         "utf-8",
       );
 
@@ -547,7 +547,7 @@ describe("completion-runtime", () => {
       const profile = await fs.readFile(profilePath, "utf-8");
       expect(profile).toContain("export IMPORTANT=keep\n");
       expect(profile).toContain(`${refreshAlias}\n`);
-      expect(profile.match(/^# OpenClaw Completion$/gm)).toHaveLength(1);
+      expect(profile.match(/^# HSMA Completion$/gm)).toHaveLength(1);
       expect(profile).toContain(cachePath);
     });
   });
@@ -794,7 +794,7 @@ describe("completion-runtime", () => {
 
       const profilePath = resolveCompletionProfilePath("powershell");
       const profile = await fs.readFile(profilePath, "utf-8");
-      expect(profile).toBe(`# OpenClaw Completion\n. '${cachePath.replace(/'/g, "''")}'\n`);
+      expect(profile).toBe(`# HSMA Completion\n. '${cachePath.replace(/'/g, "''")}'\n`);
     }, "openclaw-completion-state-bob's-");
   });
 

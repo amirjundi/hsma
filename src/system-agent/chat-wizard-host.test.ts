@@ -227,9 +227,9 @@ describe("SystemAgentChatEngine wizard", () => {
     // rather than sending the reader to a terminal they may not have.
     expect(gatewayReply.text).toContain("Settings");
     expect(gatewayReply.text).toContain("change providers from a shell");
-    expect(gatewayReply.text).toContain("machine running OpenClaw");
+    expect(gatewayReply.text).toContain("machine running HSMA");
     expect(gatewayReply.text).not.toContain("does the same job");
-    expect(gatewayReply.text).not.toContain("Exit OpenClaw");
+    expect(gatewayReply.text).not.toContain("Exit HSMA");
   });
 
   it("keeps hosted-wizard validation errors on the current prompt", async () => {

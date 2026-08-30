@@ -433,12 +433,12 @@ describe("installPluginFromNpmSpec e2e", () => {
   it("installs the newest compatible stable package when npm latest requires a newer plugin API", async () => {
     const { rootDir, npmRoot } = await makeInstallFixture("npm-plugin-compatible-version-e2e");
     const packageName = uniquePackageName("compatible-plugin");
-    const compatibleOpenClaw = {
+    const compatibleHSMA = {
       extensions: ["./dist/index.js"],
       install: { minHostVersion: ">=2026.4.25" },
       compat: { pluginApi: ">=2026.5.10-beta.1" },
     };
-    const incompatibleOpenClaw = {
+    const incompatibleHSMA = {
       extensions: ["./dist/index.js"],
       install: { minHostVersion: ">=2026.4.25" },
       compat: { pluginApi: ">=2026.5.27" },
@@ -448,13 +448,13 @@ describe("installPluginFromNpmSpec e2e", () => {
         packageName,
         version: "2026.5.26",
         rootDir,
-        openclaw: compatibleOpenClaw,
+        openclaw: compatibleHSMA,
       }),
       await packPlugin({
         packageName,
         version: "2026.5.27",
         rootDir,
-        openclaw: incompatibleOpenClaw,
+        openclaw: incompatibleHSMA,
       }),
     ];
     await useStaticRegistry([{ packageName, latest: "2026.5.27", versions }]);

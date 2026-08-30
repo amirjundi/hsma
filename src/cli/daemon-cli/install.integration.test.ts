@@ -121,7 +121,7 @@ describe("runDaemonInstall integration", () => {
     expect(joined).toContain("MISSING_GATEWAY_TOKEN");
   });
 
-  it("refuses service install when config was written by a newer OpenClaw", async () => {
+  it("refuses service install when config was written by a newer HSMA", async () => {
     await fs.writeFile(
       configPath,
       JSON.stringify(

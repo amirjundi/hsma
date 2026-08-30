@@ -103,7 +103,7 @@ export async function maybeRepairPluginOpenClawHostLinks(
     if (audit.peerLinkIssues.length > 0) {
       note(
         [
-          "Managed npm OpenClaw host peer links need repair:",
+          "Managed npm HSMA host peer links need repair:",
           ...audit.peerLinkIssues.map((issue) => `- ${issue.packageName}: ${issue.reason}`),
           `Repair with ${formatCliCommand("openclaw doctor --fix")} to relink managed npm plugin packages.`,
         ].join("\n"),
@@ -135,7 +135,7 @@ export async function maybeRepairPluginOpenClawHostLinks(
     if (audit.registeredPeerLinkIssues.length > 0) {
       note(
         [
-          "Registered npm plugin OpenClaw host links need repair:",
+          "Registered npm plugin HSMA host links need repair:",
           ...audit.registeredPeerLinkIssues.map(
             (issue) => `- ${issue.packageName}: ${issue.reason}`,
           ),
@@ -181,13 +181,13 @@ export async function maybeRepairPluginOpenClawHostLinks(
 
   if (repaired > 0) {
     note(
-      `Repaired OpenClaw host peer link(s) for ${repaired} managed npm plugin package(s).`,
+      `Repaired HSMA host peer link(s) for ${repaired} managed npm plugin package(s).`,
       "Plugin registry",
     );
   }
   if (registeredRepair.repaired > 0) {
     note(
-      `Repaired OpenClaw host peer link(s) for ${registeredRepair.repaired} registered npm plugin package(s).`,
+      `Repaired HSMA host peer link(s) for ${registeredRepair.repaired} registered npm plugin package(s).`,
       "Plugin registry",
     );
   }
@@ -196,7 +196,7 @@ export async function maybeRepairPluginOpenClawHostLinks(
     .map((message) => `- ${message.message}`);
   if (warnings.length > 0) {
     note(
-      ["Could not repair all managed npm OpenClaw host peer links:", ...warnings].join("\n"),
+      ["Could not repair all managed npm HSMA host peer links:", ...warnings].join("\n"),
       "Plugin registry",
     );
   }

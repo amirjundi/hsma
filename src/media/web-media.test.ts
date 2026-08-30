@@ -815,7 +815,7 @@ describe("loadWebMedia", () => {
     expect(result.contentType).toBe("text/markdown");
   });
 
-  it("allows trusted generated host-read HTML reports under OpenClaw temp root", async () => {
+  it("allows trusted generated host-read HTML reports under HSMA temp root", async () => {
     const htmlFile = path.join(fixtureRoot, "report.html");
     await fs.writeFile(htmlFile, "<!doctype html><title>Report</title><h1>Report</h1>\n", "utf8");
     const result = await loadWebMedia(htmlFile, {
@@ -1067,7 +1067,7 @@ describe("loadWebMedia", () => {
     }
   });
 
-  it("rejects host-read HTML files outside the trusted OpenClaw temp root", async () => {
+  it("rejects host-read HTML files outside the trusted HSMA temp root", async () => {
     const outsideRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-host-html-"));
     const htmlFile = path.join(outsideRoot, "report.html");
     await fs.writeFile(htmlFile, "<!doctype html><title>Report</title><h1>Report</h1>\n", "utf8");
@@ -1086,7 +1086,7 @@ describe("loadWebMedia", () => {
     }
   });
 
-  it("rejects trusted host-read HTML symlinks that resolve outside OpenClaw temp root", async () => {
+  it("rejects trusted host-read HTML symlinks that resolve outside HSMA temp root", async () => {
     const outsideRoot = await fs.mkdtemp(path.join(os.tmpdir(), "web-media-host-html-"));
     const outsideHtml = path.join(outsideRoot, "report.html");
     const htmlLink = path.join(fixtureRoot, "linked-report.html");
@@ -1120,7 +1120,7 @@ describe("loadWebMedia", () => {
     }
   });
 
-  it("rejects trusted host-read HTML hardlinks to files outside OpenClaw temp root", async () => {
+  it("rejects trusted host-read HTML hardlinks to files outside HSMA temp root", async () => {
     const outsideRoot = await fs.mkdtemp(
       path.join(path.dirname(resolvePreferredOpenClawTmpDir()), "web-media-host-html-"),
     );

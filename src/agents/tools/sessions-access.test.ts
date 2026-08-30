@@ -819,7 +819,7 @@ describe("createSessionVisibilityGuard", () => {
     });
     if (!access.allowed) {
       expect(formatSessionToolAccessDenial(access, { action: "history" })).toBe(
-        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect OpenClaw logs.",
+        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect HSMA logs.",
       );
     }
     expect(gateway).toHaveBeenCalledTimes(1);
@@ -884,14 +884,14 @@ describe("createSessionVisibilityGuard", () => {
       target: "agent:codex:acp:child-1",
       visibility: "tree" as const,
       error:
-        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect OpenClaw logs.",
+        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect HSMA logs.",
     },
     {
       name: "cross-agent ACP child under all visibility",
       target: "agent:codex:acp:child-1",
       visibility: "all" as const,
       error:
-        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect OpenClaw logs.",
+        "Session history denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect HSMA logs.",
     },
     {
       name: "malformed agent key",
@@ -996,7 +996,7 @@ describe("createSessionVisibilityGuard", () => {
       allowed: false,
       status: "forbidden",
       error:
-        "Session history denied because spawned-session ownership lookup failed; ask the operator to inspect OpenClaw logs.",
+        "Session history denied because spawned-session ownership lookup failed; ask the operator to inspect HSMA logs.",
     });
     expect(result.allowed ? "" : result.error).not.toMatch(/credentials|retry/i);
   });
@@ -1014,7 +1014,7 @@ describe("createSessionVisibilityGuard", () => {
       allowed: false,
       status: "forbidden",
       error:
-        "Session history denied because spawned-session ownership lookup failed; ask the operator to inspect OpenClaw logs.",
+        "Session history denied because spawned-session ownership lookup failed; ask the operator to inspect HSMA logs.",
     });
   });
 });

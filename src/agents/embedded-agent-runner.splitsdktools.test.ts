@@ -78,7 +78,7 @@ describe("splitSdkTools", () => {
     expect(isCodeModeControlTool(wrapToolDefinition(definition))).toBe(true);
   });
 
-  it("keeps OpenClaw-managed custom tools in OpenClaw runtime's session allowlist", () => {
+  it("keeps HSMA-managed custom tools in HSMA runtime's session allowlist", () => {
     // Session tools are OpenClaw-managed custom tools; dropping them from the
     // allowlist would break inter-agent routing even when sandboxing is enabled.
     const { customTools } = splitSdkTools({

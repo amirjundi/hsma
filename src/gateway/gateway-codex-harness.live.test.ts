@@ -979,7 +979,7 @@ async function verifyCodexCodeModeOnlyDynamicToolProbe(params: {
     sessionKey: params.sessionKey,
     message: [
       "Code-mode-only bridge probe.",
-      "Before replying, call the OpenClaw sessions_list tool exactly once.",
+      "Before replying, call the HSMA sessions_list tool exactly once.",
       "Use limit=1 and includeLastMessage=false.",
       `After the tool result returns, reply exactly ${expectedToken} and nothing else.`,
     ].join("\n"),
@@ -2145,7 +2145,7 @@ async function verifyCodexSessionDeletion(params: {
     events,
     sessionKey,
     command: `/codex resume ${siblingThreadId}`,
-    expectedText: "owned by another OpenClaw session or conversation",
+    expectedText: "owned by another HSMA session or conversation",
   });
   expect(readBindings().find((row) => row.key === before?.key)).toEqual(before);
   expect(readBindings().find((row) => row.key === siblingBinding?.key)).toEqual(siblingBinding);
@@ -2172,7 +2172,7 @@ async function verifyCodexSessionDeletion(params: {
     events,
     sessionKey,
     command: `/codex resume ${threadId}`,
-    expectedText: "Attached this OpenClaw session",
+    expectedText: "Attached this HSMA session",
   });
   expect(attached).toContain(threadId);
   expect(await readCodexHarnessSessionId({ client, sessionKey })).not.toBe(sessionId);

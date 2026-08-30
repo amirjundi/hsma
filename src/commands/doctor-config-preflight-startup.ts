@@ -61,7 +61,7 @@ export async function completeStartupMigrationPreflight(params: {
   ) {
     throw params.startupMigrationHeartbeatError instanceof Error
       ? params.startupMigrationHeartbeatError
-      : new Error("OpenClaw startup migration lease heartbeat failed.");
+      : new Error("HSMA startup migration lease heartbeat failed.");
   }
   if (
     params.shouldRecordStateCheckpoint &&
@@ -71,7 +71,7 @@ export async function completeStartupMigrationPreflight(params: {
     params.snapshot.valid
   ) {
     if (!params.migrationCheckpoint) {
-      throw new Error("OpenClaw state migration checkpoint module was not loaded.");
+      throw new Error("HSMA state migration checkpoint module was not loaded.");
     }
     params.migrationCheckpoint.recordSuccessfulStateMigrations({
       env: params.startupMigrationEnv,
@@ -92,7 +92,7 @@ export async function completeStartupMigrationPreflight(params: {
       throwStartupMigrationRefusal(
         formatStartupMigrationFailure({
           warnings: [],
-          blockers: ['OpenClaw config is invalid; run "openclaw doctor --fix" before startup.'],
+          blockers: ['HSMA config is invalid; run "openclaw doctor --fix" before startup.'],
         }),
       );
     }
@@ -136,7 +136,7 @@ export async function completeStartupMigrationPreflight(params: {
   }
   if (params.shouldRecordStartupCheckpoint) {
     if (!params.migrationCheckpoint) {
-      throw new Error("OpenClaw startup migration checkpoint module was not loaded.");
+      throw new Error("HSMA startup migration checkpoint module was not loaded.");
     }
     params.migrationCheckpoint.recordSuccessfulStartupMigrations({
       env: params.startupMigrationEnv,

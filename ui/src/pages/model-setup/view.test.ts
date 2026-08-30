@@ -26,7 +26,7 @@ const detected: SystemAgentSetupDetectResult = {
       id: "pi-cli",
       label: "Pi",
       detail: "installed; no setup route available",
-      reason: "This local runtime must be configured outside OpenClaw.",
+      reason: "This local runtime must be configured outside HSMA.",
     },
   ],
   manualProviders: [
@@ -86,7 +86,7 @@ const detected: SystemAgentSetupDetectResult = {
       id: "llama-cpp",
       brandId: "llama-cpp",
       label: "llama.cpp",
-      hint: "Install a verified llama.cpp server and run a private GGUF model managed by OpenClaw",
+      hint: "Install a verified llama.cpp server and run a private GGUF model managed by HSMA",
       actionLabel: "Set up model",
     },
   ],
@@ -201,7 +201,7 @@ describe("renderModelSetup", () => {
     expect(text(container)).toContain("Codex CLI");
     expect(text(container)).toContain("openai/gpt-5 · Signed in locally");
     expect(text(container)).toContain("Found, but needs attention");
-    expect(text(container)).toContain("This local runtime must be configured outside OpenClaw");
+    expect(text(container)).toContain("This local runtime must be configured outside HSMA");
     expect(text(container)).toContain("Sign in with a provider");
     expect(text(container)).toContain("Run a model locally");
     expect(text(container)).toContain("LM Studio");
@@ -475,7 +475,7 @@ describe("renderModelSetup", () => {
     const dialog = container.querySelector('openclaw-modal-dialog[label="Connection verified"]');
     expect(dialog).not.toBeNull();
     expect(text(dialog!)).toContain(
-      "OpenClaw received a real reply from openai/gpt-5.6-sol. You can start chatting now.",
+      "HSMA received a real reply from openai/gpt-5.6-sol. You can start chatting now.",
     );
     expect(text(dialog!)).toContain("Verified in 73 ms");
     dialog?.querySelector<HTMLButtonElement>(".primary")?.click();
@@ -757,7 +757,7 @@ describe("renderModelSetup", () => {
     expect(admin.querySelector(".settings-section")).toBeNull();
 
     const old = mount(props({ gatewayTooOld: true }));
-    expect(text(old)).toContain("The Gateway is running an older OpenClaw version");
+    expect(text(old)).toContain("The Gateway is running an older HSMA version");
     expect(old.querySelector(".settings-section")).toBeNull();
   });
 

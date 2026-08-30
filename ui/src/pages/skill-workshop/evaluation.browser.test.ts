@@ -114,7 +114,7 @@ function propsFor(mode: SkillWorkshopMode): SkillWorkshopProps {
     revisionKey: null,
     revisionDraft: "",
     revisionRecoveryActive: false,
-    assistantName: "OpenClaw",
+    assistantName: "HSMA",
     workshopAgentName: "Research",
     selfLearning: null,
     historyScan: createSkillWorkshopHistoryScanState(),

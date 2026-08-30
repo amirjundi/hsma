@@ -623,7 +623,7 @@ describe("push APNs send semantics", () => {
     expect(payload.aps).toEqual({
       alert: {
         title: "Exec approval required",
-        body: "Open OpenClaw to review this request.",
+        body: "Open HSMA to review this request.",
       },
       sound: "default",
       category: "openclaw.exec-approval",
@@ -1015,7 +1015,7 @@ describe("push APNs send semantics", () => {
     expect(payload.aps).toEqual({
       alert: {
         title: "Exec approval required",
-        body: "Open OpenClaw to review this request.",
+        body: "Open HSMA to review this request.",
       },
       sound: "default",
       category: "openclaw.exec-approval",

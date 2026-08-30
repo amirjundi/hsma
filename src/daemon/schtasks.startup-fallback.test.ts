@@ -107,7 +107,7 @@ function createSpawnChild(error?: Error): ChildProcess {
 }
 
 function resolveStartupEntryPath(env: Record<string, string>, extension = "cmd") {
-  const taskName = env.OPENCLAW_WINDOWS_TASK_NAME ?? "OpenClaw Gateway";
+  const taskName = env.OPENCLAW_WINDOWS_TASK_NAME ?? "HSMA Gateway";
   return path.join(
     expectDefined(env.APPDATA, "env.APPDATA test invariant"),
     "Microsoft",
@@ -149,7 +149,7 @@ function makeNodeServiceEnv(env: Record<string, string>): Record<string, string>
   return {
     ...env,
     OPENCLAW_SERVICE_KIND: "node",
-    OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Node",
+    OPENCLAW_WINDOWS_TASK_NAME: "HSMA Node",
   };
 }
 
@@ -270,7 +270,7 @@ function installNodeScheduledTask(env: Record<string, string>, stdout = new Pass
     env: {
       ...env,
       OPENCLAW_SERVICE_KIND: "node",
-      OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Node",
+      OPENCLAW_WINDOWS_TASK_NAME: "HSMA Node",
     },
     stdout,
     programArguments: ["node", "openclaw", "node", "run", "--host", "127.0.0.1", "--port", "18789"],
@@ -1865,7 +1865,7 @@ describe("Windows startup fallback", () => {
   it("does not report a node task as running from a gateway listener", async () => {
     await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
       env.OPENCLAW_SERVICE_KIND = "node";
-      env.OPENCLAW_WINDOWS_TASK_NAME = "OpenClaw Node";
+      env.OPENCLAW_WINDOWS_TASK_NAME = "HSMA Node";
       findVerifiedGatewayListenerPidsOnPortSync.mockReturnValue([4242]);
       schtasksResponses.push(
         { code: 0, stdout: "", stderr: "" },
@@ -1886,7 +1886,7 @@ describe("Windows startup fallback", () => {
       const nodeEnv = {
         ...env,
         OPENCLAW_SERVICE_KIND: "node",
-        OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Node",
+        OPENCLAW_WINDOWS_TASK_NAME: "HSMA Node",
       };
       await writeNodeScript(nodeEnv);
       findVerifiedGatewayListenerPidsOnPortSync.mockReturnValue([4242]);

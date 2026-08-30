@@ -19,7 +19,7 @@ function createProps(overrides: Partial<MemoryViewProps> = {}): MemoryViewProps 
     activeTab: "settings",
     onTabChange: vi.fn(),
     engineOptions: [
-      { id: "memory-core", label: "OpenClaw Memory", available: true },
+      { id: "memory-core", label: "HSMA Memory", available: true },
       { id: "memory-lancedb", label: "Memory LanceDB", available: true },
     ],
     engineSelection: { kind: "auto", engineId: "memory-core" },
@@ -100,7 +100,7 @@ describe("renderMemory", () => {
 
       expect(header?.querySelector(".page-title")?.textContent).toBe("Memory");
       expect(header?.querySelector(".page-subtitle")?.textContent).toContain(
-        "Choose how OpenClaw stores, searches, and maintains agent memory.",
+        "Choose how HSMA stores, searches, and maintains agent memory.",
       );
       expect(header?.querySelector(".memory-hub-tabs")).not.toBeNull();
       expect(container.textContent).not.toContain("Agent view");
@@ -160,7 +160,7 @@ describe("renderMemory", () => {
       }),
     );
 
-    expect(container.textContent).toContain(`Default: OpenClaw Memory`);
+    expect(container.textContent).toContain(`Default: HSMA Memory`);
     expect(container.textContent).toContain(value);
     container.querySelector<HTMLButtonElement>('button[aria-label="Reset to default"]')?.click();
     expect(onEngineReset).toHaveBeenCalledOnce();
@@ -189,14 +189,14 @@ describe("renderMemory", () => {
   it("reports whether the engine came from config or from the slot default", () => {
     const auto = renderInto(createProps());
     expect(auto.textContent).toContain("falls back to its default owner");
-    expect(auto.textContent).toContain("Using default: OpenClaw Memory");
+    expect(auto.textContent).toContain("Using default: HSMA Memory");
     expect(auto.querySelector('button[aria-label="Reset to default"]')).toBeNull();
 
     const pinned = renderInto(
       createProps({ engineSelection: { kind: "pinned", engineId: "memory-core" } }),
     );
     expect(pinned.textContent).toContain("pinned in config");
-    expect(pinned.textContent).toContain("Default: OpenClaw Memory");
+    expect(pinned.textContent).toContain("Default: HSMA Memory");
     expect(pinned.querySelector('button[aria-label="Reset to default"]')).not.toBeNull();
   });
 

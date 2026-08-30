@@ -717,7 +717,7 @@ describe("renderPlugins", () => {
   it("renders install policy findings with cancel and acknowledged retry actions", () => {
     const plugin = createPlugin({
       id: "kitchen-sink",
-      name: "OpenClaw Kitchen Sink",
+      name: "HSMA Kitchen Sink",
       installed: false,
       enabled: false,
       state: "disabled",

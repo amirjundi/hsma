@@ -867,7 +867,7 @@ describe("runReplyAgent media path normalization", () => {
     expect(createReplyMediaContextRuntimeMock).not.toHaveBeenCalled();
   });
 
-  it("passes current inbound media paths as native OpenClaw images", async () => {
+  it("passes current inbound media paths as native HSMA images", async () => {
     const tmpDir = await mkdtemp(path.join(os.tmpdir(), "openclaw-native-agent-media-"));
     cleanupPaths.push(tmpDir);
     const imagePath = path.join(tmpDir, "photo.png");
@@ -917,7 +917,7 @@ describe("runReplyAgent media path normalization", () => {
     expect(call?.imageOrder).toEqual(["inline"]);
   });
 
-  it("does not pass recent history images as unlabeled native OpenClaw images", async () => {
+  it("does not pass recent history images as unlabeled native HSMA images", async () => {
     const tmpDir = await mkdtemp(path.join(os.tmpdir(), "openclaw-native-agent-history-"));
     cleanupPaths.push(tmpDir);
     const imagePath = path.join(tmpDir, "recent.png");

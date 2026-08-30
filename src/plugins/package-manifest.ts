@@ -28,18 +28,18 @@ export function getPackageManifestMetadata(
 export function resolvePackageExtensionEntries(
   manifest: PackageManifest | undefined,
 ): PackageExtensionResolution {
-  const rawOpenClaw = manifest?.[MANIFEST_KEY] as unknown;
-  if (rawOpenClaw === undefined || rawOpenClaw === null) {
+  const rawHSMA = manifest?.[MANIFEST_KEY] as unknown;
+  if (rawHSMA === undefined || rawHSMA === null) {
     return { status: "missing", entries: [] };
   }
-  if (!isRecord(rawOpenClaw)) {
+  if (!isRecord(rawHSMA)) {
     return {
       status: "invalid",
       entries: [],
       error: "package.json openclaw must be an object",
     };
   }
-  const raw = rawOpenClaw.extensions;
+  const raw = rawHSMA.extensions;
   if (raw === undefined || raw === null) {
     return { status: "missing", entries: [] };
   }

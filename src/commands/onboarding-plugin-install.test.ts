@@ -997,7 +997,7 @@ describe("ensureOnboardingPluginInstalled", () => {
         label: "Codex",
         install: { npmSpec: "@openclaw/codex" },
         trustedSourceLinkedOfficialInstall: true,
-        versionBoundToOpenClaw: true,
+        versionBoundToHSMA: true,
       },
       prompter: {
         select: vi.fn(async () => "npm"),
@@ -1301,7 +1301,7 @@ describe("ensureOnboardingPluginInstalled", () => {
     expect(result.installed).toBe(true);
   });
 
-  it("does not fall back from ClawHub to non-OpenClaw npm packages", async () => {
+  it("does not fall back from ClawHub to non-HSMA npm packages", async () => {
     const confirm = vi.fn(async () => true);
     const runtimeError = vi.fn();
     installPluginFromClawHub.mockResolvedValueOnce({

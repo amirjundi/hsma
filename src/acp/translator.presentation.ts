@@ -161,8 +161,7 @@ export function buildSessionPresentation(params: {
       id: ACP_THOUGHT_LEVEL_CONFIG_ID,
       name: "Thought level",
       category: "thought_level",
-      description:
-        "Controls how much deliberate reasoning OpenClaw requests from the Gateway model.",
+      description: "Controls how much deliberate reasoning HSMA requests from the Gateway model.",
       currentValue: currentModeId,
       values: availableLevelIds,
     }),
@@ -177,7 +176,7 @@ export function buildSessionPresentation(params: {
       id: ACP_VERBOSE_LEVEL_CONFIG_ID,
       name: "Tool verbosity",
       description:
-        "Controls how much tool progress and output detail OpenClaw keeps enabled for the session.",
+        "Controls how much tool progress and output detail HSMA keeps enabled for the session.",
       currentValue: normalizeOptionalString(row.verboseLevel) || "off",
       values: ["off", "on", "full"],
     }),
@@ -199,7 +198,7 @@ export function buildSessionPresentation(params: {
       id: ACP_RESPONSE_USAGE_CONFIG_ID,
       name: "Usage detail",
       description:
-        "Controls how much usage information OpenClaw attaches to responses for the session. 'inherit' follows the configured default; 'off' explicitly disables it for this session.",
+        "Controls how much usage information HSMA attaches to responses for the session. 'inherit' follows the configured default; 'off' explicitly disables it for this session.",
       currentValue: normalizeOptionalString(row.responseUsage) || "inherit",
       values: ["inherit", "off", "tokens", "full"],
     }),

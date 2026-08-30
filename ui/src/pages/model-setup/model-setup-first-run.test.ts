@@ -341,7 +341,7 @@ describe("ModelSetupPage first-run inference", () => {
     });
 
     await waitForFast(() => {
-      expect(page.textContent).toContain("The Gateway is running an older OpenClaw version");
+      expect(page.textContent).toContain("The Gateway is running an older HSMA version");
       expect(page.textContent).toContain("Update");
       expect(page.textContent).toContain("Reconnect");
     });

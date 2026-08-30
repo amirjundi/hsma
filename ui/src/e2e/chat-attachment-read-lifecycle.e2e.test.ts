@@ -73,7 +73,7 @@ async function waitForCommittedAttachmentDraft(
     return app.runtime?.context.gateway.connection.gatewayUrl ?? null;
   });
   if (!gatewayUrl) {
-    throw new Error("OpenClaw application Gateway URL is unavailable");
+    throw new Error("HSMA application Gateway URL is unavailable");
   }
   const storedScope = resolveStoredChatOutboxScope({ settings: { gatewayUrl } }, sessionKey);
   await waitForCommittedState(

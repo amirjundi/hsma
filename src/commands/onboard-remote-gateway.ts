@@ -329,7 +329,7 @@ export async function runRemoteGatewayInferenceOnboarding(
         import("../wizard/clack-prompter.js").then(({ createClackPrompter }) =>
           createClackPrompter(),
         ));
-      await prompter.intro("OpenClaw");
+      await prompter.intro("HSMA");
       const sessionId = randomUUID();
       let reply = await request<SystemAgentChatResult>({
         method: "openclaw.chat",
@@ -340,9 +340,9 @@ export async function runRemoteGatewayInferenceOnboarding(
       let agentDraft: SystemAgentChatResult["agentDraft"];
       try {
         for (;;) {
-          await prompter.note(reply.reply, "OpenClaw");
+          await prompter.note(reply.reply, "HSMA");
           if (reply.action === "exit") {
-            await prompter.outro("OpenClaw setup finished.");
+            await prompter.outro("HSMA setup finished.");
             return;
           }
           if (reply.action === "open-agent") {
@@ -351,7 +351,7 @@ export async function runRemoteGatewayInferenceOnboarding(
             break;
           }
           const message = await prompter.text({
-            message: "Reply to OpenClaw",
+            message: "Reply to HSMA",
             ...(reply.sensitive ? { sensitive: true } : {}),
             validate: (value) => (value.trim() ? undefined : "Required"),
           });
@@ -363,7 +363,7 @@ export async function runRemoteGatewayInferenceOnboarding(
         }
       } catch (error) {
         if (error instanceof WizardCancelledError) {
-          await prompter.outro("OpenClaw setup paused.");
+          await prompter.outro("HSMA setup paused.");
           return;
         }
         throw error;

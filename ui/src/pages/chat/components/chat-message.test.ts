@@ -215,7 +215,7 @@ function renderTestMessageGroup(
   return renderMessageGroup(group, {
     showReasoning: true,
     showToolCalls: true,
-    assistantName: "OpenClaw",
+    assistantName: "HSMA",
     assistantAvatar: null,
     ...opts,
   });
@@ -818,7 +818,7 @@ describe("grouped chat rendering", () => {
 
     expect(onReply).toHaveBeenCalledWith({
       messageId: "assistant-message",
-      senderLabel: "OpenClaw",
+      senderLabel: "HSMA",
       sourceMessageId: "assistant-entry-1",
       text: "Reply with this context.",
     });
@@ -2300,7 +2300,7 @@ describe("grouped chat rendering", () => {
         {
           showReasoning: true,
           showToolCalls: true,
-          assistantName: "OpenClaw",
+          assistantName: "HSMA",
           userId: "profile-1",
           userName: "Fuller Stack",
           showAvatarGutter: true,
@@ -2337,7 +2337,7 @@ describe("grouped chat rendering", () => {
         {
           showReasoning: true,
           showToolCalls: true,
-          assistantName: "OpenClaw",
+          assistantName: "HSMA",
           showAvatarGutter: false,
         },
       ),
@@ -2371,7 +2371,7 @@ describe("grouped chat rendering", () => {
       renderMessageGroup(group, {
         showReasoning: true,
         showToolCalls: true,
-        assistantName: "OpenClaw",
+        assistantName: "HSMA",
         showAvatarGutter: false,
       }),
       container,
@@ -2409,7 +2409,7 @@ describe("grouped chat rendering", () => {
       renderMessageGroup(group, {
         showReasoning: true,
         showToolCalls: true,
-        assistantName: "OpenClaw",
+        assistantName: "HSMA",
       }),
       container,
     );
@@ -2437,12 +2437,12 @@ describe("grouped chat rendering", () => {
       container,
       createAssistantMessage("hello", { timestamp: 1000 }),
       "assistant",
-      { assistantName: "OpenClaw", userName: "Fuller Stack" },
+      { assistantName: "HSMA", userName: "Fuller Stack" },
     );
 
     expect(
       container.querySelector<HTMLElement>(".chat-group.assistant .chat-sender-name")?.textContent,
-    ).toBe("OpenClaw");
+    ).toBe("HSMA");
   });
 
   it("collapses consecutive tool results into an activity group", () => {
@@ -2656,7 +2656,7 @@ describe("grouped chat rendering", () => {
       renderActivityGroup(groups, {
         showReasoning: true,
         showToolCalls: true,
-        assistantName: "OpenClaw",
+        assistantName: "HSMA",
         isToolMessageExpanded: (id) => id === "activity:tool-group-1",
       }),
       container,
@@ -4659,7 +4659,7 @@ describe("grouped chat rendering", () => {
         {
           type: "openclaw_pairing_qr",
           image_url: "data:image/png;base64,cXJwbmc=",
-          alt: "OpenClaw pairing QR code",
+          alt: "HSMA pairing QR code",
           expiresAtMs: Date.now() + 1_000,
         },
       ]),
@@ -4668,7 +4668,7 @@ describe("grouped chat rendering", () => {
 
     const image = container.querySelector<HTMLImageElement>(".chat-message-image");
     expect(image?.getAttribute("src")).toBe("data:image/png;base64,cXJwbmc=");
-    expect(image?.getAttribute("alt")).toBe("OpenClaw pairing QR code");
+    expect(image?.getAttribute("alt")).toBe("HSMA pairing QR code");
     await vi.advanceTimersByTimeAsync(999);
     expect(onRequestUpdate).not.toHaveBeenCalled();
     await vi.advanceTimersByTimeAsync(1);
@@ -4680,7 +4680,7 @@ describe("grouped chat rendering", () => {
         {
           type: "openclaw_pairing_qr",
           image_url: "data:image/png;base64,ZXhwaXJlZA==",
-          alt: "OpenClaw pairing QR code",
+          alt: "HSMA pairing QR code",
           expiresAtMs: Date.now() - 1,
         },
       ]),

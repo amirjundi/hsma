@@ -10,7 +10,7 @@ describe("exportChatMarkdown", () => {
     const createObjectURL = vi.spyOn(URL, "createObjectURL");
     const click = vi.spyOn(HTMLAnchorElement.prototype, "click");
 
-    expect(exportChatMarkdown([], "OpenClaw")).toBe("empty");
+    expect(exportChatMarkdown([], "HSMA")).toBe("empty");
     expect(createObjectURL).not.toHaveBeenCalled();
     expect(click).not.toHaveBeenCalled();
   });
@@ -26,7 +26,7 @@ describe("exportChatMarkdown", () => {
           { role: "user", content: "What can you export?", timestamp: 1_000 },
           { role: "assistant", content: "A readable conversation.", timestamp: 2_000 },
         ],
-        "OpenClaw",
+        "HSMA",
       ),
     ).toBe("downloaded");
 
@@ -34,10 +34,10 @@ describe("exportChatMarkdown", () => {
     expect(click).toHaveBeenCalledOnce();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:chat-export");
     const markdown = await (createObjectURL.mock.calls[0]![0] as Blob).text();
-    expect(markdown).toContain("# Chat with OpenClaw");
+    expect(markdown).toContain("# Chat with HSMA");
     expect(markdown).toContain("## You");
     expect(markdown).toContain("What can you export?");
-    expect(markdown).toContain("## OpenClaw");
+    expect(markdown).toContain("## HSMA");
     expect(markdown).toContain("A readable conversation.");
   });
 });

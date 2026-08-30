@@ -820,7 +820,7 @@ describe("startGatewayEventSubscriptions", () => {
     emitAgentEvent({
       runId: secondary.runId!,
       stream: "assistant",
-      data: { text: "OpenClaw runtime context (internal): Keep internal details private." },
+      data: { text: "HSMA runtime context (internal): Keep internal details private." },
     });
     await vi.advanceTimersByTimeAsync(1_000);
     const sanitizedActivity = broadcast.mock.calls.find(
@@ -830,7 +830,7 @@ describe("startGatewayEventSubscriptions", () => {
         (payload as Extract<TaskEventPayload, { action: "upserted" }>).task.id === secondary.taskId,
     )?.[1] as Extract<TaskEventPayload, { action: "upserted" }> | undefined;
     expect(sanitizedActivity?.task).not.toHaveProperty("lastActivity");
-    expect(JSON.stringify(sanitizedActivity)).not.toContain("OpenClaw runtime context");
+    expect(JSON.stringify(sanitizedActivity)).not.toContain("HSMA runtime context");
 
     broadcast.mockClear();
     emitAgentEvent({

@@ -705,7 +705,7 @@ describe("terminal resolution", () => {
       toolMetas: [{ toolName: "write", toolCallId: "tool-1", replaySafe: false }],
       itemLifecycle: { startedCount: 1, completedCount: 1, activeCount: 0 },
       messagesSnapshot: [
-        { role: "user", content: [{ type: "text", text: "[OpenClaw heartbeat poll]" }] },
+        { role: "user", content: [{ type: "text", text: "[HSMA heartbeat poll]" }] },
         toolUseAssistant,
         { role: "toolResult", toolCallId: "tool-1", toolName: "write", isError: false },
         silentAssistant,

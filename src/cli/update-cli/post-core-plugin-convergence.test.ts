@@ -264,7 +264,7 @@ describe("runPostCorePluginConvergence", () => {
       onPackageReadError: expect.any(Function),
     });
     expect(result.changes).toEqual([
-      "Repaired OpenClaw host peer link(s) for 1 managed npm plugin package(s).",
+      "Repaired HSMA host peer link(s) for 1 managed npm plugin package(s).",
     ]);
     expect(
       mocks.relinkOpenClawPeerDependenciesInManagedNpmRoot.mock.invocationCallOrder[0],
@@ -639,7 +639,7 @@ describe("runPostCorePluginConvergence", () => {
     const message =
       'Plugin "brave" failed post-core payload smoke check (unreadable-package-json): Could not read package.json at /p/brave/package.json: EACCES: permission denied';
     const guidance = [
-      "Fix file access for /p/brave/package.json so it is readable by the user running OpenClaw. For EACCES or EPERM, correct its ownership or permissions; otherwise resolve the reported filesystem I/O error, then retry.",
+      "Fix file access for /p/brave/package.json so it is readable by the user running HSMA. For EACCES or EPERM, correct its ownership or permissions; otherwise resolve the reported filesystem I/O error, then retry.",
       "Run `openclaw plugins inspect brave --runtime --json` for details.",
     ];
     expect(result.warnings).toStrictEqual([
@@ -802,8 +802,8 @@ describe("runPostCorePluginConvergence", () => {
 
     expect(result.warnings).toStrictEqual([
       {
-        reason: "Failed to repair managed npm OpenClaw host peer links: EACCES: permission denied",
-        message: "Failed to repair managed npm OpenClaw host peer links: EACCES: permission denied",
+        reason: "Failed to repair managed npm HSMA host peer links: EACCES: permission denied",
+        message: "Failed to repair managed npm HSMA host peer links: EACCES: permission denied",
         guidance: ["Run `openclaw update repair` to retry plugin repair."],
       },
     ]);

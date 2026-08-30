@@ -130,7 +130,7 @@ describeControlUiE2e("Control UI composer pointer controls", () => {
     });
     const page = await context.newPage();
     const gateway = await installMockGateway(page, {
-      assistantName: "OpenClaw",
+      assistantName: "HSMA",
       deferredMethods: ["chat.send"],
     });
 
@@ -216,7 +216,7 @@ describeControlUiE2e("Control UI composer pointer controls", () => {
     });
     const page = await context.newPage();
     const gateway = await installMockGateway(page, {
-      assistantName: "OpenClaw",
+      assistantName: "HSMA",
       deferredMethods: ["chat.send"],
     });
 
@@ -294,7 +294,7 @@ describeControlUiE2e("Control UI composer pointer controls", () => {
     });
     const page = await context.newPage();
     const gateway = await installMockGateway(page, {
-      assistantName: "OpenClaw",
+      assistantName: "HSMA",
       deferredMethods: ["chat.send"],
     });
 
@@ -375,7 +375,7 @@ describeControlUiE2e("Control UI composer pointer controls", () => {
       viewport: { width: 393, height: 852 },
     });
     const page = await context.newPage();
-    const gateway = await installMockGateway(page, { assistantName: "OpenClaw" });
+    const gateway = await installMockGateway(page, { assistantName: "HSMA" });
 
     try {
       await page.goto(`${server.baseUrl}chat`);

@@ -12,7 +12,7 @@ export function sessionParticipantsSchemaSql(): string {
   const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_START);
   const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw session participant schema markers are missing.");
+    throw new Error("HSMA session participant schema markers are missing.");
   }
   return OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end);
 }

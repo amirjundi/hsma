@@ -82,7 +82,7 @@ function buildRestrictedFinalizationAttempt(
 export function createOpenClawAgentHarness(): AgentHarnessV2 {
   const harness: AgentHarnessV2 = {
     id: "openclaw",
-    label: "OpenClaw embedded agent",
+    label: "HSMA embedded agent",
     contextEngineHostCapabilities: OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST.capabilities,
     supports: () => ({ supported: true, priority: 0 }),
     runAttempt: (params) => runEmbeddedAttempt(params as EmbeddedRunAttemptParams),

@@ -71,7 +71,7 @@ describe("OpenAI runtime routing policy", () => {
     ["provider-native thinking", { thinking: { type: "enabled", budget_tokens: 2_048 } }],
     ["invalid fast mode", { fastMode: { enabled: true } }],
     ["invalid fast cutoff", { fastAutoOnSeconds: "30" }],
-  ])("keeps %s values on the OpenClaw runtime", (_label, params) => {
+  ])("keeps %s values on the HSMA runtime", (_label, params) => {
     const config = {
       agents: {
         defaults: {
@@ -140,7 +140,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toBe("openclaw");
   });
 
-  it("fails closed to OpenClaw when the provider artifact is unavailable", () => {
+  it("fails closed to HSMA when the provider artifact is unavailable", () => {
     vi.stubEnv("OPENCLAW_DISABLE_BUNDLED_PLUGINS", "1");
     expect(resolveOpenAIImplicitAgentRuntime({ provider: "openai", modelId: "gpt-5.5" })).toBe(
       "openclaw",
@@ -248,7 +248,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toBe(false);
   });
 
-  it("honors the deprecated whole-agent OpenClaw runtime opt-out", () => {
+  it("honors the deprecated whole-agent HSMA runtime opt-out", () => {
     const config = {
       agents: {
         defaults: { agentRuntime: { id: "openclaw" } },
@@ -266,7 +266,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toBe(false);
   });
 
-  it("keeps per-model Codex policy above the whole-agent OpenClaw opt-out", () => {
+  it("keeps per-model Codex policy above the whole-agent HSMA opt-out", () => {
     const config = {
       agents: {
         defaults: {
@@ -281,7 +281,7 @@ describe("OpenAI runtime routing policy", () => {
     expect(modelSelectionShouldEnsureCodexPlugin({ model: "openai/gpt-5.5", config })).toBe(true);
   });
 
-  it("keeps per-model auto policy above the whole-agent OpenClaw opt-out", () => {
+  it("keeps per-model auto policy above the whole-agent HSMA opt-out", () => {
     const config = {
       agents: {
         defaults: {
@@ -342,7 +342,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toBe("openai");
   });
 
-  it("keeps explicit OpenClaw plus Codex auth profile under the unified OpenAI provider", () => {
+  it("keeps explicit HSMA plus Codex auth profile under the unified OpenAI provider", () => {
     // OpenAI auth now stays canonical even when the runtime is not Codex.
     expect(
       listOpenAIAuthProfileProvidersForAgentRuntime({
@@ -410,7 +410,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toEqual(["openai"]);
   });
 
-  it("keeps explicit OpenAI OpenClaw API-key auth order ahead of Codex backups", () => {
+  it("keeps explicit OpenAI HSMA API-key auth order ahead of Codex backups", () => {
     const config = {
       auth: {
         order: {
@@ -435,7 +435,7 @@ describe("OpenAI runtime routing policy", () => {
     ).toBe("openai");
   });
 
-  it("does not route custom OpenAI-compatible OpenClaw configs through Codex auth order", () => {
+  it("does not route custom OpenAI-compatible HSMA configs through Codex auth order", () => {
     const config = {
       models: {
         providers: {

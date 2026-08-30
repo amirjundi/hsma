@@ -11,7 +11,7 @@ const fixture = fileURLToPath(
   new URL("./update-finalization-output.test-support.ts", import.meta.url),
 );
 const doctorDiagnostics = [
-  "OpenClaw doctor",
+  "HSMA doctor",
   "Doctor panel diagnostic",
   "Doctor workspace diagnostic",
   "Doctor console diagnostic",

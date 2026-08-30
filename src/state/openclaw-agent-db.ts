@@ -183,7 +183,7 @@ function logSlowAgentDatabaseOpen(params: {
   if (params.elapsedMs < OPENCLAW_AGENT_DB_SLOW_OPEN_MS) {
     return;
   }
-  agentDbLog.warn("slow OpenClaw agent database open", {
+  agentDbLog.warn("slow HSMA agent database open", {
     agentId: params.agentId,
     elapsedMs: params.elapsedMs,
     path: params.path,
@@ -239,7 +239,7 @@ export function openOpenClawAgentDatabase(
     }
     if (cached.agentId !== agentId) {
       throw new Error(
-        `OpenClaw agent database ${pathname} is already open for agent ${cached.agentId}; requested agent ${agentId}.`,
+        `HSMA agent database ${pathname} is already open for agent ${cached.agentId}; requested agent ${agentId}.`,
       );
     }
     cachedDatabases.delete(pathname);
@@ -504,7 +504,7 @@ function evictLruAgentDatabaseHandles(): void {
       closeCachedOpenClawAgentDatabase(database, { eviction: true });
       cachedDatabases.delete(pathname);
       cachedDatabaseOpenFailures.delete(pathname);
-      agentDbLog.debug("evicted OpenClaw agent database handle", {
+      agentDbLog.debug("evicted HSMA agent database handle", {
         agentId: database.agentId,
         openHandles: cachedDatabases.size,
         path: pathname,
@@ -549,7 +549,7 @@ export function getOpenClawAgentDatabaseIfOpen(
   }
   if (database.agentId !== agentId) {
     throw new Error(
-      `OpenClaw agent database ${pathname} is already open for agent ${database.agentId}; requested agent ${agentId}.`,
+      `HSMA agent database ${pathname} is already open for agent ${database.agentId}; requested agent ${agentId}.`,
     );
   }
   return database;

@@ -179,7 +179,7 @@ describe("skills.detail handler", () => {
       },
       owner: {
         handle: "openclaw",
-        displayName: "OpenClaw",
+        displayName: "HSMA",
       },
     };
     fetchClawHubSkillDetailMock.mockResolvedValue(detail);

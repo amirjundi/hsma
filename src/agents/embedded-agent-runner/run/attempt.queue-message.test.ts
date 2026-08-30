@@ -45,7 +45,7 @@ function steerWithDeliveryWait(
   });
 }
 
-describe("embedded OpenClaw queued steering cancellation", () => {
+describe("embedded HSMA queued steering cancellation", () => {
   it("keeps a claimed harness secret out of the session transcript", async () => {
     const secretValue = "test-secret-value-123";
     const sessionKey = "agent:main:secret-transcript";

@@ -450,9 +450,7 @@ export function formatDocumentTitle(options: {
   gatewayDisconnected?: boolean;
   queuedCount?: number;
 }): string {
-  const base = options.context.endsWith("OpenClaw")
-    ? options.context
-    : `${options.context} — OpenClaw`;
+  const base = options.context.endsWith("HSMA") ? options.context : `${options.context} — HSMA`;
   if (options.gatewayDisconnected) {
     const queued =
       options.queuedCount && options.queuedCount > 0
@@ -468,7 +466,7 @@ export function formatDocumentTitle(options: {
 
 export function settingsNavigationLabelForRoute(routeId: NavigationRouteId): string {
   if (routeId === "custodian") {
-    return t("nav.askOpenClaw");
+    return t("nav.askHSMA");
   }
   return titleForRoute(routeId);
 }

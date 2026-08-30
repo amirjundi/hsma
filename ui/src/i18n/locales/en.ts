@@ -478,7 +478,7 @@ export const en: TranslationMap = {
     errorTitle: "Panel failed to load",
     genericSubtitle: "Something went wrong while loading this panel.",
     staleTitle: "A new version is available",
-    staleSubtitle: "OpenClaw was updated in the background. Reload to get the latest panel.",
+    staleSubtitle: "HSMA was updated in the background. Reload to get the latest panel.",
     reloading: "Reloading…",
     retry: "Retry",
     stylesFailed: "Styles failed to load, so the page may look broken.",
@@ -496,7 +496,7 @@ export const en: TranslationMap = {
     confirm: {
       message: "Installs the available update on the connected Gateway and restarts it.",
       macMessage:
-        "Hands this update to the OpenClaw Mac app, which installs it and restarts the Gateway it manages.",
+        "Hands this update to the HSMA Mac app, which installs it and restarts the Gateway it manages.",
       impact:
         "Running sessions are interrupted and this Control UI disconnects until the Gateway is back.",
       versions: "Installed {installed} · Available {available}",
@@ -548,7 +548,7 @@ export const en: TranslationMap = {
       installKind: "Install type",
       policyTitle: "Update policy",
       channel: "Release channel",
-      channelDescription: "Choose which OpenClaw release track this Gateway follows.",
+      channelDescription: "Choose which HSMA release track this Gateway follows.",
       automaticUpdates: "Automatic updates",
       automaticUpdatesDescription:
         "Schedule available updates automatically. Dev auto-updates apply to git checkouts.",
@@ -604,8 +604,7 @@ export const en: TranslationMap = {
       noUpstream: "Set an upstream branch, then retry.",
       notGitInstall:
         "Not a git checkout. Run `openclaw update` from the CLI for a global reinstall.",
-      notOpenclawRoot:
-        "Run the update from an OpenClaw checkout or use the CLI global reinstall path.",
+      notOpenclawRoot: "Run the update from an HSMA checkout or use the CLI global reinstall path.",
       depsInstallFailed: "Dependency install failed. Fix the install error and retry.",
       buildFailed: "Build failed. Fix the build error and retry.",
       buildDirty:
@@ -672,7 +671,7 @@ export const en: TranslationMap = {
       failed: "Could not create a setup code.",
       statusFailed: "Could not verify whether pairing completed.",
       loadFailed: "Could not load the pairing dialog. Check your connection and try again.",
-      qrAlt: "OpenClaw mobile pairing QR code",
+      qrAlt: "HSMA mobile pairing QR code",
       qrUnavailable: "QR unavailable. Copy the setup code instead.",
       copySetupCode: "Copy setup code",
       nodeExpiresIn: "This setup link expires in {time}.",
@@ -681,7 +680,7 @@ export const en: TranslationMap = {
       showSetupCode: "Show setup code",
       pending: "Device requests waiting for review: {count}",
       review: "Review",
-      waiting: "Official OpenClaw mobile apps connect automatically after scanning.",
+      waiting: "Official HSMA mobile apps connect automatically after scanning.",
       pairedTitle: "Device paired",
       deliveryUncertainTitle: "Pairing delivery could not be confirmed",
       deliveryUncertainHint:
@@ -853,7 +852,7 @@ export const en: TranslationMap = {
     ownerSession: "Session",
     ownerWorkboard: "Workboard",
     title: "Managed Worktrees",
-    subtitle: "Isolated repository checkouts owned by OpenClaw.",
+    subtitle: "Isolated repository checkouts owned by HSMA.",
     cleanNow: "Clean up now",
     name: "Name",
     repo: "Repository",
@@ -1018,7 +1017,7 @@ export const en: TranslationMap = {
       "owner-mismatch": "owned elsewhere",
       busy: "live run or cleanup active",
       "foreign-lock": "foreign Git lock",
-      "snapshot-failed": "OpenClaw could not create a safety snapshot",
+      "snapshot-failed": "HSMA could not create a safety snapshot",
       "cleanup-failed": "cleanup failed",
     },
     draftCleanupFailed: "Session deleted; browser draft remains. Clear site data.",
@@ -1207,7 +1206,7 @@ export const en: TranslationMap = {
     moveSessionTitle: "Move session",
     moveSessionDescription: 'Choose where "{session}" should continue.',
     moveSessionNoReplayWarning:
-      "OpenClaw safely reconciles the current workspace before moving. Active work is never replayed.",
+      "HSMA safely reconciles the current workspace before moving. Active work is never replayed.",
     moveSessionActiveRunWarning:
       "The active turn will be interrupted. Partial output is not replayed; send the next turn again after the move.",
     moveSessionAction: "Move session",
@@ -1859,7 +1858,7 @@ export const en: TranslationMap = {
       title: "Push notifications",
       nativeTitle: "Notifications",
       hint: "Receive browser push notifications from your gateway.",
-      nativeHint: "Notifications are shown natively by the OpenClaw app on this Mac.",
+      nativeHint: "Notifications are shown natively by the HSMA app on this Mac.",
       unavailableHint: "Not available in this browser.",
       unavailable: "Unavailable",
       checking: "Checking...",
@@ -1888,7 +1887,7 @@ export const en: TranslationMap = {
       blockedHint:
         "Notifications are blocked. Update your browser site permissions to allow notifications.",
       nativeBlockedHint:
-        "Notifications are disabled for OpenClaw in macOS. Allow them in System Settings > Notifications.",
+        "Notifications are disabled for HSMA in macOS. Allow them in System Settings > Notifications.",
     },
     appearance: {
       intro: "Theme, chat, and sidebar preferences for this Control UI client.",
@@ -1901,7 +1900,7 @@ export const en: TranslationMap = {
         themeDefault: "Theme default",
         themeFace: "{theme} · {face}",
         system: "System",
-        previewCaption: "OpenClaw · A little clarity goes a long way",
+        previewCaption: "HSMA · A little clarity goes a long way",
         previewProse:
           "Good typography makes room for the conversation. Choose a face that feels comfortable to read.",
         previewCode: 'const greeting = "Hello, world!";',
@@ -2081,7 +2080,7 @@ export const en: TranslationMap = {
     },
   },
   approvalPage: {
-    brandName: "OpenClaw",
+    brandName: "HSMA",
     eyebrow: "Operator approval",
     loadingTitle: "Loading approval",
     loadingDescription: "Checking the current approval state with the Gateway.",
@@ -2090,7 +2089,7 @@ export const en: TranslationMap = {
       "This approval could not be found or this device is not authorized to review it.",
     connectionErrorTitle: "Connection interrupted",
     connectionErrorDescription:
-      "OpenClaw cannot confirm or record a decision while disconnected. Reconnect to check the current status.",
+      "HSMA cannot confirm or record a decision while disconnected. Reconnect to check the current status.",
     retry: "Retry",
     execTitle: "Command approval",
     pending: "Waiting for your decision",
@@ -2375,7 +2374,7 @@ export const en: TranslationMap = {
     back: "Back",
     forward: "Forward",
     settings: "Settings",
-    askOpenClaw: "Ask OpenClaw",
+    askHSMA: "Ask HSMA",
     settingsGroupConnections: "Connections",
     settingsGroupAgents: "Agents & Tools",
     settingsGroupSecurity: "Privacy & Security",
@@ -2570,7 +2569,7 @@ export const en: TranslationMap = {
     cloudWorkers: "Cloud workers",
     chat: "Chat",
     dashboards: "Dashboards",
-    custodian: "OpenClaw",
+    custodian: "HSMA",
     profile: "Profile",
     communications: "Communications",
     appearance: "Appearance",
@@ -2675,7 +2674,7 @@ export const en: TranslationMap = {
       idleTimeoutHelp: "Stop an unused worker after this positive Go duration.",
       idleTimeoutPlaceholder: "45m",
       setup: "Setup command",
-      setupHelp: "Optional idempotent shell command run before OpenClaw is installed.",
+      setupHelp: "Optional idempotent shell command run before HSMA is installed.",
       setupPlaceholder: "command -v node || install-node",
       desktop: "Desktop",
       desktopHelp:
@@ -2726,15 +2725,15 @@ export const en: TranslationMap = {
     missingAuth: "No provider credential is configured for this model. Set it up in Model Setup.",
     heading: "Connect a verified AI model",
     intro:
-      "OpenClaw checks the AI access available on this Gateway and verifies the exact model before it enables conversations.",
+      "HSMA checks the AI access available on this Gateway and verifies the exact model before it enables conversations.",
     required: {
       title: "No AI provider configured",
-      body: "We couldn't find a provider and model configured for this agent. Choose a supported connection; OpenClaw will test it before enabling chat.",
+      body: "We couldn't find a provider and model configured for this agent. Choose a supported connection; HSMA will test it before enabling chat.",
       action: "Connect an AI provider",
     },
     connectionFailure: {
       title: "Configured AI needs attention",
-      body: "OpenClaw found the provider and model selected for this agent, but the live check failed. Your configuration is still intact. Review the credential, model access, or provider status, then verify again.",
+      body: "HSMA found the provider and model selected for this agent, but the live check failed. Your configuration is still intact. Review the credential, model access, or provider status, then verify again.",
       action: "Review connection",
     },
     loading: "Checking this Gateway for available AI access…",
@@ -2753,7 +2752,7 @@ export const en: TranslationMap = {
     },
     access: {
       adminRequired: "Model setup requires operator.admin access.",
-      gatewayTooOld: "The Gateway is running an older OpenClaw version",
+      gatewayTooOld: "The Gateway is running an older HSMA version",
     },
     candidates: {
       title: "Found on this Gateway",
@@ -2800,12 +2799,12 @@ export const en: TranslationMap = {
       accessValueFor: "{provider} API key or token",
       accessValuePlaceholder: "Paste an API key or token",
       connectAndVerify: "Connect & verify",
-      verifyHint: "OpenClaw verifies a real model reply before marking the connection ready.",
+      verifyHint: "HSMA verifies a real model reply before marking the connection ready.",
       required: "Choose a provider and enter an API key or token.",
     },
     success: {
       title: "Connection verified",
-      body: "OpenClaw received a real reply from {modelRef}. You can start chatting now.",
+      body: "HSMA received a real reply from {modelRef}. You can start chatting now.",
       activeModel: "Active model",
       latency: "Verified in {latencyMs} ms",
       openChat: "Start chatting",
@@ -2887,13 +2886,13 @@ export const en: TranslationMap = {
     confirmDescription: "Copy {count} selected memory files into this agent workspace.",
     confirmReplace:
       "Existing destination files will be backed up in the migration report before replacement.",
-    confirmBackup: "OpenClaw creates a verified pre-import backup before copying memory.",
+    confirmBackup: "HSMA creates a verified pre-import backup before copying memory.",
     confirmImport: "Import memory",
     disconnected: "Connect to the gateway to import memory.",
     adminRequired: "Memory import requires operator.admin access.",
     title: "Import assistant memory",
     subtitle:
-      "Review Codex consolidated memory and Claude Code auto-memory before copying it into OpenClaw.",
+      "Review Codex consolidated memory and Claude Code auto-memory before copying it into HSMA.",
     agent: "Destination agent",
     replaceExisting: "Replace existing imports",
     replaceHint: "Preview conflicts again and preserve item backups before replacement.",
@@ -2934,7 +2933,7 @@ export const en: TranslationMap = {
   onboarding: {
     memoryImport: {
       title: "Bring your monitoring history with you",
-      body: "OpenClaw found memory from other coding assistants. Import it into your agent workspace?",
+      body: "HSMA found memory from other coding assistants. Import it into your agent workspace?",
       plannedCount: "{count} ready to import",
       alreadyImported: "Already imported: {count}",
       sourceUnavailable: "Source path unavailable",
@@ -2949,34 +2948,33 @@ export const en: TranslationMap = {
       connectionChanged: "Skipped: the Gateway connection changed during the import",
       unknownError: "Request failed",
       doneTitle: "Memory import finished",
-      doneBody: "Migrated {migrated}, skipped {skipped}. You can continue setting up OpenClaw.",
+      doneBody: "Migrated {migrated}, skipped {skipped}. You can continue setting up HSMA.",
     },
   },
   custodian: {
-    title: "OpenClaw",
+    title: "HSMA",
     subtitleCaretaker: "System setup and care.",
     exitSetup: "Exit setup",
     newAgent: "New agent",
     hatchDraft: "Wake up, my friend!",
-    placeholder: "Message OpenClaw…",
+    placeholder: "Message HSMA…",
     sensitivePlaceholder: "Enter sensitive value…",
     sensitiveReply: "Sensitive reply sent",
     cancel: "Cancel",
     send: "Send",
-    thinking: "OpenClaw is thinking",
+    thinking: "HSMA is thinking",
     earlier: "Earlier",
-    requestFailed: "OpenClaw could not reply. Try again.",
+    requestFailed: "HSMA could not reply. Try again.",
     connectionChanged: "The Gateway connection changed. Retry to continue this setup.",
-    sessionRestarted:
-      "{error} OpenClaw started a fresh session; earlier messages remain for context.",
-    unsupportedGateway: "Update the Gateway to continue setup with OpenClaw.",
+    sessionRestarted: "{error} HSMA started a fresh session; earlier messages remain for context.",
+    unsupportedGateway: "Update the Gateway to continue setup with HSMA.",
     panel: {
-      title: "OpenClaw",
-      toggle: "Toggle Ask OpenClaw",
-      close: "Close Ask OpenClaw",
-      resize: "Resize Ask OpenClaw",
-      dockBottom: "Dock Ask OpenClaw at bottom",
-      dockRight: "Dock Ask OpenClaw at right",
+      title: "HSMA",
+      toggle: "Toggle Ask HSMA",
+      close: "Close Ask HSMA",
+      resize: "Resize Ask HSMA",
+      dockBottom: "Dock Ask HSMA at bottom",
+      dockRight: "Dock Ask HSMA at right",
     },
     history: {
       button: "History",
@@ -2984,7 +2982,7 @@ export const en: TranslationMap = {
       description: "What changed on this system, newest first.",
       loading: "Loading recent changes…",
       empty: "No recorded changes yet.",
-      requestFailed: "OpenClaw could not load change history.",
+      requestFailed: "HSMA could not load change history.",
       loadMore: "Load more",
       loadingMore: "Loading more…",
       changedPaths: "Changed paths ({count})",
@@ -3007,9 +3005,9 @@ export const en: TranslationMap = {
       channelDegraded: "{channel} is degraded — ask me what happened",
       channelFallback: "A channel",
       dismiss: "Dismiss this update",
-      channelSetupTitle: "Reach OpenClaw outside this app",
+      channelSetupTitle: "Reach HSMA outside this app",
       channelSetupBody:
-        "The web app already works. Add a channel only if you want to message OpenClaw from another service.",
+        "The web app already works. Add a channel only if you want to message HSMA from another service.",
       channelSetupAction: "Set up a channel",
       channelSetupDismiss: "Keep using the web app",
       channelStatusErrorTitle: "Channel status is unavailable",
@@ -3047,7 +3045,7 @@ export const en: TranslationMap = {
     working: "Working…",
   },
   mcpPage: {
-    intro: "Connect and manage MCP servers that provide tools to OpenClaw.",
+    intro: "Connect and manage MCP servers that provide tools to HSMA.",
     servers: "Servers",
     oauth: "OAuth",
     filtered: "Filtered",
@@ -3102,7 +3100,7 @@ export const en: TranslationMap = {
     },
   },
   memoryPage: {
-    intro: "Choose how OpenClaw stores, searches, and maintains agent memory.",
+    intro: "Choose how HSMA stores, searches, and maintains agent memory.",
     tablistLabel: "Memory sections",
     tabs: {
       overview: "Overview",
@@ -3196,7 +3194,7 @@ export const en: TranslationMap = {
       description:
         "Exactly one memory plugin owns the memory slot. Selecting an engine enables it and disables the others.",
       rowTitle: "Memory engine",
-      openClawMemory: "OpenClaw Memory",
+      openClawMemory: "HSMA Memory",
       off: "Off",
       unavailable: "Unavailable",
       autoHint: "No engine is pinned in config, so the slot falls back to its default owner.",
@@ -3393,7 +3391,7 @@ export const en: TranslationMap = {
       notes: "Capture notes to Markdown, Obsidian, Notion, or Bear.",
     },
     noInstalledTitle: "No optional plugins installed",
-    noInstalledBody: "Discover a featured plugin or search ClawHub to extend OpenClaw.",
+    noInstalledBody: "Discover a featured plugin or search ClawHub to extend HSMA.",
     noInstalledMatchTitle: "No installed plugins match",
     noMatchBody: "Try a different search.",
     filterAll: "All",
@@ -3428,7 +3426,7 @@ export const en: TranslationMap = {
     capabilities: "Capabilities",
     offlineTitle: "Gateway offline",
     offlineBody: "Connect to browse installed and recommended plugins.",
-    optionalCapability: "Optional OpenClaw capability.",
+    optionalCapability: "Optional HSMA capability.",
     enabled: "Enabled",
     disabled: "Disabled",
     available: "Available",
@@ -3523,7 +3521,7 @@ export const en: TranslationMap = {
     },
   },
   aboutPage: {
-    productName: "OpenClaw",
+    productName: "HSMA",
     tagline: "Hate speech monitoring for Arabic and Kurdish social media.",
     waveHello: "Wave hello to Clawd",
     linksLabel: "Community and resources",
@@ -3533,7 +3531,7 @@ export const en: TranslationMap = {
     linkDiscord: "Discord",
     linkX: "X (Twitter)",
     linkChangelog: "Changelog",
-    license: "© 2026 OpenClaw Foundation — MIT License.",
+    license: "© 2026 HSMA Foundation — MIT License.",
     artifactTitle: "Control UI",
     artifactSubtitle: "Identity embedded when this browser artifact was built.",
     artifactDetails: "Control UI build details",
@@ -3552,7 +3550,7 @@ export const en: TranslationMap = {
       "Reported by the active Gateway connection; separate from this Control UI build.",
   },
   appsPage: {
-    heroTitle: "Take OpenClaw everywhere",
+    heroTitle: "Take HSMA everywhere",
     heroTagline:
       "Companion apps for your phone, watch, desktop, and browser — plus plugins to extend what your agent can do.",
     sectionMobile: "On your phone",
@@ -3577,11 +3575,11 @@ export const en: TranslationMap = {
     cards: {
       ios: {
         title: "iPhone",
-        desc: "Chat, talk, approve actions, and share into OpenClaw from iOS.",
+        desc: "Chat, talk, approve actions, and share into HSMA from iOS.",
       },
       android: {
         title: "Android",
-        desc: "Your Android phone as a full OpenClaw device — chat, camera, and Canvas.",
+        desc: "Your Android phone as a full HSMA device — chat, camera, and Canvas.",
       },
       appleWatch: {
         title: "Apple Watch",
@@ -3589,7 +3587,7 @@ export const en: TranslationMap = {
       },
       wearOs: {
         title: "Wear OS",
-        desc: "The Android companion extends OpenClaw to your watch.",
+        desc: "The Android companion extends HSMA to your watch.",
       },
       macos: {
         title: "macOS",
@@ -3597,7 +3595,7 @@ export const en: TranslationMap = {
       },
       windows: {
         title: "Windows",
-        desc: "The Windows companion connects your PC as an OpenClaw device.",
+        desc: "The Windows companion connects your PC as an HSMA device.",
       },
       linux: {
         title: "Linux",
@@ -3605,11 +3603,11 @@ export const en: TranslationMap = {
       },
       chrome: {
         title: "Chrome extension",
-        desc: "Let OpenClaw drive your existing Chrome — tabs, pages, and forms.",
+        desc: "Let HSMA drive your existing Chrome — tabs, pages, and forms.",
       },
       plugins: {
         title: "Plugins & ClawHub",
-        desc: "Extend OpenClaw with channels, tools, and skills from the community.",
+        desc: "Extend HSMA with channels, tools, and skills from the community.",
       },
     },
   },
@@ -3908,7 +3906,7 @@ export const en: TranslationMap = {
     selfLearning: {
       pitchTitle: "Turn on self-learning",
       pitchBody:
-        "OpenClaw reviews corrections and substantial completed runs, then applies scanner-approved skills and shows them on this board. Experience review spends extra background tokens.",
+        "HSMA reviews corrections and substantial completed runs, then applies scanner-approved skills and shows them on this board. Experience review spends extra background tokens.",
       enable: "Enable self-learning",
       enabling: "Enabling…",
       updateError: "Could not update the self-learning setting.",
@@ -4395,8 +4393,8 @@ export const en: TranslationMap = {
     },
   },
   attention: {
-    custodianAlertAria: "Ask OpenClaw, {count} undismissed alert",
-    custodianAlertsAria: "Ask OpenClaw, {count} undismissed alerts",
+    custodianAlertAria: "Ask HSMA, {count} undismissed alert",
+    custodianAlertsAria: "Ask HSMA, {count} undismissed alerts",
     cronErrorUnknown: "Unknown error",
     cronFailed: "{job} failed",
     cronOverdue: "{job} overdue",
@@ -4833,7 +4831,7 @@ export const en: TranslationMap = {
       heading: "Connect a verified AI model",
       signedInNoModels:
         "You're signed in, but this account exposes no usable models. Choose another provider or account to continue.",
-      notConfigured: "Choose a provider and verify the model OpenClaw will use.",
+      notConfigured: "Choose a provider and verify the model HSMA will use.",
       noModels: "No models available",
       modelRequired: "Model required",
       chooseProvider: "Choose another provider",
@@ -5246,8 +5244,7 @@ export const en: TranslationMap = {
           "Reopen the served dashboard with openclaw dashboard so the UI and Gateway come from the same install.",
         stepDevUi:
           "If using pnpm ui:dev, rebuild or restart the dev UI against the current checkout.",
-        stepRestart:
-          "Restart the Gateway after updating OpenClaw so it serves the current protocol.",
+        stepRestart: "Restart the Gateway after updating HSMA so it serves the current protocol.",
       },
       network: {
         title: "Could not connect",
@@ -5497,7 +5494,7 @@ export const en: TranslationMap = {
       remoteViewOnly: "This session is on a paired device and is view-only.",
       unsupportedViewOnly: "This external session source is view-only.",
       sessionMenu: "External session actions",
-      openInOpenClaw: "Open in OpenClaw",
+      openInHSMA: "Open in HSMA",
       openInTerminal: "Open in terminal",
       terminalUnavailable: "Terminal opening is unavailable for this session.",
     },
@@ -5570,7 +5567,7 @@ export const en: TranslationMap = {
     followUpModeOverriding: "Overriding server default ({mode})",
     followUpModeReset: "Reset to server default",
     catalogOpenTarget: "Open external sessions in",
-    catalogOpenTargetViewer: "OpenClaw viewer",
+    catalogOpenTargetViewer: "HSMA viewer",
     catalogOpenTargetTerminal: "Terminal",
     onboardingDisabled: "Disabled during setup",
     commandPaletteTitle: "Search or jump to… (⌘K)",
@@ -5602,7 +5599,7 @@ export const en: TranslationMap = {
       titleOne: "1 cloud workspace conflict",
       titleMany: "{count} cloud workspace conflicts",
       description:
-        "OpenClaw kept your local versions and applied the other cloud changes. Inspect the staged result or take its version for a conflicted path.",
+        "HSMA kept your local versions and applied the other cloud changes. Inspect the staged result or take its version for a conflicted path.",
       summary: "Local versions kept; inspect or take the cloud version.",
       showCommands: "Show commands",
       morePaths: "+{count} more paths",
@@ -5615,7 +5612,7 @@ export const en: TranslationMap = {
       commandHelp:
         "Run these in Bash or zsh (Git Bash on Windows). If inspect says the path does not exist, the cloud deleted it; verify and remove the local path manually. If checkout reports a file/directory conflict, move or remove the blocking local path, then retry. If the staged ref is missing, the notice is stale; do not change the local path.",
       commandsUnavailable:
-        "This filename contains terminal control characters, so OpenClaw will not build a copyable shell command for it. Inspect the staged ref directly and enter the path manually with care.",
+        "This filename contains terminal control characters, so HSMA will not build a copyable shell command for it. Inspect the staged ref directly and enter the path manually with care.",
       dismiss: "Dismiss workspace conflict notice",
       eventSender: "Cloud workspace",
       eventTitleOne: "Cloud result applied with 1 conflict",
@@ -6246,7 +6243,7 @@ export const en: TranslationMap = {
       video: "Video",
     },
     voice: {
-      asking: "Asking OpenClaw...",
+      asking: "Asking HSMA...",
       connecting: "Connecting voice input...",
       listening: "Listening...",
     },
@@ -6564,7 +6561,7 @@ export const en: TranslationMap = {
       filters: "Filters",
       shownOf: "{shown} of {total}",
       emptyTitle: "No automations yet",
-      emptyHint: "Describe what OpenClaw should do and when — it runs on schedule.",
+      emptyHint: "Describe what HSMA should do and when — it runs on schedule.",
       noMatching: "No automations match the current filters.",
       loadMore: "Load more",
       loading: "Loading...",
@@ -6632,7 +6629,7 @@ export const en: TranslationMap = {
     detail: {
       tabsLabel: "Automation details",
       newTitle: "New automation",
-      newSubtitle: "Describe what OpenClaw should do, then pick when it runs.",
+      newSubtitle: "Describe what HSMA should do, then pick when it runs.",
       back: "All automations",
       settingsTab: "Settings",
       historyTitle: "Run history",
@@ -6725,7 +6722,7 @@ export const en: TranslationMap = {
       descriptionPlaceholder: "Optional context for this task",
       agentPlaceholder: "main or ops",
       agentHelp: "Start typing to pick a known agent, or enter a custom one.",
-      promptPlaceholder: "Describe what OpenClaw should do...",
+      promptPlaceholder: "Describe what HSMA should do...",
       repeat: "Repeat",
       repeatInterval: "Interval",
       repeatOnce: "Once",

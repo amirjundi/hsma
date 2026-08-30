@@ -166,7 +166,7 @@ function resolveAuthChoice(
   const entry = manifestEntry ?? catalogEntry;
   if (!entry) {
     throw new Error(
-      `Promotion "${promotion.slug}" requires auth choice "${authChoiceId}", which this OpenClaw version does not know. Update OpenClaw and retry.`,
+      `Promotion "${promotion.slug}" requires auth choice "${authChoiceId}", which this HSMA version does not know. Update HSMA and retry.`,
     );
   }
   if (entry.providerId !== provider) {
@@ -203,7 +203,7 @@ function requirePromotionPlugins(
     ? `auth choice "${authChoice.entry.choiceId}"`
     : "a missing auth choice";
   throw new Error(
-    `Promotion "${promotion.slug}" requires plugin package "${unsupported[0]}", but ${authChoiceLabel} does not provide it in this OpenClaw version. Update OpenClaw and retry.`,
+    `Promotion "${promotion.slug}" requires plugin package "${unsupported[0]}", but ${authChoiceLabel} does not provide it in this HSMA version. Update HSMA and retry.`,
   );
 }
 

@@ -29,7 +29,7 @@ function requireMockArg(mock: { mock: { calls: unknown[][] } }, label: string): 
 }
 
 describe("readServiceStatusSummary", () => {
-  it("marks OpenClaw-managed services as installed", async () => {
+  it("marks HSMA-managed services as installed", async () => {
     const summary = await readServiceStatusSummary(
       createService({
         isLoaded: vi.fn(async () => true),
@@ -40,7 +40,7 @@ describe("readServiceStatusSummary", () => {
     );
 
     expect(summary.installed).toBe(true);
-    expect(summary.managedByOpenClaw).toBe(true);
+    expect(summary.managedByHSMA).toBe(true);
     expect(summary.externallyManaged).toBe(false);
     expect(summary.loadedText).toBe("enabled");
   });
@@ -54,7 +54,7 @@ describe("readServiceStatusSummary", () => {
     );
 
     expect(summary.installed).toBe(true);
-    expect(summary.managedByOpenClaw).toBe(false);
+    expect(summary.managedByHSMA).toBe(false);
     expect(summary.externallyManaged).toBe(true);
     expect(summary.loadedText).toBe("running (externally managed)");
   });
@@ -68,7 +68,7 @@ describe("readServiceStatusSummary", () => {
       );
 
       expect(summary.installed).toBe(false);
-      expect(summary.managedByOpenClaw).toBe(false);
+      expect(summary.managedByHSMA).toBe(false);
       expect(summary.externallyManaged).toBe(false);
       expect(summary.loadedText).toBe("disabled");
       expect(formatStatusServiceValue(summary)).toBe("systemd not installed");
@@ -136,7 +136,7 @@ describe("readServiceStatusSummary", () => {
         label: "systemd",
         installed: true,
         loadState: { status: "loaded" },
-        managedByOpenClaw: true,
+        managedByHSMA: true,
         externallyManaged: false,
         loadedText: "enabled",
         runtime: { status: "running", pid: 1234 },
@@ -157,7 +157,7 @@ describe("readServiceStatusSummary", () => {
         status: "unknown",
         detail: "Error: Gateway service install not supported on aix",
       });
-      expect(summary.managedByOpenClaw).toBe(false);
+      expect(summary.managedByHSMA).toBe(false);
       expect(summary.externallyManaged).toBe(false);
       expect(summary.loadedText).toBe("unknown");
       expect(summary.runtime).toEqual({

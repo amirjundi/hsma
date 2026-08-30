@@ -598,13 +598,13 @@ function stripUnsafeBlockedRunMetadata(messages: AgentMessage[]): AgentMessage[]
     if (typeof blocked.blockedAt === "number") {
       safeBlocked.blockedAt = blocked.blockedAt;
     }
-    const nextOpenClaw = {
+    const nextHSMA = {
       ...(openclaw as Record<string, unknown>),
       beforeAgentRunBlocked: safeBlocked,
     };
     changed = true;
     return Object.assign({}, message, {
-      __openclaw: nextOpenClaw,
+      __openclaw: nextHSMA,
     });
   });
   return changed ? nextMessages : messages;

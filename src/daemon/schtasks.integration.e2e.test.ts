@@ -859,7 +859,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
     try {
       await withEnvAsync(env, async () => {
         const startupFallbackProof = await proof.proveNativeStartupFallbackLaunch({ env, rootDir });
-        const defaultTaskBefore = await readTaskDefinitionSnapshot("OpenClaw Gateway");
+        const defaultTaskBefore = await readTaskDefinitionSnapshot("HSMA Gateway");
         const service = resolveGatewayService();
         const readRuntime = () => service.readRuntime(env);
 
@@ -873,7 +873,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
           programArguments,
           workingDirectory: rootDir,
           environment: { OPENCLAW_GATEWAY_PORT: String(gatewayPort) },
-          description: `OpenClaw CI Scheduled Task integration ${id}`,
+          description: `HSMA CI Scheduled Task integration ${id}`,
         });
 
         expect((await execSchtasks(["/Query", "/TN", taskName])).code).toBe(0);
@@ -976,7 +976,7 @@ describe.runIf(nativeIntegrationEnabled)("schtasks Windows integration", () => {
         await expect(fs.access(scriptPath)).rejects.toThrow();
         await expect(fs.access(launcherPath)).rejects.toThrow();
         expect(await canBindLoopbackPort(gatewayPort)).toBe(true);
-        expect(await readTaskDefinitionSnapshot("OpenClaw Gateway")).toEqual(defaultTaskBefore);
+        expect(await readTaskDefinitionSnapshot("HSMA Gateway")).toEqual(defaultTaskBefore);
         const proofPath = process.env.CI_WINDOWS_SCHTASKS_PROOF_PATH?.trim();
         if (proofPath) {
           const proofHead = process.env.CI_WINDOWS_SCHTASKS_HEAD?.trim();

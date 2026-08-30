@@ -55,7 +55,7 @@ export function renderSidebarAskOpenClawButton(params: {
     ? t(params.count === 1 ? "attention.custodianAlertAria" : "attention.custodianAlertsAria", {
         count: String(params.count),
       })
-    : t("nav.askOpenClaw");
+    : t("nav.askHSMA");
   return html`<openclaw-tooltip .content=${label}>
     <button
       type="button"
@@ -312,7 +312,7 @@ export function renderSidebarIssueItem(
   }
   const facts = item.action.kind === "askCustodian" ? item.action.alert.facts : [];
   const visibleFacts = facts.filter((fact) => fact !== item.label);
-  const actionLabel = item.action.kind === "askCustodian" ? t("nav.askOpenClaw") : item.label;
+  const actionLabel = item.action.kind === "askCustodian" ? t("nav.askHSMA") : item.label;
   const inlineAction = item.inlineAction;
   return html`<details
     class="sidebar-issues-panel__details sidebar-issues-panel__details--${item.severity}"

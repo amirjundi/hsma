@@ -7,8 +7,8 @@ export class TailscaleRouteOwnershipConflictError extends Error {
 
   constructor() {
     super(
-      "Tailscale HTTPS port 443 is already owned by a route whose ownership OpenClaw cannot prove; it was not modified. " +
-        "Inspect `tailscale serve status`. If it is a stale route from an older OpenClaw release, remove its root handler with " +
+      "Tailscale HTTPS port 443 is already owned by a route whose ownership HSMA cannot prove; it was not modified. " +
+        "Inspect `tailscale serve status`. If it is a stale route from an older HSMA release, remove its root handler with " +
         "`tailscale serve --yes --https=443 --set-path=/ off` or `tailscale funnel --yes --https=443 --set-path=/ off`, then restart the Gateway. " +
         "Otherwise disable managed Tailscale ingress or reconfigure the route before restarting.",
     );

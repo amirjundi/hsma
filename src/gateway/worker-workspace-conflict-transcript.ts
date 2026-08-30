@@ -170,7 +170,7 @@ export function createWorkerWorkspaceConflictTranscriptHandlers(
             WORKSPACE_RECOVERY_FAILURE_TRANSCRIPT_TYPE,
           );
           const error = boundedWorkerError(recovery.error, 768);
-          const content = `Cloud workspace recovery attempt failed: ${error}. OpenClaw preserved the result and will retry.`;
+          const content = `Cloud workspace recovery attempt failed: ${error}. HSMA preserved the result and will retry.`;
           if (latestRecovery?.content !== content) {
             manager.appendCustomMessageEntry(
               WORKSPACE_RECOVERY_FAILURE_TRANSCRIPT_TYPE,

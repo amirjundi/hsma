@@ -612,7 +612,7 @@ describe("validateConfigObjectRawWithPlugins channel metadata", () => {
           appId: "app-id",
           appSecret: "secret",
           replyMode: "thread",
-          footer: "OpenClaw",
+          footer: "HSMA",
         },
       },
     });

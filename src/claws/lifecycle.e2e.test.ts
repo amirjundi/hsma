@@ -9,10 +9,7 @@ import { useAutoCleanupTempDirTracker } from "../../test/helpers/temp-dir.js";
 const execFileAsync = promisify(execFile);
 const tempDirs = useAutoCleanupTempDirTracker(afterEach);
 
-async function runOpenClaw(
-  args: string[],
-  options?: { expectFailure?: boolean; stateDir?: string },
-) {
+async function runHSMA(args: string[], options?: { expectFailure?: boolean; stateDir?: string }) {
   const stateDir = options?.stateDir ?? tempDirs.make("openclaw-claws-lifecycle-e2e-");
   const env = {
     ...process.env,
@@ -66,9 +63,7 @@ describe("claws lifecycle cli e2e", () => {
   const manifestPath = "src/claws/fixtures/incident-response.claw.json";
 
   it("inspects a grouped development manifest", async () => {
-    const inspect = parseJson(
-      (await runOpenClaw(["claws", "inspect", manifestPath, "--json"])).stdout,
-    );
+    const inspect = parseJson((await runHSMA(["claws", "inspect", manifestPath, "--json"])).stdout);
 
     expect(inspect).toMatchObject({
       schemaVersion: "openclaw.clawInspect.v1",
@@ -91,7 +86,7 @@ describe("claws lifecycle cli e2e", () => {
   });
 
   it("builds a complete package-free read-only plan without network access", async () => {
-    const result = await runOpenClaw([
+    const result = await runHSMA([
       "claws",
       "add",
       "src/claws/fixtures/workspace-agent.claw.json",
@@ -121,7 +116,7 @@ describe("claws lifecycle cli e2e", () => {
   });
 
   it("preserves implicit main and creates exactly one agent after explicit consent", async () => {
-    const preview = await runOpenClaw([
+    const preview = await runHSMA([
       "claws",
       "add",
       "src/claws/fixtures/minimal-agent.claw.json",
@@ -129,7 +124,7 @@ describe("claws lifecycle cli e2e", () => {
       "--json",
     ]);
     const plan = parseJson(preview.stdout) as { planIntegrity: string };
-    const result = await runOpenClaw(
+    const result = await runHSMA(
       [
         "claws",
         "add",
@@ -165,7 +160,7 @@ describe("claws lifecycle cli e2e", () => {
   });
 
   it("creates declared bootstrap and supporting files in the new workspace", async () => {
-    const preview = await runOpenClaw([
+    const preview = await runHSMA([
       "claws",
       "add",
       "src/claws/fixtures/workspace-agent.claw.json",
@@ -173,7 +168,7 @@ describe("claws lifecycle cli e2e", () => {
       "--json",
     ]);
     const plan = parseJson(preview.stdout) as { planIntegrity: string };
-    const result = await runOpenClaw(
+    const result = await runHSMA(
       [
         "claws",
         "add",
@@ -215,7 +210,7 @@ describe("claws lifecycle cli e2e", () => {
   });
 
   it("reports and removes a Claw-created agent through plan-first lifecycle commands", async () => {
-    const addPreview = await runOpenClaw([
+    const addPreview = await runHSMA([
       "claws",
       "add",
       "src/claws/fixtures/workspace-agent.claw.json",
@@ -223,7 +218,7 @@ describe("claws lifecycle cli e2e", () => {
       "--json",
     ]);
     const addPlan = parseJson(addPreview.stdout) as { planIntegrity: string };
-    const added = await runOpenClaw(
+    const added = await runHSMA(
       [
         "claws",
         "add",
@@ -235,7 +230,7 @@ describe("claws lifecycle cli e2e", () => {
       ],
       { stateDir: addPreview.stateDir },
     );
-    const status = await runOpenClaw(["claws", "status", "workspace-agent", "--json"], {
+    const status = await runHSMA(["claws", "status", "workspace-agent", "--json"], {
       stateDir: added.stateDir,
     });
     expect(parseJson(status.stdout)).toMatchObject({
@@ -244,10 +239,9 @@ describe("claws lifecycle cli e2e", () => {
       records: [{ install: { agentId: "workspace-agent" }, agentState: "present" }],
     });
 
-    const preview = await runOpenClaw(
-      ["claws", "remove", "workspace-agent", "--dry-run", "--json"],
-      { stateDir: added.stateDir },
-    );
+    const preview = await runHSMA(["claws", "remove", "workspace-agent", "--dry-run", "--json"], {
+      stateDir: added.stateDir,
+    });
     const removePlan = parseJson(preview.stdout) as { planIntegrity: string };
     expect(removePlan).toMatchObject({
       schemaVersion: "openclaw.clawRemovePlan.v1",
@@ -256,7 +250,7 @@ describe("claws lifecycle cli e2e", () => {
       blockers: [],
     });
 
-    const removed = await runOpenClaw(
+    const removed = await runHSMA(
       [
         "claws",
         "remove",
@@ -287,14 +281,14 @@ describe("claws lifecycle cli e2e", () => {
 
   it("exports an installed agent as a self-contained grouped package", async () => {
     const source = "src/claws/fixtures/workspace-agent.claw.json";
-    const addPreview = await runOpenClaw(["claws", "add", source, "--dry-run", "--json"]);
+    const addPreview = await runHSMA(["claws", "add", source, "--dry-run", "--json"]);
     const addPlan = parseJson(addPreview.stdout) as { planIntegrity: string };
-    const added = await runOpenClaw(
+    const added = await runHSMA(
       ["claws", "add", source, "--yes", "--plan-integrity", addPlan.planIntegrity, "--json"],
       { stateDir: addPreview.stateDir },
     );
     const outputDirectory = join(added.stateDir, "exported-claw");
-    const exported = await runOpenClaw(
+    const exported = await runHSMA(
       ["claws", "export", "workspace-agent", "--out", outputDirectory, "--json"],
       { stateDir: added.stateDir },
     );
@@ -329,13 +323,13 @@ describe("claws lifecycle cli e2e", () => {
     await expect(readFile(join(outputDirectory, "CLAW.md"), "utf8")).resolves.toContain(
       "Incident Response",
     );
-    const inspected = await runOpenClaw(["claws", "inspect", outputDirectory, "--json"]);
+    const inspected = await runHSMA(["claws", "inspect", outputDirectory, "--json"]);
     expect(parseJson(inspected.stdout)).toMatchObject({
       valid: true,
       source: { kind: "package" },
       manifest: { agent: { id: "workspace-agent" } },
     });
-    const roundTripPreview = await runOpenClaw([
+    const roundTripPreview = await runHSMA([
       "claws",
       "add",
       outputDirectory,
@@ -343,7 +337,7 @@ describe("claws lifecycle cli e2e", () => {
       "--json",
     ]);
     const roundTripPlan = parseJson(roundTripPreview.stdout) as { planIntegrity: string };
-    const roundTrip = await runOpenClaw(
+    const roundTrip = await runHSMA(
       [
         "claws",
         "add",
@@ -387,15 +381,9 @@ describe("claws lifecycle cli e2e", () => {
       }),
       "utf8",
     );
-    const preview = await runOpenClaw([
-      "claws",
-      "add",
-      deferredManifestPath,
-      "--dry-run",
-      "--json",
-    ]);
+    const preview = await runHSMA(["claws", "add", deferredManifestPath, "--dry-run", "--json"]);
     const plan = parseJson(preview.stdout) as { planIntegrity: string };
-    const result = await runOpenClaw(
+    const result = await runHSMA(
       [
         "claws",
         "add",
@@ -422,7 +410,7 @@ describe("claws lifecycle cli e2e", () => {
   });
 
   it("fails closed when add is invoked without dry-run or consent", async () => {
-    const result = await runOpenClaw(["claws", "add", manifestPath], {
+    const result = await runHSMA(["claws", "add", manifestPath], {
       expectFailure: true,
     });
 

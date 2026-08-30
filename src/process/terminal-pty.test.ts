@@ -249,9 +249,7 @@ describe("terminal PTY invocation", () => {
       tempDirs.push(nodeDir);
       const nodePath = path.join(nodeDir, "node.exe");
       fs.linkSync(process.execPath, nodePath);
-      vi.spyOn(process, "execPath", "get").mockReturnValue(
-        "C:\\Program Files\\OpenClaw\\openclaw.exe",
-      );
+      vi.spyOn(process, "execPath", "get").mockReturnValue("C:\\Program Files\\HSMA\\openclaw.exe");
       mocks.spawn.mockReturnValueOnce(fakePty());
 
       await spawnTerminalPty({
@@ -272,9 +270,7 @@ describe("terminal PTY invocation", () => {
     "fails closed when an npm shim has no Node executable",
     async () => {
       const { shimPath } = createWindowsNpmShim("codex");
-      vi.spyOn(process, "execPath", "get").mockReturnValue(
-        "C:\\Program Files\\OpenClaw\\openclaw.exe",
-      );
+      vi.spyOn(process, "execPath", "get").mockReturnValue("C:\\Program Files\\HSMA\\openclaw.exe");
 
       await expect(
         spawnTerminalPty({

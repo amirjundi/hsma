@@ -300,7 +300,7 @@ describe("resolveCliRuntimeExecutionProvider", () => {
     ).toBe("claude-cli");
   });
 
-  it("does not override an explicit OpenClaw model-runtime policy with CLI auth", () => {
+  it("does not override an explicit HSMA model-runtime policy with CLI auth", () => {
     // Runtime policy is more explicit than profile order, so CLI auth cannot
     // force a model onto the CLI harness when config says OpenClaw.
     expect(

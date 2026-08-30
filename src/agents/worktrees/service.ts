@@ -498,9 +498,9 @@ async function snapshotWorktree(
   const filemodeArgs = process.platform === "win32" ? [] : ["-c", "core.filemode=true"];
   const env: NodeJS.ProcessEnv = {
     GIT_INDEX_FILE: indexPath,
-    GIT_AUTHOR_NAME: "OpenClaw",
+    GIT_AUTHOR_NAME: "HSMA",
     GIT_AUTHOR_EMAIL: "openclaw@localhost",
-    GIT_COMMITTER_NAME: "OpenClaw",
+    GIT_COMMITTER_NAME: "HSMA",
     GIT_COMMITTER_EMAIL: "openclaw@localhost",
   };
   try {
@@ -607,7 +607,7 @@ async function snapshotWorktree(
         "-p",
         parent,
         "-m",
-        `OpenClaw worktree snapshot: ${reason}`,
+        `HSMA worktree snapshot: ${reason}`,
       ],
       { env },
     );
@@ -1018,7 +1018,7 @@ export class ManagedWorktreeService {
         throw new WorktreeRemovalLockError(
           state.kind === "live" ? "busy" : "foreign-lock",
           state.kind === "live"
-            ? `worktree is locked by live OpenClaw pid ${state.pid}`
+            ? `worktree is locked by live HSMA pid ${state.pid}`
             : `worktree has a foreign lock${state.reason ? `: ${state.reason}` : ""}`,
         );
       }

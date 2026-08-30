@@ -21,7 +21,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "OpenClaw",
+      "HSMA",
       ".openclaw",
     );
 
@@ -37,7 +37,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   });
 
   it("detects state dir under Library/CloudStorage", () => {
-    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "OpenClaw", ".openclaw");
+    const stateDir = path.join(home, "Library", "CloudStorage", "Dropbox", "HSMA", ".openclaw");
 
     const result = detectMacCloudSyncedStateDir(stateDir, {
       platform: "darwin",
@@ -57,7 +57,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "OpenClaw",
+      "HSMA",
       ".openclaw",
     );
 
@@ -79,7 +79,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "CloudStorage",
       "OneDrive-Personal",
-      "OpenClaw",
+      "HSMA",
       ".openclaw",
     );
     const resolvedLocalPath = path.join(home, ".openclaw");
@@ -103,7 +103,7 @@ describe("detectMacCloudSyncedStateDir", () => {
     const syncedLink = path.join(cloudStorage, "OneDrive-Personal");
     fs.symlinkSync(localTarget, syncedLink, process.platform === "win32" ? "junction" : "dir");
 
-    const stateDir = path.join(syncedLink, "OpenClaw", ".openclaw");
+    const stateDir = path.join(syncedLink, "HSMA", ".openclaw");
     expect(fs.existsSync(stateDir)).toBe(false);
 
     expect(
@@ -117,13 +117,7 @@ describe("detectMacCloudSyncedStateDir", () => {
   it("still warns for a real absent leaf that stays inside the sync root", () => {
     const sandbox = fs.realpathSync(tempDirs.make("openclaw-cloud-storage-real-"));
     const realHome = path.join(sandbox, "home");
-    const syncedDir = path.join(
-      realHome,
-      "Library",
-      "CloudStorage",
-      "OneDrive-Personal",
-      "OpenClaw",
-    );
+    const syncedDir = path.join(realHome, "Library", "CloudStorage", "OneDrive-Personal", "HSMA");
     fs.mkdirSync(syncedDir, { recursive: true });
 
     const stateDir = path.join(syncedDir, ".openclaw");
@@ -170,7 +164,7 @@ describe("detectMacCloudSyncedStateDir", () => {
       "Library",
       "Mobile Documents",
       "com~apple~CloudDocs",
-      "OpenClaw",
+      "HSMA",
       ".openclaw",
     );
 

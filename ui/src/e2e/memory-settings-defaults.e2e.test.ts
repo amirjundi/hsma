@@ -121,7 +121,7 @@ suite.define(() => {
 
         const engineRow = settingsRow(page, "Memory engine");
         const frequencyRow = settingsRow(page, "Dreaming frequency");
-        await expect.poll(() => engineRow.textContent()).toContain("Default: OpenClaw Memory");
+        await expect.poll(() => engineRow.textContent()).toContain("Default: HSMA Memory");
         await expect.poll(() => frequencyRow.textContent()).toContain("Default: 0 3 * * *");
         await expect.poll(() => frequencyRow.getByRole("textbox").inputValue()).toBe("0 6 * * *");
 
@@ -147,7 +147,7 @@ suite.define(() => {
         const reloadedFrequencyRow = settingsRow(page, "Dreaming frequency");
         await expect
           .poll(() => reloadedEngineRow.textContent())
-          .toContain("Using default: OpenClaw Memory");
+          .toContain("Using default: HSMA Memory");
         await expect
           .poll(() => reloadedFrequencyRow.textContent())
           .toContain("Using default: 0 3 * * *");

@@ -368,7 +368,7 @@ describe("Control UI service worker notification scope", () => {
     async ({ scope, target, clientUrls, focusedClientIndex, navigatedUrl, openedUrl }) => {
       const worker = createNotificationServiceWorker(scope, clientUrls);
       const payload: ServiceWorkerPushPayload = {
-        title: "OpenClaw",
+        title: "HSMA",
         body: "Scoped notification",
       };
       if (target !== null) {

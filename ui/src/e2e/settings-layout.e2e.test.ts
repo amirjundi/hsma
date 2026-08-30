@@ -115,7 +115,7 @@ suite.define(() => {
     });
     const page = await context.newPage();
     const config = {
-      messages: { queueLimit: 5, responsePrefix: "[OpenClaw]" },
+      messages: { queueLimit: 5, responsePrefix: "[HSMA]" },
       tts: { auto: "off" },
     };
     const schema = {

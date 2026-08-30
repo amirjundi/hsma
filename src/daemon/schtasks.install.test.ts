@@ -97,12 +97,12 @@ describe("installScheduledTask", () => {
     });
   }
 
-  function expectInitialTaskQueries(taskName = "OpenClaw Gateway"): void {
+  function expectInitialTaskQueries(taskName = "HSMA Gateway"): void {
     expect(schtasksCalls[0]).toEqual(["/Query"]);
     expect(schtasksCalls[1]).toEqual(["/Query", "/TN", taskName]);
   }
 
-  function expectTaskRunCall(index: number, taskName = "OpenClaw Gateway"): void {
+  function expectTaskRunCall(index: number, taskName = "HSMA Gateway"): void {
     expect(schtasksCalls[index]).toEqual(["/Run", "/TN", taskName]);
   }
 
@@ -126,31 +126,27 @@ describe("installScheduledTask", () => {
       const gatewayScript = decodeWindowsLauncherScript({
         buffer: await fs.readFile(gateway.scriptPath),
       });
-      expect(gatewayScript).toContain("rem OpenClaw Gateway");
+      expect(gatewayScript).toContain("rem HSMA Gateway");
       expect(gatewayScript).not.toContain("OPENCLAW_SERVICE_VERSION");
-      expect(xmlPayloadCaptures.at(-1)?.xml).toContain(
-        "<Description>OpenClaw Gateway</Description>",
-      );
+      expect(xmlPayloadCaptures.at(-1)?.xml).toContain("<Description>HSMA Gateway</Description>");
 
       const node = await installScheduledTask({
         env: {
           ...env,
-          OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Node",
+          OPENCLAW_WINDOWS_TASK_NAME: "HSMA Node",
           OPENCLAW_TASK_SCRIPT_NAME: "node.cmd",
         },
         stdout: new PassThrough(),
         programArguments: ["node", "node-host.js"],
-        description: "OpenClaw Node Host",
+        description: "HSMA Node Host",
         environment: {},
       });
       const nodeScript = decodeWindowsLauncherScript({
         buffer: await fs.readFile(node.scriptPath),
       });
-      expect(nodeScript).toContain("rem OpenClaw Node Host");
+      expect(nodeScript).toContain("rem HSMA Node Host");
       expect(nodeScript).not.toContain("OPENCLAW_SERVICE_VERSION");
-      expect(xmlPayloadCaptures.at(-1)?.xml).toContain(
-        "<Description>OpenClaw Node Host</Description>",
-      );
+      expect(xmlPayloadCaptures.at(-1)?.xml).toContain("<Description>HSMA Node Host</Description>");
     });
   });
 
@@ -175,7 +171,7 @@ describe("installScheduledTask", () => {
           OC_CARET: "a^b",
           OC_PERCENT: "%TEMP%",
           OC_BANG: "!token!",
-          OC_SOURCE_PATH: "C:\\OpenClaw source & ^ %USERPROFILE%!",
+          OC_SOURCE_PATH: "C:\\HSMA source & ^ %USERPROFILE%!",
           OC_QUOTE: 'he said "hi"',
           OC_EMPTY: "",
           NODE_OPTIONS: "",
@@ -191,7 +187,7 @@ describe("installScheduledTask", () => {
       expect(script).toContain('set "OC_CARET=a^^b"');
       expect(script).toContain('set "OC_PERCENT=%%TEMP%%"');
       expect(script).toContain('set "OC_BANG=^!token^!"');
-      expect(script).toContain('set "OC_SOURCE_PATH=C:\\OpenClaw source & ^^ %%USERPROFILE%%^!"');
+      expect(script).toContain('set "OC_SOURCE_PATH=C:\\HSMA source & ^^ %%USERPROFILE%%^!"');
       expect(script).toContain('set "OC_QUOTE=he said ^"hi^""');
       expect(script).not.toContain('set "OC_EMPTY=');
       expect(script).toContain('set "NODE_OPTIONS="');
@@ -215,7 +211,7 @@ describe("installScheduledTask", () => {
           OC_CARET: "a^b",
           OC_PERCENT: "%TEMP%",
           OC_BANG: "!token!",
-          OC_SOURCE_PATH: "C:\\OpenClaw source & ^ %USERPROFILE%!",
+          OC_SOURCE_PATH: "C:\\HSMA source & ^ %USERPROFILE%!",
           OC_QUOTE: 'he said "hi"',
           NODE_OPTIONS: "",
         },
@@ -232,17 +228,17 @@ describe("installScheduledTask", () => {
       });
 
       expect(schtasksCalls[0]).toEqual(["/Query"]);
-      expect(schtasksCalls[1]).toEqual(["/Query", "/TN", "OpenClaw Gateway"]);
+      expect(schtasksCalls[1]).toEqual(["/Query", "/TN", "HSMA Gateway"]);
       expect(schtasksCalls[2]?.[0]).toBe("/Change");
       // Battery-flag XML re-apply runs between /Change and /Run on upgrades.
       expect(schtasksCalls[3]?.slice(0, 5)).toEqual([
         "/Create",
         "/F",
         "/TN",
-        "OpenClaw Gateway",
+        "HSMA Gateway",
         "/XML",
       ]);
-      expect(schtasksCalls[4]).toEqual(["/Run", "/TN", "OpenClaw Gateway"]);
+      expect(schtasksCalls[4]).toEqual(["/Run", "/TN", "HSMA Gateway"]);
     });
   });
 
@@ -313,7 +309,7 @@ describe("installScheduledTask", () => {
         "/Create",
         "/F",
         "/TN",
-        "OpenClaw Gateway",
+        "HSMA Gateway",
         "/XML",
       ]);
       expect(schtasksCalls[2]?.slice(6)).toEqual(["/RU", "WORKSTATION\\alice", "/NP"]);
@@ -371,7 +367,7 @@ describe("installScheduledTask", () => {
         HOME: env.USERPROFILE,
         USERDOMAIN: "WORKSTATION",
         USERNAME: "alice",
-        OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Custom Gateway",
+        OPENCLAW_WINDOWS_TASK_NAME: "HSMA Custom Gateway",
       };
       const gatewayEnv = buildServiceEnvironment({
         env: callerEnv,
@@ -381,7 +377,7 @@ describe("installScheduledTask", () => {
 
       expect(callerEnv.OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER).toBeUndefined();
       expect(gatewayEnv.OPENCLAW_WINDOWS_TASK_HIDDEN_LAUNCHER).toBe("1");
-      expect(gatewayEnv.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
+      expect(gatewayEnv.OPENCLAW_WINDOWS_TASK_NAME).toBe("HSMA Gateway");
 
       const { scriptPath } = await installScheduledTask({
         env: callerEnv,
@@ -401,16 +397,16 @@ describe("installScheduledTask", () => {
         "/Create",
         "/F",
         "/TN",
-        "OpenClaw Custom Gateway",
+        "HSMA Custom Gateway",
         "/XML",
       ]);
       expect(schtasksCalls[2]?.slice(6)).toEqual(["/RU", "WORKSTATION\\alice", "/NP"]);
       const captured = xmlPayloadCaptures.find((entry) => entry.index === 2);
       expect(captured?.xml).toContain("gateway.vbs</Command>");
-      expect(script).toContain('set "OPENCLAW_WINDOWS_TASK_NAME=OpenClaw Custom Gateway"');
+      expect(script).toContain('set "OPENCLAW_WINDOWS_TASK_NAME=HSMA Custom Gateway"');
       expect(launcher).toContain("WScript.Shell");
       expect(launcher).toContain(`Run """${scriptPath}""", 0, False`);
-      expectTaskRunCall(3, "OpenClaw Custom Gateway");
+      expectTaskRunCall(3, "HSMA Custom Gateway");
     });
   });
 
@@ -496,7 +492,7 @@ describe("installScheduledTask", () => {
 
       expectInitialTaskQueries();
       const createCall = schtasksCalls[2];
-      expect(createCall?.slice(0, 5)).toEqual(["/Create", "/F", "/TN", "OpenClaw Gateway", "/XML"]);
+      expect(createCall?.slice(0, 5)).toEqual(["/Create", "/F", "/TN", "HSMA Gateway", "/XML"]);
       expect(createCall).not.toContain("/RU");
       const captured = xmlPayloadCaptures.find((entry) => entry.index === 2);
       expect(captured?.xml).toContain("<UserId>alice</UserId>");
@@ -524,7 +520,7 @@ describe("installScheduledTask", () => {
         "/Create",
         "/F",
         "/TN",
-        "OpenClaw Gateway",
+        "HSMA Gateway",
         "/XML",
       ]);
       const upgradeCapture = xmlPayloadCaptures.find((entry) => entry.index === 3);
@@ -561,7 +557,7 @@ describe("installScheduledTask", () => {
       expect(schtasksCalls[2]).toEqual([
         "/Change",
         "/TN",
-        "OpenClaw Gateway",
+        "HSMA Gateway",
         "/TR",
         expect.stringContaining("gateway.vbs"),
       ]);
@@ -571,7 +567,7 @@ describe("installScheduledTask", () => {
         "/Create",
         "/F",
         "/TN",
-        "OpenClaw Gateway",
+        "HSMA Gateway",
         "/XML",
       ]);
       expectTaskRunCall(4);

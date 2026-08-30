@@ -11,7 +11,7 @@ type DaemonStatusSummary = {
   installed: boolean | null;
   loaded: boolean | null;
   loadState: Awaited<ReturnType<typeof readServiceStatusSummary>>["loadState"];
-  managedByOpenClaw: boolean;
+  managedByHSMA: boolean;
   externallyManaged: boolean;
   loadedText: string;
   runtime: Awaited<ReturnType<typeof readServiceStatusSummary>>["runtime"];
@@ -34,7 +34,7 @@ async function buildDaemonStatusSummary(
     installed: summary.installed,
     loaded,
     loadState: summary.loadState,
-    managedByOpenClaw: summary.managedByOpenClaw,
+    managedByHSMA: summary.managedByHSMA,
     externallyManaged: summary.externallyManaged,
     loadedText: summary.loadedText,
     runtime: summary.runtime,

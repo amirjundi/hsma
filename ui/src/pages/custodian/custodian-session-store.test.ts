@@ -116,7 +116,7 @@ describe("CustodianSessionStore", () => {
     const request = vi.fn().mockRejectedValue(
       new GatewayRequestError({
         code: "INVALID_REQUEST",
-        message: "OpenClaw session belongs to another caller.",
+        message: "HSMA session belongs to another caller.",
         details: buildSystemAgentSessionInvalidatedErrorDetails(),
       }),
     );
@@ -140,7 +140,7 @@ describe("CustodianSessionStore", () => {
       .mockRejectedValueOnce(
         new GatewayRequestError({
           code: "UNAVAILABLE",
-          message: "OpenClaw session expired.",
+          message: "HSMA session expired.",
           details: buildSystemAgentSessionInvalidatedErrorDetails(),
         }),
       )
@@ -202,7 +202,7 @@ describe("CustodianSessionStore", () => {
         question: {
           id: "repair",
           header: "Repair",
-          question: "What should OpenClaw repair?",
+          question: "What should HSMA repair?",
           options: [{ label: "Gateway" }, { label: "Channel" }],
           isOther: false,
         },
@@ -424,7 +424,7 @@ describe("CustodianSessionStore", () => {
       .mockRejectedValueOnce(
         new GatewayRequestError({
           code: "UNAVAILABLE",
-          message: "OpenClaw requires working inference: no configured model",
+          message: "HSMA requires working inference: no configured model",
           details: { code: "system_agent_inference_unavailable" },
         }),
       )

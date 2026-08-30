@@ -226,7 +226,7 @@ export async function startOAuthLoopbackCallbackServer(params: {
   const renderSuccess =
     params.renderSuccess ??
     (() => ({
-      body: "Authorization received; return to the terminal while OpenClaw finishes.",
+      body: "Authorization received; return to the terminal while HSMA finishes.",
       contentType: "text/plain; charset=utf-8",
     }));
   const renderError =

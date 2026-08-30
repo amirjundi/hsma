@@ -3298,7 +3298,7 @@ describe("chat voice controls", () => {
   it.each([
     ["connecting", "Connecting voice input..."],
     ["listening", "Listening..."],
-    ["thinking", "Asking OpenClaw..."],
+    ["thinking", "Asking HSMA..."],
   ] as const)("renders %s voice activity without visible status copy", (status, label) => {
     const inputLevel = new RealtimeTalkLevelSignal();
     inputLevel.set(0.64);
@@ -6105,7 +6105,7 @@ describe("chat welcome", () => {
       canSend: false,
       disabledBanner: {
         kind: "composer-replacement",
-        text: "We couldn't find a provider and model configured for this agent. Choose a supported connection; OpenClaw will test it before enabling chat.",
+        text: "We couldn't find a provider and model configured for this agent. Choose a supported connection; HSMA will test it before enabling chat.",
         actionLabel: "Connect an AI provider",
         onAction: () => undefined,
       },
@@ -7036,7 +7036,7 @@ describe("chat model controls", () => {
     );
 
     expect(modelOption?.querySelector(".chat-controls__model-option-meta")?.textContent).toBe(
-      "1M active · 1M max · OpenClaw",
+      "1M active · 1M max · HSMA",
     );
     expect(modelOption?.textContent).not.toContain("700k");
     expect(getChatModelSelect(container).querySelector(".chat-controls__trigger-meta")).toBeNull();
@@ -7263,7 +7263,7 @@ describe("chat model controls", () => {
         `[data-chat-model-option="${value}"] .chat-controls__model-option-meta`,
       )?.textContent;
 
-    expect(metaFor("openai/gpt-5.6")).toBe("1M · OpenClaw");
+    expect(metaFor("openai/gpt-5.6")).toBe("1M · HSMA");
     expect(metaFor("openai/gpt-5.6")).not.toContain("Codex");
     expect(metaFor("openai/gpt-5.6-sol")).toBe("1M · Codex");
     // Known CLI runtime ids map to their product labels, not capitalized ids.

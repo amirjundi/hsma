@@ -110,7 +110,7 @@ function createConnectedContext(
     config: {
       current: {
         assistantIdentity: {
-          name: "OpenClaw",
+          name: "HSMA",
           avatar: null,
           avatarSource: null,
           avatarStatus: null,

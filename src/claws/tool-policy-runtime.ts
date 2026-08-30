@@ -21,7 +21,7 @@ let preparedCandidates: ClawToolPolicyCandidate[] = [];
 let preparedStateOptions: OpenClawStateDatabaseOptions = {};
 let readPreparedSchemaVersions = readCachedClawInstallSchemaVersions;
 const uninitializedStateError = new Error(
-  "OpenClaw state database has not initialized Claw consent provenance.",
+  "HSMA state database has not initialized Claw consent provenance.",
 );
 
 export function markFrozenClawToolAllowPolicy(policy: object | undefined): void {
@@ -118,7 +118,7 @@ class ClawToolProfileConsentError extends Error {
     super(
       options.unboundedFullProfile
         ? `Claw-managed agent ${JSON.stringify(agentId)} uses the legacy unbounded full tool profile. ` +
-            "Add an explicit tools.allow list to its package OpenClaw profile, then " +
+            "Add an explicit tools.allow list to its package HSMA profile, then " +
             `run \`openclaw claws update ${agentId}\` and approve the refreshed tool authority.`
         : `Claw-managed agent ${JSON.stringify(agentId)} uses a legacy dynamic tool policy. ` +
             `Run \`openclaw claws update ${agentId}\` and approve the refreshed tool authority before running it.`,
@@ -131,7 +131,7 @@ class ClawToolProfileConsentStateError extends Error {
   constructor(agentId: string, cause: unknown) {
     super(
       `Cannot verify the installed tool authority for Claw-managed agent ${JSON.stringify(agentId)}. ` +
-        "Repair the OpenClaw state database before running it.",
+        "Repair the HSMA state database before running it.",
       { cause },
     );
     this.name = "ClawToolProfileConsentStateError";

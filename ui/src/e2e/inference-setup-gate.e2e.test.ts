@@ -139,9 +139,9 @@ suite.define(() => {
           agents: [
             {
               id: "main",
-              identity: { name: "OpenClaw" },
+              identity: { name: "HSMA" },
               model: { primary: "openai/gpt-5.5" },
-              name: "OpenClaw",
+              name: "HSMA",
             },
           ],
           defaultId: "main",
@@ -157,7 +157,7 @@ suite.define(() => {
       await gateway.rejectDeferred("openclaw.chat", {
         code: "UNAVAILABLE",
         details: { code: "system_agent_inference_unavailable" },
-        message: "OpenClaw requires working inference: provider authentication failed",
+        message: "HSMA requires working inference: provider authentication failed",
       });
 
       await page.getByRole("heading", { name: "Configured AI needs attention" }).waitFor();

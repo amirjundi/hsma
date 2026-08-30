@@ -31,7 +31,7 @@ import {
 } from "./stream-substitution.js";
 
 const PROXY_AUTH_USERNAME = "openclaw";
-const PROXY_AUTH_REALM = "OpenClaw secret egress";
+const PROXY_AUTH_REALM = "HSMA secret egress";
 const REFUSAL_BODY = "Secret egress proxy refused the request.\n";
 const UPSTREAM_ERROR_BODY = "Secret egress proxy could not reach the upstream host.\n";
 

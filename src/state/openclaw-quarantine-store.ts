@@ -45,9 +45,7 @@ function configureQuarantineWriter(database: DatabaseSync, storePath: string): v
   `);
   const userVersion = readQuarantineSchemaVersion(database, storePath);
   if (userVersion > OPENCLAW_QUARANTINE_SCHEMA_VERSION) {
-    throw new Error(
-      `OpenClaw quarantine store ${storePath} uses newer schema version ${userVersion}.`,
-    );
+    throw new Error(`HSMA quarantine store ${storePath} uses newer schema version ${userVersion}.`);
   }
   if (userVersion === OPENCLAW_QUARANTINE_SCHEMA_VERSION) {
     return;
@@ -82,7 +80,7 @@ function readQuarantineSchemaVersion(database: DatabaseSync, storePath: string):
     | undefined;
   const userVersion = row?.user_version;
   if (typeof userVersion !== "number" || !Number.isInteger(userVersion)) {
-    throw new Error(`OpenClaw quarantine store ${storePath} has an invalid schema version.`);
+    throw new Error(`HSMA quarantine store ${storePath} has an invalid schema version.`);
   }
   return userVersion;
 }
@@ -128,7 +126,7 @@ export function readOpenClawDatabaseQuarantine(
     }
     if (userVersion > OPENCLAW_QUARANTINE_SCHEMA_VERSION) {
       throw new Error(
-        `OpenClaw quarantine store ${storePath} uses newer schema version ${userVersion}.`,
+        `HSMA quarantine store ${storePath} uses newer schema version ${userVersion}.`,
       );
     }
     const generationColumn = userVersion >= 2 ? ", verified_generation" : "";
@@ -156,14 +154,14 @@ export function readOpenClawDatabaseQuarantine(
         row.verified_generation !== null &&
         typeof row.verified_generation !== "string")
     ) {
-      throw new Error(`OpenClaw quarantine store ${storePath} contains an invalid row.`);
+      throw new Error(`HSMA quarantine store ${storePath} contains an invalid row.`);
     }
     if (typeof row.verified_generation === "string") {
       let verifiedGeneration: SqliteFileGeneration;
       try {
         verifiedGeneration = parseSqliteFileGeneration(row.verified_generation);
       } catch {
-        throw new Error(`OpenClaw quarantine store ${storePath} contains an invalid row.`);
+        throw new Error(`HSMA quarantine store ${storePath} contains an invalid row.`);
       }
       try {
         const currentGeneration = readStableSqliteFileGeneration(path.resolve(pathname));

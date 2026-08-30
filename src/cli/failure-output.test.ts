@@ -44,11 +44,11 @@ describe("formatCliJsonFailure", () => {
   ])("keeps the full parse guidance unchanged in $label", ({ env }) => {
     const error = Object.assign(
       new ExpectedCliError({
-        message: 'OpenClaw sessions has no command "lst".',
+        message: 'HSMA sessions has no command "lst".',
         humanOutput:
-          '\u001B[31mOpenClaw sessions has no command "lst".\u001B[39m\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: \u001B]8;;https://docs.openclaw.ai/cli\u0007docs.openclaw.ai/cli\u001B]8;;\u0007\n',
+          '\u001B[31mHSMA sessions has no command "lst".\u001B[39m\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: \u001B]8;;https://docs.openclaw.ai/cli\u0007docs.openclaw.ai/cli\u001B]8;;\u0007\n',
         machineOutput:
-          'OpenClaw sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: https://docs.openclaw.ai/cli\n',
+          'HSMA sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: https://docs.openclaw.ai/cli\n',
       }),
       { cause: new Error("internal parse cause") },
     );
@@ -59,7 +59,7 @@ describe("formatCliJsonFailure", () => {
       error: {
         type: "cli_error",
         message:
-          'OpenClaw sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: https://docs.openclaw.ai/cli',
+          'HSMA sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\nDocs: https://docs.openclaw.ai/cli',
       },
     });
     expect(payload.error.message).not.toContain("internal parse cause");

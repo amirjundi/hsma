@@ -95,8 +95,8 @@ function execAskRank(value: ExecAsk): number {
 function collectExecPolicyConflictWarnings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const approvals = loadExecApprovalsReadOnly();
-  const defaultRequestedSecuritySource = "OpenClaw default (full)";
-  const defaultRequestedAskSource = "OpenClaw default (off)";
+  const defaultRequestedSecuritySource = "HSMA default (full)";
+  const defaultRequestedAskSource = "HSMA default (off)";
 
   const maybeWarn = (params: {
     scopeLabel: string;

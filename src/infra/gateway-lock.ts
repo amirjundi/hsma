@@ -625,7 +625,7 @@ async function acquireLockFile(
   const ownerPid = lastPayload?.pid ? ` (pid ${lastPayload.pid})` : "";
   const owner =
     lastPayload?.role === "agent-embedded"
-      ? `another embedded OpenClaw state writer is active${ownerPid}`
+      ? `another embedded HSMA state writer is active${ownerPid}`
       : lastPayload?.role && lastPayload.role !== "gateway"
         ? `state directory is locked by ${lastPayload.role}${ownerPid}`
         : `gateway already running${ownerPid}`;

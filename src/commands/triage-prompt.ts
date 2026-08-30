@@ -61,13 +61,13 @@ export function renderTriagePrompt(params: {
     return severity || left.checkId.localeCompare(right.checkId);
   });
   const lines = [
-    "You are debugging THIS machine's OpenClaw installation. Identify the root cause, explain the safest repair, and verify the result. You may run `openclaw doctor`, `openclaw doctor --fix`, `openclaw status --all`, and `openclaw logs`. Product documentation: https://docs.openclaw.ai.",
+    "You are debugging THIS machine's HSMA installation. Identify the root cause, explain the safest repair, and verify the result. You may run `openclaw doctor`, `openclaw doctor --fix`, `openclaw status --all`, and `openclaw logs`. Product documentation: https://docs.openclaw.ai.",
     "",
     "## Environment",
     "",
-    `- OpenClaw: ${VERSION}`,
+    `- HSMA: ${VERSION}`,
     `- Platform: ${process.platform}`,
-    `- Node.js: ${process.versions.node} (the runtime executing OpenClaw, which may differ from the shell default)`,
+    `- Node.js: ${process.versions.node} (the runtime executing HSMA, which may differ from the shell default)`,
     "",
     "## Doctor findings",
     "",

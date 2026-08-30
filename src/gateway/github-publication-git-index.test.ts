@@ -63,7 +63,7 @@ async function git(
 async function createFixture() {
   const cwd = await makeDirectory("git");
   await git(cwd, ["init", "--initial-branch=main"]);
-  await git(cwd, ["config", "user.name", "OpenClaw Test"]);
+  await git(cwd, ["config", "user.name", "HSMA Test"]);
   await git(cwd, ["config", "user.email", "openclaw@example.test"]);
   await fs.writeFile(path.join(cwd, "artifact.txt"), "base\n");
   await git(cwd, ["add", "artifact.txt"]);
@@ -75,7 +75,7 @@ async function createFixture() {
   const headCommit = await git(
     cwd,
     ["commit-tree", sourceIndexTree, "-p", previousHead],
-    `published\n\nOpenClaw-Publication: ${REQUEST_ID}\n`,
+    `published\n\nHSMA-Publication: ${REQUEST_ID}\n`,
   );
   return { cwd, previousHead, sourceIndexTree, workspaceTree: sourceIndexTree, headCommit };
 }
@@ -98,7 +98,7 @@ describe("GitHub publication index update", () => {
   it("accepts a linked worktree without a worktree config scope", async () => {
     const repository = await makeDirectory("worktree-config");
     await git(repository, ["init", "--initial-branch=main"]);
-    await git(repository, ["config", "user.name", "OpenClaw Test"]);
+    await git(repository, ["config", "user.name", "HSMA Test"]);
     await git(repository, ["config", "user.email", "openclaw@example.test"]);
     await fs.writeFile(path.join(repository, "artifact.txt"), "base\n");
     await git(repository, ["add", "artifact.txt"]);

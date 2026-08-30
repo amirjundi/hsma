@@ -92,9 +92,7 @@ describe("buildStatusAllReportLines", () => {
     expect(output).toContain("Config file is invalid: /tmp/openclaw.json");
     expect(output).toContain("gateway.port: invalid");
     expect(output).toContain("Fix: openclaw doctor --fix");
-    expect(output.indexOf("Config diagnostics:")).toBeLessThan(
-      output.indexOf("OpenClaw status --all"),
-    );
+    expect(output.indexOf("Config diagnostics:")).toBeLessThan(output.indexOf("HSMA status --all"));
     expect(output).not.toContain(String.fromCharCode(0xd83d));
     expect(diagnosisSpy).toHaveBeenCalledOnce();
     const [diagnosisOptions] = diagnosisSpy.mock.calls[0] as unknown as [

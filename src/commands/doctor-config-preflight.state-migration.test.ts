@@ -951,7 +951,7 @@ describe("runDoctorConfigPreflight state migration", () => {
     });
 
     await expect(runDoctorConfigPreflight(startupCheckpointOptions)).rejects.toThrow(
-      "OpenClaw startup migrations did not complete cleanly; refusing to report the gateway ready.",
+      "HSMA startup migrations did not complete cleanly; refusing to report the gateway ready.",
     );
 
     expect(recordSuccessfulStartupMigrations).not.toHaveBeenCalled();
@@ -1084,7 +1084,7 @@ describe("runDoctorConfigPreflight state migration", () => {
     );
 
     await expect(runDoctorConfigPreflight(startupCheckpointOptions)).rejects.toThrow(
-      "OpenClaw config is invalid",
+      "HSMA config is invalid",
     );
 
     expect(recordSuccessfulStartupMigrations).not.toHaveBeenCalled();

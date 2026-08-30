@@ -98,7 +98,7 @@ suite.define(() => {
       await expect
         .poll(() => footer.evaluate((element) => getComputedStyle(element).opacity))
         .toBe("1");
-      expect(await footer.locator(".chat-sender-name").textContent()).toBe("OpenClaw");
+      expect(await footer.locator(".chat-sender-name").textContent()).toBe("HSMA");
       expect(await footer.locator(".chat-group-timestamp").count()).toBe(1);
     } finally {
       await suite.closeBrowserContext(context);

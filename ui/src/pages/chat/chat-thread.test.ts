@@ -2874,14 +2874,14 @@ describe("buildCachedChatItems", () => {
       nativeText: "Found it.",
     },
     {
-      name: "deduplicates relay-labeled assistant copies by OpenClaw transcript metadata id",
+      name: "deduplicates relay-labeled assistant copies by HSMA transcript metadata id",
       relayIdentity: { __openclaw: { id: "reply-3" } },
       nativeIdentity: { __openclaw: { id: "reply-3" } },
       relayText: "Parzival On it.",
       nativeText: "On it.",
     },
     {
-      name: "deduplicates relay-labeled assistant copies by OpenClaw metadata before surface ids",
+      name: "deduplicates relay-labeled assistant copies by HSMA metadata before surface ids",
       relayIdentity: { id: "relay-surface-copy", __openclaw: { id: "reply-4" } },
       nativeIdentity: { id: "native-surface-copy", __openclaw: { id: "reply-4" } },
       relayText: "Parzival Ship it.",

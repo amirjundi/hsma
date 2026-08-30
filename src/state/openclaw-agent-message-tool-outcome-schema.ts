@@ -12,7 +12,7 @@ function messageToolRunOutcomeSchemaSql(): string {
   const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_START);
   const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw message-tool run outcome schema markers are missing.");
+    throw new Error("HSMA message-tool run outcome schema markers are missing.");
   }
   return OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end);
 }

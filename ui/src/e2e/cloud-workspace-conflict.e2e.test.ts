@@ -257,7 +257,7 @@ describeControlUiE2e("Control UI cloud workspace conflict recovery", () => {
           role: "custom",
           customType: "cloud-workspace-recovery-failed",
           content:
-            "Cloud workspace recovery attempt failed: snapshot verification failed. OpenClaw preserved the result and will retry.",
+            "Cloud workspace recovery attempt failed: snapshot verification failed. HSMA preserved the result and will retry.",
           timestamp: Date.now() - 500,
         },
       ],
@@ -268,11 +268,9 @@ describeControlUiE2e("Control UI cloud workspace conflict recovery", () => {
     try {
       const response = await page.goto(controlUiSessionUrl(server.baseUrl, sessionKey));
       expect(response?.status()).toBe(200);
-      await page
-        .getByText("OpenClaw preserved the result and will retry.", { exact: false })
-        .waitFor({
-          timeout: 10_000,
-        });
+      await page.getByText("HSMA preserved the result and will retry.", { exact: false }).waitFor({
+        timeout: 10_000,
+      });
       await capture(page, "04-workspace-recovery-failed-history.png");
     } finally {
       await context.close();

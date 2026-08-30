@@ -83,10 +83,10 @@ export async function ensureOnboardingAgent(params: {
   const hasExpectedConfigHash = Object.hasOwn(params, "expectedConfigHash");
   let before = hasExpectedConfigHash ? await readConfigFileSnapshot() : undefined;
   if (before?.exists && !before.valid) {
-    throw new Error("Cannot create the first agent from an invalid OpenClaw config.");
+    throw new Error("Cannot create the first agent from an invalid HSMA config.");
   }
   if (before && (resolveConfigSnapshotHash(before) ?? null) !== params.expectedConfigHash) {
-    throw new Error("OpenClaw config changed before first-agent creation. Retry setup.");
+    throw new Error("HSMA config changed before first-agent creation. Retry setup.");
   }
   const candidateRoster = listAgentEntries(params.config);
   if (
@@ -102,7 +102,7 @@ export async function ensureOnboardingAgent(params: {
   }
   before ??= await readConfigFileSnapshot();
   if (before.exists && !before.valid) {
-    throw new Error("Cannot create the first agent from an invalid OpenClaw config.");
+    throw new Error("Cannot create the first agent from an invalid HSMA config.");
   }
   const effective = before.config;
   const candidateBase = params.baseConfig ?? effective;
@@ -136,10 +136,10 @@ export async function ensureOnboardingAgent(params: {
   }
   const after = await readConfigFileSnapshot();
   if (!after.valid) {
-    throw new Error("Agent creation wrote an invalid OpenClaw config.");
+    throw new Error("Agent creation wrote an invalid HSMA config.");
   }
   if (created.configHash && after.hash !== created.configHash) {
-    throw new Error("OpenClaw config changed after first-agent creation. Retry setup.");
+    throw new Error("HSMA config changed after first-agent creation. Retry setup.");
   }
   const config = mergeOnboardingCandidate({
     base: candidateBase,
@@ -153,7 +153,7 @@ export async function ensureOnboardingAgent(params: {
   const sessionMigrationWarnings =
     sessionMigration.armed && !sessionMigration.complete
       ? [
-          `Legacy main-agent session history migration is incomplete${sessionMigration.warnings.length > 0 ? `: ${sessionMigration.warnings.join("; ")}` : ""}. Run \`openclaw doctor --fix\`; OpenClaw will also retry at next startup.`,
+          `Legacy main-agent session history migration is incomplete${sessionMigration.warnings.length > 0 ? `: ${sessionMigration.warnings.join("; ")}` : ""}. Run \`openclaw doctor --fix\`; HSMA will also retry at next startup.`,
         ]
       : [];
   return {

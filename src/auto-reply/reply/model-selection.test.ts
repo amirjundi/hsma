@@ -788,7 +788,7 @@ describe("createModelSelectionState catalog loading", () => {
     expect(loadModelCatalogLocal).toHaveBeenCalledOnce();
   });
 
-  it("preserves OpenAI API-key session auth when model policy explicitly pins OpenClaw", async () => {
+  it("preserves OpenAI API-key session auth when model policy explicitly pins HSMA", async () => {
     authProfileStoreMock.store = {
       version: 1,
       profiles: {

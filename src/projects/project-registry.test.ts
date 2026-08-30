@@ -34,7 +34,7 @@ async function initializeRepository(root: string, name: string): Promise<string>
   const repo = path.join(root, name);
   await fs.mkdir(repo, { recursive: true });
   await execFileAsync("git", ["init", "-b", "main", repo]);
-  await execFileAsync("git", ["-C", repo, "config", "user.name", "OpenClaw Tests"]);
+  await execFileAsync("git", ["-C", repo, "config", "user.name", "HSMA Tests"]);
   await execFileAsync("git", ["-C", repo, "config", "user.email", "tests@openclaw.invalid"]);
   await fs.writeFile(path.join(repo, "README.md"), `${name}\n`);
   await execFileAsync("git", ["-C", repo, "add", "README.md"]);
@@ -44,11 +44,11 @@ async function initializeRepository(root: string, name: string): Promise<string>
 
 describe("project registry", () => {
   it.each([
-    ["https://github.com/OpenClaw/OpenClaw", "https://github.com/openclaw/openclaw.git"],
-    ["https://github.com/OpenClaw/OpenClaw.git", "https://github.com/openclaw/openclaw.git"],
-    ["git@github.com:OpenClaw/OpenClaw.git", "https://github.com/openclaw/openclaw.git"],
-    ["ssh://git@github.com/OpenClaw/OpenClaw.git", "https://github.com/openclaw/openclaw.git"],
-    ["ssh://git@github.com:22/OpenClaw/OpenClaw", "https://github.com/openclaw/openclaw.git"],
+    ["https://github.com/OpenClaw/HSMA", "https://github.com/openclaw/openclaw.git"],
+    ["https://github.com/OpenClaw/HSMA.git", "https://github.com/openclaw/openclaw.git"],
+    ["git@github.com:HSMA/HSMA.git", "https://github.com/openclaw/openclaw.git"],
+    ["ssh://git@github.com/OpenClaw/HSMA.git", "https://github.com/openclaw/openclaw.git"],
+    ["ssh://git@github.com:22/HSMA/HSMA", "https://github.com/openclaw/openclaw.git"],
   ])("canonicalizes accepted GitHub clone URL %s", (input, expected) => {
     expect(parseProjectGitUrl(input)?.url).toBe(expected);
   });
@@ -104,11 +104,11 @@ describe("project registry", () => {
     await fs.symlink(repo, alias, "dir");
     const options = { path: path.join(root, "state.sqlite") };
 
-    const first = await registerProjectRegistry({ path: alias, name: "OpenClaw" }, options);
-    const second = await registerProjectRegistry({ path: repo, name: "OpenClaw" }, options);
+    const first = await registerProjectRegistry({ path: alias, name: "HSMA" }, options);
+    const second = await registerProjectRegistry({ path: repo, name: "HSMA" }, options);
     expect(first).toMatchObject({
       id: "openclaw",
-      displayName: "OpenClaw",
+      displayName: "HSMA",
       repoRoot: repo,
       source: "registered",
     });
@@ -124,7 +124,7 @@ describe("project registry", () => {
     } as OpenClawConfig;
     expect(listProjectRegistry(cfg, options).map((project) => project.displayName)).toEqual([
       "alpha",
-      "OpenClaw",
+      "HSMA",
       "zeta",
     ]);
     const sharedWorkspaceCfg = {

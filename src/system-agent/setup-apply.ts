@@ -197,7 +197,7 @@ export async function applySystemAgentSetup(
   let sessionMigrationWarnings: string[] = [];
 
   if (hasExpectedConfigHash && resolveConfigSnapshotHash(snapshot) !== expectedConfigHash) {
-    throw new Error("OpenClaw config changed while AI access was being tested. Try setup again.");
+    throw new Error("HSMA config changed while AI access was being tested. Try setup again.");
   }
 
   let guardModules =
@@ -258,8 +258,8 @@ export async function applySystemAgentSetup(
     ) {
       throw new Error(
         phase === "before"
-          ? "The default-agent inference route changed before setup could start, so no workspace or Gateway settings were changed. Retry setup from the current OpenClaw session."
-          : "The default-agent inference route changed after the config write, so no further setup effects were applied. Retry setup from the current OpenClaw session.",
+          ? "The default-agent inference route changed before setup could start, so no workspace or Gateway settings were changed. Retry setup from the current HSMA session."
+          : "The default-agent inference route changed after the config write, so no further setup effects were applied. Retry setup from the current HSMA session.",
       );
     }
     return currentRoute;
@@ -281,20 +281,20 @@ export async function applySystemAgentSetup(
     );
     if (!created.createdAgent || !created.configHash) {
       throw new Error(
-        "OpenClaw did not create the approved first agent because the roster changed. Retry setup.",
+        "HSMA did not create the approved first agent because the roster changed. Retry setup.",
       );
     }
     snapshot = await readSetupConfigFileSnapshot();
     snapshotConfig = requireValidSystemAgentSetupSnapshot(snapshot);
     if ((resolveConfigSnapshotHash(snapshot) ?? null) !== created.configHash) {
-      throw new Error("OpenClaw config changed after first-agent creation. Retry setup.");
+      throw new Error("HSMA config changed after first-agent creation. Retry setup.");
     }
     const createdRoster = listAgentEntries(snapshotConfig.sourceConfig);
     if (
       createdRoster.length !== 1 ||
       normalizeAgentId(createdRoster[0]?.id ?? "") !== created.agentId
     ) {
-      throw new Error("OpenClaw first-agent ownership changed during setup. Retry setup.");
+      throw new Error("HSMA first-agent ownership changed during setup. Retry setup.");
     }
     const rebasedRoute = await assertVerifiedRoute(snapshot, verifiedRoute, "before", true);
     verifiedRoute = rebasedRoute ?? verifiedRoute;
@@ -401,7 +401,7 @@ export async function applySystemAgentSetup(
             context.previousHash !== expectedWriteHash
           ) {
             throw new Error(
-              "OpenClaw config changed while AI access was being tested. Try setup again.",
+              "HSMA config changed while AI access was being tested. Try setup again.",
             );
           }
           await assertVerifiedRoute(context.snapshot);
@@ -429,7 +429,7 @@ export async function applySystemAgentSetup(
               !sameSetupConfiguredRoute(expectedSourceRoute.route, verifiedRoute.route, false))
           ) {
             throw new Error(
-              "The setup candidate no longer preserves the exact verified inference route, so it was not saved. Retry setup from the current OpenClaw session.",
+              "The setup candidate no longer preserves the exact verified inference route, so it was not saved. Retry setup from the current HSMA session.",
             );
           }
           // This is the auth/config operation's linearization point. Never hold
@@ -458,7 +458,7 @@ export async function applySystemAgentSetup(
   const setupResult = committed.result;
   const settings = setupResult?.settings;
   if (!settings) {
-    throw new Error("OpenClaw setup committed without resolved Gateway settings.");
+    throw new Error("HSMA setup committed without resolved Gateway settings.");
   }
   const onboardingTarget = resolveSystemTarget(nextConfig);
   const effectiveWorkspace = onboardingTarget.workspaceDir;
@@ -474,7 +474,7 @@ export async function applySystemAgentSetup(
       const issue = expectedRuntime.issues[0];
       const detail = issue ? ` (${issue.path ? `${issue.path}: ` : ""}${issue.message})` : "";
       throw new Error(
-        `OpenClaw could not validate the setup route after its config write${detail}. No further setup effects were applied. Retry setup from the current OpenClaw session.`,
+        `HSMA could not validate the setup route after its config write${detail}. No further setup effects were applied. Retry setup from the current HSMA session.`,
       );
     }
     const expectedPersistedRoute = await projectDefaultInferenceRoute(expectedRuntime.config);
@@ -483,7 +483,7 @@ export async function applySystemAgentSetup(
     // metadata change that would make the committed config run differently.
     if (!sameSetupConfiguredRoute(expectedPersistedRoute.route, verifiedRoute.route, false)) {
       throw new Error(
-        "The materialized inference route no longer matches the exact verified route, so no further setup effects were applied. Retry setup from the current OpenClaw session.",
+        "The materialized inference route no longer matches the exact verified route, so no further setup effects were applied. Retry setup from the current HSMA session.",
       );
     }
   }
@@ -547,7 +547,7 @@ export async function applySystemAgentSetup(
     },
     (error) =>
       lines.push(
-        `OpenClaw exec approval: ${formatErrorMessage(error)}; local model harnesses may ask again.`,
+        `HSMA exec approval: ${formatErrorMessage(error)}; local model harnesses may ask again.`,
       ),
   );
 

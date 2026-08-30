@@ -60,7 +60,7 @@ function smokeFailureGuidance(failure: PluginPayloadSmokeFailure): string[] {
     ? path.join(failure.installPath, "package.json")
     : "the plugin package.json";
   return [
-    `Fix file access for ${packageJsonPath} so it is readable by the user running OpenClaw. For EACCES or EPERM, correct its ownership or permissions; otherwise resolve the reported filesystem I/O error, then retry.`,
+    `Fix file access for ${packageJsonPath} so it is readable by the user running HSMA. For EACCES or EPERM, correct its ownership or permissions; otherwise resolve the reported filesystem I/O error, then retry.`,
     inspectGuidance(failure.pluginId),
   ];
 }
@@ -101,11 +101,11 @@ async function repairInstalledNpmOpenClawHostLinks(params: {
     return {
       changes: [
         ...(repaired > 0
-          ? [`Repaired OpenClaw host peer link(s) for ${repaired} managed npm plugin package(s).`]
+          ? [`Repaired HSMA host peer link(s) for ${repaired} managed npm plugin package(s).`]
           : []),
         ...(registeredRepair.repaired > 0
           ? [
-              `Repaired OpenClaw host peer link(s) for ${registeredRepair.repaired} registered npm plugin package(s).`,
+              `Repaired HSMA host peer link(s) for ${registeredRepair.repaired} registered npm plugin package(s).`,
             ]
           : []),
       ],
@@ -113,7 +113,7 @@ async function repairInstalledNpmOpenClawHostLinks(params: {
       packageReadFailures,
     };
   } catch (err) {
-    const message = `Failed to repair managed npm OpenClaw host peer links: ${err instanceof Error ? err.message : String(err)}`;
+    const message = `Failed to repair managed npm HSMA host peer links: ${err instanceof Error ? err.message : String(err)}`;
     return {
       changes: [],
       warnings: [
@@ -129,7 +129,7 @@ async function repairInstalledNpmOpenClawHostLinks(params: {
 }
 
 function formatPeerLinkPackageReadWarning(failure: { error: unknown }): PostCoreConvergenceWarning {
-  const message = `Failed to repair managed npm OpenClaw host peer links: ${failure.error instanceof Error ? failure.error.message : String(failure.error)}`;
+  const message = `Failed to repair managed npm HSMA host peer links: ${failure.error instanceof Error ? failure.error.message : String(failure.error)}`;
   return {
     reason: message,
     message,

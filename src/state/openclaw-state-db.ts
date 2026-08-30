@@ -612,7 +612,7 @@ function openOpenClawStateDatabaseWithBusyTimeout(
     if (cleanup.caught) {
       throw createSqliteLifecycleAggregateError(
         [error, ...cleanup.errors],
-        `Fresh OpenClaw state database open failed releasing access and closing its unpublished handle for ${pathname}.`,
+        `Fresh HSMA state database open failed releasing access and closing its unpublished handle for ${pathname}.`,
         error,
       );
     }

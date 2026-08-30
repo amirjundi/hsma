@@ -170,7 +170,7 @@ function registerCodexDiagnosticsCommandForTest(
         text: [
           "Codex runtime thread detected.",
           "Approving diagnostics will also send this thread's feedback bundle to OpenAI servers.",
-          "The completed diagnostics reply will list the OpenClaw session ids and Codex thread ids that were sent.",
+          "The completed diagnostics reply will list the HSMA session ids and Codex thread ids that were sent.",
           "Included: Codex logs and spawned Codex subthreads when available.",
         ].join("\n"),
       };
@@ -181,7 +181,7 @@ function registerCodexDiagnosticsCommandForTest(
           "Codex diagnostics sent to OpenAI servers:",
           "Session 1",
           "Channel: whatsapp",
-          "OpenClaw session id: `session-1`",
+          "HSMA session id: `session-1`",
           "Codex thread id: `codex-thread-1`",
           "Inspect locally: `codex resume codex-thread-1`",
           "Included Codex logs and spawned Codex subthreads when available.",
@@ -492,7 +492,7 @@ describe("diagnostics command", () => {
       ownership: "reserved",
       handler: vi.fn(async () => ({
         text: [
-          "No Codex thread is attached to this OpenClaw session yet.",
+          "No Codex thread is attached to this HSMA session yet.",
           "Use /codex threads to find a thread, then /codex resume <thread-id> before sending diagnostics.",
         ].join("\n"),
       })),
@@ -585,7 +585,7 @@ describe("diagnostics command", () => {
     const commandHandler = vi.fn(async () => ({
       text: [
         "Codex diagnostics sent to OpenAI servers:",
-        "- channel whatsapp, OpenClaw session session-1, Codex thread codex-thread-1",
+        "- channel whatsapp, HSMA session session-1, Codex thread codex-thread-1",
       ].join("\n"),
     }));
     registerHostTrustedReservedCommandForTest({

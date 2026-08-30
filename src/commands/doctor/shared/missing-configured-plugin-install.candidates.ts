@@ -45,7 +45,7 @@ export type DownloadableInstallCandidate = {
   expectedIntegrity?: string;
   trustedSourceLinkedOfficialInstall?: boolean;
   defaultChoice?: PluginPackageInstall["defaultChoice"];
-  versionBoundToOpenClaw?: boolean;
+  versionBoundToHSMA?: boolean;
 };
 
 export type BundledPluginPackageDescriptor = {
@@ -287,8 +287,8 @@ export function collectDownloadableInstallCandidates(params: {
       continue;
     }
     const existing = candidates.get(entry.pluginId);
-    if (existing && entry.versionBoundToOpenClaw) {
-      candidates.set(entry.pluginId, { ...existing, versionBoundToOpenClaw: true });
+    if (existing && entry.versionBoundToHSMA) {
+      candidates.set(entry.pluginId, { ...existing, versionBoundToHSMA: true });
     } else if (!existing) {
       candidates.set(entry.pluginId, entry);
     }

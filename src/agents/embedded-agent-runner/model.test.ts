@@ -158,7 +158,7 @@ vi.mock("../model-suppression.js", () => {
         return `Unknown model: ${provider}/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run \`openclaw models auth login --provider openai\` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.`;
       }
       if (isUnsupportedXaiMultiAgentModel(provider, id)) {
-        return "Unknown model: xai/grok-4.20-multi-agent-0309. OpenClaw does not currently support xAI multi-agent models; choose another xAI model. See https://docs.openclaw.ai/providers/xai.";
+        return "Unknown model: xai/grok-4.20-multi-agent-0309. HSMA does not currently support xAI multi-agent models; choose another xAI model. See https://docs.openclaw.ai/providers/xai.";
       }
       return undefined;
     },
@@ -982,7 +982,7 @@ describe("resolveModel", () => {
     expect(discoverModels).toHaveBeenCalledTimes(1);
   });
 
-  it("skips OpenClaw auth and model discovery during dynamic model resolution", async () => {
+  it("skips HSMA auth and model discovery during dynamic model resolution", async () => {
     const result = await resolveModelAsync(
       "openrouter",
       "openrouter/auto",
@@ -1768,7 +1768,7 @@ describe("resolveModel", () => {
     expect(expectResolvedModel(result).input).toEqual(["text"]);
   });
 
-  it("defaults missing model cost before handing models to OpenClaw", async () => {
+  it("defaults missing model cost before handing models to HSMA", async () => {
     const cfg: OpenClawConfig = {
       models: {
         providers: {
@@ -4109,7 +4109,7 @@ describe("resolveModel", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: xai/grok-4.20-multi-agent-0309. OpenClaw does not currently support xAI multi-agent models; choose another xAI model. See https://docs.openclaw.ai/providers/xai.",
+      "Unknown model: xai/grok-4.20-multi-agent-0309. HSMA does not currently support xAI multi-agent models; choose another xAI model. See https://docs.openclaw.ai/providers/xai.",
     );
   });
 

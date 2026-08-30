@@ -265,7 +265,7 @@ describeStandaloneMockServer("standalone Control UI mock server", () => {
     const page = await browser.newPage();
     try {
       await page.goto(new URL("/chat", fixtureServer.url).toString(), { waitUntil: "networkidle" });
-      await page.getByText("OpenClaw work checkout", { exact: true }).click();
+      await page.getByText("HSMA work checkout", { exact: true }).click();
 
       await page.getByRole("button", { name: "Write a message to send." }).waitFor();
       expect(await page.getByText("Server updated", { exact: true }).count()).toBe(0);
@@ -301,7 +301,7 @@ describeStandaloneMockServer("standalone Control UI mock server", () => {
     const page = await browser.newPage();
     try {
       await page.goto(new URL("/chat", fixtureServer.url).toString(), { waitUntil: "networkidle" });
-      await page.getByText("OpenClaw work checkout", { exact: true }).click();
+      await page.getByText("HSMA work checkout", { exact: true }).click();
       await page.getByRole("button", { name: "Write a message to send." }).waitFor();
 
       const prompt = "generic mock send probe";

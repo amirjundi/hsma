@@ -163,40 +163,38 @@ describe("settingsSearchTextMatches", () => {
 
 describe("formatDocumentTitle", () => {
   it("suffixes the brand after a plain context", () => {
-    expect(formatDocumentTitle({ context: "Usage" })).toBe("Usage — OpenClaw");
+    expect(formatDocumentTitle({ context: "Usage" })).toBe("Usage — HSMA");
   });
 
   it("does not duplicate a context ending in the brand", () => {
-    expect(formatDocumentTitle({ context: "Ask OpenClaw" })).toBe("Ask OpenClaw");
-    expect(formatDocumentTitle({ context: "OpenClaw" })).toBe("OpenClaw");
+    expect(formatDocumentTitle({ context: "Ask HSMA" })).toBe("Ask HSMA");
+    expect(formatDocumentTitle({ context: "HSMA" })).toBe("HSMA");
   });
 
   it("prefixes a positive attention count", () => {
-    expect(formatDocumentTitle({ context: "Usage", attentionCount: 2 })).toBe(
-      "(2) Usage — OpenClaw",
-    );
+    expect(formatDocumentTitle({ context: "Usage", attentionCount: 2 })).toBe("(2) Usage — HSMA");
   });
 
   it("names the disconnected gateway without implying internet loss", () => {
     expect(
       formatDocumentTitle({ context: "Usage", gatewayDisconnected: true, queuedCount: 0 }),
-    ).toBe("(Disconnected) Usage — OpenClaw");
+    ).toBe("(Disconnected) Usage — HSMA");
   });
 
   it("includes the queued outbox count in the disconnected marker", () => {
     expect(
       formatDocumentTitle({ context: "Usage", gatewayDisconnected: true, queuedCount: 3 }),
-    ).toBe("(Disconnected · 3 queued) Usage — OpenClaw");
+    ).toBe("(Disconnected · 3 queued) Usage — HSMA");
   });
 
   it("ignores a queued count while online", () => {
-    expect(formatDocumentTitle({ context: "Usage", queuedCount: 3 })).toBe("Usage — OpenClaw");
+    expect(formatDocumentTitle({ context: "Usage", queuedCount: 3 })).toBe("Usage — HSMA");
   });
 
   it("suppresses the attention count while disconnected", () => {
     expect(
       formatDocumentTitle({ context: "Usage", attentionCount: 2, gatewayDisconnected: true }),
-    ).toBe("(Disconnected) Usage — OpenClaw");
+    ).toBe("(Disconnected) Usage — HSMA");
   });
 });
 
@@ -216,7 +214,7 @@ describe("titleForRoute", () => {
       Object.fromEntries(ALL_ROUTES.map((routeId) => [routeId, titleForRoute(routeId)])),
     ).toEqual({
       chat: "Chat",
-      custodian: "OpenClaw",
+      custodian: "HSMA",
       activity: "Activity",
       apps: "Apps",
       portals: "Portals",

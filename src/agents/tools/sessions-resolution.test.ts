@@ -247,7 +247,7 @@ describe("resolveSessionReference", () => {
       ok: false,
       status: "forbidden",
       error:
-        "Session send denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect OpenClaw logs.",
+        "Session send denied because spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect HSMA logs.",
     });
     expect(callGatewayMock).toHaveBeenCalledTimes(1);
   });

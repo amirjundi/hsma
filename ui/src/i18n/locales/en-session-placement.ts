@@ -11,7 +11,7 @@ const enSessionPlacement = {
     continueOnGatewayMenu: "Continue on Gateway…",
     continueOnGatewayAction: "Continue on Gateway",
     continueOnGatewayConfirm:
-      'Continue "{session}" on the Gateway? Unsynced device files and in-flight work may be lost. OpenClaw will continue from the last Gateway-synced state and will not replay the interrupted turn.',
+      'Continue "{session}" on the Gateway? Unsynced device files and in-flight work may be lost. HSMA will continue from the last Gateway-synced state and will not replay the interrupted turn.',
     stopDeviceWorker: "Stop device worker…",
     offlineDeviceStopUnavailable:
       "Reconnect the device to stop and sync its workspace, or Continue on Gateway.",

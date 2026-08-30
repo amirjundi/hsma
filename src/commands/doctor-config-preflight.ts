@@ -630,7 +630,7 @@ export async function runDoctorConfigPreflight(
           persistedIdentity.pluginDoctorConfigFingerprint
       ) {
         throw new Error(
-          'OpenClaw config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
+          'HSMA config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
         );
       }
       // The persisted reread is the only inventory mutation in preflight. Replace both the

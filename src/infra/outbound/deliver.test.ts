@@ -3930,7 +3930,7 @@ describe("deliverOutboundPayloads", () => {
     expect(afterCommit).toHaveBeenCalledTimes(1);
   });
 
-  it("includes OpenClaw tmp root in plugin mediaLocalRoots", async () => {
+  it("includes HSMA tmp root in plugin mediaLocalRoots", async () => {
     const sendMatrix = vi.fn().mockResolvedValue({ messageId: "m-media", roomId: "!room" });
 
     await deliverMatrix({
@@ -4715,7 +4715,7 @@ describe("deliverOutboundPayloads", () => {
           text: [
             "visible",
             "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>",
-            "OpenClaw runtime context (internal):",
+            "HSMA runtime context (internal):",
             "<<<BEGIN_UNTRUSTED_CHILD_RESULT>>>",
             "raw child output",
             "<<<END_UNTRUSTED_CHILD_RESULT>>>",

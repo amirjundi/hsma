@@ -17,7 +17,7 @@ type ServiceStatusSummary = {
   label: string;
   installed: boolean | null;
   loadState: GatewayServiceLoadState;
-  managedByOpenClaw: boolean;
+  managedByHSMA: boolean;
   externallyManaged: boolean;
   loadedText: string;
   runtime: GatewayServiceRuntime | undefined;
@@ -44,10 +44,10 @@ export async function readServiceStatusSummary(
     // must not erase service-manager evidence that the gateway is running.
     const layout = await summarizeGatewayServiceLayout(state.command).catch(() => undefined);
     const wrapperPath = normalizeServiceWrapperPath(state.command);
-    const managedByOpenClaw = state.installed;
+    const managedByHSMA = state.installed;
     // A running unmanaged process still counts as installed for status display.
-    const externallyManaged = !managedByOpenClaw && state.running;
-    const installed = managedByOpenClaw || externallyManaged;
+    const externallyManaged = !managedByHSMA && state.running;
+    const installed = managedByHSMA || externallyManaged;
     const loadedText = externallyManaged
       ? "running (externally managed)"
       : state.loadState.status === "loaded"
@@ -59,7 +59,7 @@ export async function readServiceStatusSummary(
       label: service.label,
       installed,
       loadState: state.loadState,
-      managedByOpenClaw,
+      managedByHSMA,
       externallyManaged,
       loadedText,
       runtime: state.runtime,
@@ -72,7 +72,7 @@ export async function readServiceStatusSummary(
       label: fallbackLabel,
       installed: null,
       loadState: { status: "unknown", detail: String(error) },
-      managedByOpenClaw: false,
+      managedByHSMA: false,
       externallyManaged: false,
       loadedText: "unknown",
       runtime: undefined,

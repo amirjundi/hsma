@@ -66,7 +66,7 @@ function writeCatalogFile(
             $schema: "./manifest.schema.json",
             schemaVersion: 1,
             description:
-              "Extension manifest. Declares plugin packages that OpenClaw can discover during onboarding and install on demand via `openclaw plugins install`.",
+              "Extension manifest. Declares plugin packages that HSMA can discover during onboarding and install on demand via `openclaw plugins install`.",
           }
         : {}),
       entries: [entry],
@@ -140,8 +140,7 @@ const [richNpmCatalogFixture, clawhubCatalogFixture, yuanbaoCatalogFixture] = [
     channelId: "wecom",
     entry: {
       name: "@wecom/wecom-openclaw-plugin",
-      description:
-        "OpenClaw WeCom (企业微信) channel plugin — community maintained, published on npm.",
+      description: "HSMA WeCom (企业微信) channel plugin — community maintained, published on npm.",
       source: "external",
       kind: "channel",
       openclaw: {
@@ -254,8 +253,7 @@ const [richNpmCatalogFixture, clawhubCatalogFixture, yuanbaoCatalogFixture] = [
     channelId: "openclaw-plugin-yuanbao",
     entry: {
       name: "openclaw-plugin-yuanbao",
-      description:
-        "OpenClaw Yuanbao (元宝) channel plugin — community maintained, published on npm.",
+      description: "HSMA Yuanbao (元宝) channel plugin — community maintained, published on npm.",
       source: "external",
       kind: "channel",
       openclaw: {

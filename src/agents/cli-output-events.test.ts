@@ -438,7 +438,7 @@ describe("createCliJsonlStreamingParser events", () => {
       toolCallId: "srvtoolu_1",
       name: "web_search",
       input: { query: "openclaw" },
-      result: [{ type: "web_search_result", title: "OpenClaw", url: "https://example.com" }],
+      result: [{ type: "web_search_result", title: "HSMA", url: "https://example.com" }],
       isError: false,
     },
     {

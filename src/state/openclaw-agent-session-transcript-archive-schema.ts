@@ -12,7 +12,7 @@ function sessionTranscriptArchiveSchemaSql(): string {
   const start = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(ARCHIVE_SCHEMA_START);
   const end = OPENCLAW_AGENT_SCHEMA_SQL.indexOf(ARCHIVE_SCHEMA_END, start);
   if (start === -1 || end === -1) {
-    throw new Error("OpenClaw session transcript archive schema markers are missing.");
+    throw new Error("HSMA session transcript archive schema markers are missing.");
   }
   return OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end);
 }

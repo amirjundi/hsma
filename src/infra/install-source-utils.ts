@@ -26,7 +26,7 @@ export type NpmSpecResolution = {
   integrity?: string;
   shasum?: string;
   resolvedAt?: string;
-  packageOpenClaw?: Record<string, unknown>;
+  packageHSMA?: Record<string, unknown>;
 };
 
 /** Flattened npm resolution fields stored on install results and diagnostics. */
@@ -115,7 +115,7 @@ function normalizeNpmViewMetadata(value: unknown, spec: string): NpmSpecResoluti
     integrity:
       normalizeOptionalString(rec["dist.integrity"]) ?? normalizeOptionalString(dist.integrity),
     shasum: normalizeOptionalString(rec["dist.shasum"]) ?? normalizeOptionalString(dist.shasum),
-    ...(isRecord(rec.openclaw) ? { packageOpenClaw: rec.openclaw } : {}),
+    ...(isRecord(rec.openclaw) ? { packageHSMA: rec.openclaw } : {}),
   };
 }
 

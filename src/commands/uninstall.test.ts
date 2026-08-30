@@ -107,7 +107,7 @@ describe("uninstallCommand", () => {
         uninstallCommand(runtime, { all: true, yes: true, nonInteractive: true }),
       ).rejects.toMatchObject({ name: "ExitError", code: 1 });
       expect(removePath).toHaveBeenCalledWith(
-        "/Applications/OpenClaw.app",
+        "/Applications/HSMA.app",
         runtime,
         expect.any(Object),
       );
@@ -288,7 +288,7 @@ describe("uninstallCommand", () => {
 
         expect(removeStateAndLinkedPaths).toHaveBeenCalledOnce();
         expect(removePath).toHaveBeenCalledWith(
-          "/Applications/OpenClaw.app",
+          "/Applications/HSMA.app",
           runtime,
           expect.any(Object),
         );

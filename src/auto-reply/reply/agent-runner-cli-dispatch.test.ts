@@ -791,12 +791,12 @@ describe("createCliToolSummaryTracker", () => {
     await tracker.noteToolEvent(startEvent);
     await tracker.noteToolEvent({
       ...resultEvent,
-      result: [{ type: "web_search_result", title: "OpenClaw", url: "https://example.com" }],
+      result: [{ type: "web_search_result", title: "HSMA", url: "https://example.com" }],
     });
 
     const payload = deliver.mock.calls[0]?.[0] as { text: string };
     expect(payload.text).toContain('"type":"web_search_result"');
-    expect(payload.text).toContain('"title":"OpenClaw"');
+    expect(payload.text).toContain('"title":"HSMA"');
   });
 
   it("emits nothing while tool summaries are disabled", async () => {

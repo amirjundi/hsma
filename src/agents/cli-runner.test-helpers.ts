@@ -29,7 +29,7 @@ export type TestCliBackendParams = {
 };
 
 export function wrappedPluginSystemContext(text: string) {
-  return `---\n\nOpenClaw plugin-injected system context. This block is not workspace file content.\n\n${text}\n\n---`;
+  return `---\n\nHSMA plugin-injected system context. This block is not workspace file content.\n\n${text}\n\n---`;
 }
 
 export function captureModelCallDiagnostics(runId: string) {

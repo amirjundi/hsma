@@ -1510,10 +1510,10 @@ describe("splitArgsPreservingQuotes", () => {
 
   it("supports schtasks-style escaped quotes while preserving other backslashes", () => {
     expect(
-      splitArgsPreservingQuotes('openclaw --path "C:\\\\Program Files\\\\OpenClaw"', {
+      splitArgsPreservingQuotes('openclaw --path "C:\\\\Program Files\\\\HSMA"', {
         escapeMode: "backslash-quote-only",
       }),
-    ).toEqual(["openclaw", "--path", "C:\\\\Program Files\\\\OpenClaw"]);
+    ).toEqual(["openclaw", "--path", "C:\\\\Program Files\\\\HSMA"]);
 
     expect(
       splitArgsPreservingQuotes('openclaw --label "My \\"Quoted\\" Name"', {
@@ -2353,7 +2353,7 @@ describe("stageSystemdService", () => {
 
       const unit = await fs.readFile(unitPath, "utf8");
 
-      expect(unit).toContain("Description=OpenClaw Gateway");
+      expect(unit).toContain("Description=HSMA Gateway");
       expect(unit).not.toContain("OPENCLAW_SERVICE_VERSION");
       expect(unit).not.toContain("EnvironmentFile=");
       expect(unit).toContain("Environment=OPENCLAW_GATEWAY_PORT=18789");
@@ -2954,7 +2954,7 @@ describe("systemd service install and uninstall", () => {
 
       await installSystemdService(
         nodeSystemdServiceFixture(env, {
-          description: "OpenClaw Node Host",
+          description: "HSMA Node Host",
           environment: {
             OPENCLAW_SYSTEMD_UNIT: "openclaw-node",
           },
@@ -2963,7 +2963,7 @@ describe("systemd service install and uninstall", () => {
 
       const unit = await fs.readFile(unitPath, "utf8");
       expect(unitPath).toMatch(/openclaw-node\.service$/);
-      expect(unit).toContain("Description=OpenClaw Node Host");
+      expect(unit).toContain("Description=HSMA Node Host");
       expect(unit).toContain("openclaw node run");
       expect(unit).not.toContain("OPENCLAW_SERVICE_VERSION");
       expect(execFileMock).toHaveBeenCalledTimes(4);
@@ -3166,7 +3166,7 @@ describe("systemd service install and uninstall", () => {
   ])("refuses to remove the unit when systemctl disable fails: %s", async (detail) => {
     await withNodeSystemdFixture(async ({ env, unitPath, nodeEnvFilePath }) => {
       await fs.mkdir(path.dirname(unitPath), { recursive: true });
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Node\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Node\n", "utf8");
       await fs.writeFile(nodeEnvFilePath, "OPENCLAW_GATEWAY_TOKEN=preserved-token\n", "utf8");
       execFileMock
         .mockImplementationOnce(systemctlUserSuccess("status"))
@@ -3184,7 +3184,7 @@ describe("systemd service install and uninstall", () => {
       await expect(uninstallSystemdService({ env, stdout })).rejects.toThrow(
         `systemctl disable failed: ${detail}`,
       );
-      await expect(fs.readFile(unitPath, "utf8")).resolves.toContain("OpenClaw Node");
+      await expect(fs.readFile(unitPath, "utf8")).resolves.toContain("HSMA Node");
       await expect(fs.readFile(nodeEnvFilePath, "utf8")).resolves.toContain("preserved-token");
     });
   });
@@ -3218,7 +3218,7 @@ describe("systemd service install and uninstall", () => {
   it("disables the OPENCLAW_SYSTEMD_UNIT override during uninstall", async () => {
     await withNodeSystemdFixture(async ({ env, unitPath, nodeEnvFilePath }) => {
       await fs.mkdir(path.dirname(unitPath), { recursive: true });
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Node\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Node\n", "utf8");
       await fs.writeFile(
         nodeEnvFilePath,
         [
@@ -3263,7 +3263,7 @@ describe("systemd service install and uninstall", () => {
   it("removes a password-only node environment file during uninstall", async () => {
     await withNodeSystemdFixture(async ({ env, unitPath, nodeEnvFilePath }) => {
       await fs.mkdir(path.dirname(unitPath), { recursive: true });
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Node\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Node\n", "utf8");
       await fs.writeFile(nodeEnvFilePath, "OPENCLAW_GATEWAY_PASSWORD=stale-password\n", {
         encoding: "utf8",
         mode: 0o600,
@@ -3284,7 +3284,7 @@ describe("systemd service install and uninstall", () => {
   it("preserves node env file values when unit removal fails during uninstall", async () => {
     await withNodeSystemdFixture(async ({ env, unitPath, nodeEnvFilePath }) => {
       await fs.mkdir(path.dirname(unitPath), { recursive: true });
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Node\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Node\n", "utf8");
       await fs.writeFile(
         nodeEnvFilePath,
         "OPENCLAW_GATEWAY_TOKEN=stale-node-token\nOPENROUTER_API_KEY=operator-key\n",
@@ -3304,7 +3304,7 @@ describe("systemd service install and uninstall", () => {
         "EACCES: permission denied",
       );
 
-      await expect(fs.readFile(unitPath, "utf8")).resolves.toContain("OpenClaw Node");
+      await expect(fs.readFile(unitPath, "utf8")).resolves.toContain("HSMA Node");
       await expect(fs.readFile(nodeEnvFilePath, "utf8")).resolves.toBe(
         "OPENCLAW_GATEWAY_TOKEN=stale-node-token\nOPENROUTER_API_KEY=operator-key\n",
       );
@@ -3450,7 +3450,7 @@ describe("uninstallUserSystemdGatewayUnit", () => {
 
   it("disables and removes the user-scope unit when systemctl is available", async () => {
     await withUserUnitFixture(async ({ env, unitPath }) => {
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Gateway\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Gateway\n", "utf8");
       execFileMock
         .mockImplementationOnce(systemctlUserSuccess("status"))
         .mockImplementationOnce(systemctlUserSuccess("disable", "--now", GATEWAY_SERVICE))
@@ -3484,7 +3484,7 @@ describe("uninstallUserSystemdGatewayUnit", () => {
 
   it("removes the unit file only when systemctl is unavailable", async () => {
     await withUserUnitFixture(async ({ env, unitPath }) => {
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Gateway\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Gateway\n", "utf8");
       execFileMock.mockImplementation(
         execFileResult(createExecFileError("spawn systemctl ENOENT", { code: "ENOENT" }), "", ""),
       );
@@ -3506,7 +3506,7 @@ describe("uninstallUserSystemdGatewayUnit", () => {
     "preserves the unit file when disable fails after status %s",
     async (termination) => {
       await withUserUnitFixture(async ({ env, unitPath }) => {
-        await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Gateway\n", "utf8");
+        await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Gateway\n", "utf8");
         execFileMock
           .mockImplementationOnce(
             systemctlUserResult(
@@ -3541,7 +3541,7 @@ describe("uninstallUserSystemdGatewayUnit", () => {
 
   it("surfaces daemon-reload failure after removing the disabled unit", async () => {
     await withUserUnitFixture(async ({ env, unitPath }) => {
-      await fs.writeFile(unitPath, "[Unit]\nDescription=OpenClaw Gateway\n", "utf8");
+      await fs.writeFile(unitPath, "[Unit]\nDescription=HSMA Gateway\n", "utf8");
       execFileMock
         .mockImplementationOnce(systemctlUserSuccess("status"))
         .mockImplementationOnce(systemctlUserSuccess("disable", "--now", GATEWAY_SERVICE))

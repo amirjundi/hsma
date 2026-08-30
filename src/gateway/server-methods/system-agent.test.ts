@@ -272,7 +272,7 @@ beforeEach(() => {
     auditSequence: 0,
   });
   greetingMocks.resolveSystemAgentGreeting.mockReset().mockResolvedValue({
-    text: "I'm OpenClaw. All systems nominal.",
+    text: "I'm HSMA. All systems nominal.",
     source: "model",
   });
   onboardingWelcomeMocks.buildOnboardingWelcome.mockReset().mockResolvedValue({
@@ -331,7 +331,7 @@ describe("openclaw.setup", () => {
           payload: undefined,
           error: {
             code: "UNAVAILABLE",
-            message: "OpenClaw setup is already in progress; try again when it finishes.",
+            message: "HSMA setup is already in progress; try again when it finishes.",
             retryable: true,
           },
         },
@@ -368,7 +368,7 @@ describe("openclaw.setup", () => {
           payload: undefined,
           error: {
             code: "UNAVAILABLE",
-            message: "OpenClaw setup is already in progress; try again when it finishes.",
+            message: "HSMA setup is already in progress; try again when it finishes.",
             retryable: true,
           },
         },
@@ -494,7 +494,7 @@ describe("openclaw.chat", () => {
       ok: false,
       error: {
         code: "UNAVAILABLE",
-        message: "OpenClaw requires working inference: no configured model",
+        message: "HSMA requires working inference: no configured model",
         details: {
           code: "system_agent_inference_unavailable",
         },

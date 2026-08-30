@@ -15,7 +15,7 @@ import { getFileLockProcessStartTime } from "../shared/pid-alive.js";
 import { ensureOpenClawAgentDatabaseSchema } from "../state/openclaw-agent-db.js";
 
 const STARTUP_REFUSAL =
-  "OpenClaw startup migrations did not complete cleanly; refusing to report the gateway ready.";
+  "HSMA startup migrations did not complete cleanly; refusing to report the gateway ready.";
 const STARTUP_RECOVERY =
   'Run "openclaw doctor --fix" against the same state/config, then restart the gateway.';
 const tempDirs = useAutoCleanupTempDirTracker(afterAll);

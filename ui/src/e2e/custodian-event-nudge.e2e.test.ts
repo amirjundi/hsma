@@ -95,7 +95,7 @@ suite.define(() => {
 
         const response = await page.goto(`${suite.server.baseUrl}custodian`);
         expect(response?.status()).toBe(200);
-        await page.getByRole("heading", { name: "OpenClaw", exact: true }).waitFor();
+        await page.getByRole("heading", { name: "HSMA", exact: true }).waitFor();
         await expect.poll(async () => (await gateway.getRequests("openclaw.chat")).length).toBe(1);
 
         if (captureUiProofEnabled) {
@@ -189,7 +189,7 @@ suite.define(() => {
         await gateway.rejectDeferred("openclaw.chat", {
           code: "UNAVAILABLE",
           message:
-            "OpenClaw requires working inference: No agent model is configured. Run `openclaw onboard` first.",
+            "HSMA requires working inference: No agent model is configured. Run `openclaw onboard` first.",
           retryable: true,
         });
 
@@ -275,7 +275,7 @@ suite.define(() => {
               question: {
                 id: "access",
                 header: "Access",
-                question: "How should OpenClaw work?",
+                question: "How should HSMA work?",
                 options: [{ label: "Full access" }, { label: "Ask first" }],
                 isOther: false,
               },

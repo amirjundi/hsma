@@ -171,7 +171,7 @@ describe("runAuthProbes", () => {
     });
   });
 
-  it("runs Codex-pinned auth probes through raw OpenClaw model-run mode", async () => {
+  it("runs Codex-pinned auth probes through raw HSMA model-run mode", async () => {
     const runEmbeddedAgent = vi.fn(
       async (params: {
         agentDir?: string;

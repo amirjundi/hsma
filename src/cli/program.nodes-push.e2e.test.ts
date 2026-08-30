@@ -117,7 +117,7 @@ describe("cli program (nodes push)", () => {
         .find(({ method }) => method === "push.test");
       expect(pushRequest?.params).toEqual({
         nodeId: "ios-node",
-        title: "OpenClaw",
+        title: "HSMA",
         body: "Push test for node ios-node",
         ...(environment ? { environment } : {}),
       });

@@ -109,7 +109,7 @@ describe("doctor context-engine host compatibility", () => {
     });
   });
 
-  it("evaluates native Codex and OpenClaw agent-run hosts", async () => {
+  it("evaluates native Codex and HSMA agent-run hosts", async () => {
     const engineId = registerEngine(["thread-bootstrap-projection"]);
     const warnings = await collectContextEngineHostCompatibilityWarnings({
       cfg: configWithEngine(engineId, {
@@ -125,7 +125,7 @@ describe("doctor context-engine host compatibility", () => {
       doctorFixCommand: "openclaw doctor --fix",
     });
 
-    expect(warnings.join("\n")).toContain("OpenClaw embedded runner");
+    expect(warnings.join("\n")).toContain("HSMA embedded runner");
     expect(warnings.join("\n")).toContain("Some configured runtimes support");
     expect(warnings.join("\n")).not.toContain("Codex app-server harness (");
   });

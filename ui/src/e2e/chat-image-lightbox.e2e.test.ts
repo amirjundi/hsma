@@ -77,7 +77,7 @@ describeControlUiE2e("Control UI image lightbox", () => {
             {
               type: "image",
               url: dataUrl,
-              alt: "OpenClaw banner",
+              alt: "HSMA banner",
             },
           ],
           timestamp: Date.now(),
@@ -120,11 +120,11 @@ describeControlUiE2e("Control UI image lightbox", () => {
       await page.goto(`${server.baseUrl}chat`);
       await gateway.waitForRequest("chat.startup");
 
-      const transcriptTrigger = page.getByRole("button", { name: "Open image OpenClaw banner" });
+      const transcriptTrigger = page.getByRole("button", { name: "Open image HSMA banner" });
       await transcriptTrigger.waitFor({ state: "visible", timeout: 10_000 });
       await transcriptTrigger.click();
 
-      const dialog = page.getByRole("dialog", { name: "Image preview: OpenClaw banner" });
+      const dialog = page.getByRole("dialog", { name: "Image preview: HSMA banner" });
       await dialog.waitFor({ state: "visible" });
       const closeButton = page.getByRole("button", { name: "Close image preview" });
       const openOriginal = page.getByRole("link", { name: "Open in new tab" });
@@ -149,7 +149,7 @@ describeControlUiE2e("Control UI image lightbox", () => {
       await expect
         .poll(() => closeButton.evaluate((element) => element.matches(":focus")))
         .toBe(true);
-      const displayedImage = page.getByAltText("OpenClaw banner").last();
+      const displayedImage = page.getByAltText("HSMA banner").last();
       await expect
         .poll(() =>
           displayedImage.evaluate((image) =>

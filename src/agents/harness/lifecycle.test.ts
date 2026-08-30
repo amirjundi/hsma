@@ -366,7 +366,7 @@ describe("AgentHarness lifecycle runner", () => {
     expect(runAttempt).toHaveBeenCalledOnce();
   });
 
-  it("advertises OpenClaw embedded host capabilities", async () => {
+  it("advertises HSMA embedded host capabilities", async () => {
     const harness = createOpenClawAgentHarness();
 
     expect(harness.contextEngineHostCapabilities).toEqual(

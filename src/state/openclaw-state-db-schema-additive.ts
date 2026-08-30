@@ -37,7 +37,7 @@ function secretStoreSchemaSql(): string {
   const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(SECRET_STORE_SCHEMA_END, start);
   const hasBoundedSchema = start >= 0 && endMarkerStart >= start;
   if (!hasBoundedSchema) {
-    throw new Error("OpenClaw secret store schema marker is missing.");
+    throw new Error("HSMA secret store schema marker is missing.");
   }
   return OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + SECRET_STORE_SCHEMA_END.length);
 }
@@ -53,7 +53,7 @@ export function ensureMcpOAuthPendingSchema(database: DatabaseSync): void {
   const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_START);
   const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(MCP_OAUTH_PENDING_SCHEMA_END, start);
   if (start < 0 || endMarkerStart < start) {
-    throw new Error("OpenClaw MCP OAuth pending schema marker is missing.");
+    throw new Error("HSMA MCP OAuth pending schema marker is missing.");
   }
   database.exec(
     OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + MCP_OAUTH_PENDING_SCHEMA_END.length),
@@ -68,7 +68,7 @@ export function ensureDevicePairingJoinCodeSchema(database: DatabaseSync): void 
     start,
   );
   if (start < 0 || endMarkerStart < start) {
-    throw new Error("OpenClaw device pairing join-code schema marker is missing.");
+    throw new Error("HSMA device pairing join-code schema marker is missing.");
   }
   database.exec(
     OPENCLAW_STATE_SCHEMA_SQL.slice(
@@ -83,7 +83,7 @@ export function ensureConfigRevisionKeySchema(database: DatabaseSync): void {
   const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_START);
   const endMarkerStart = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CONFIG_REVISION_KEY_SCHEMA_END, start);
   if (start < 0 || endMarkerStart < start) {
-    throw new Error("OpenClaw config revision key schema marker is missing.");
+    throw new Error("HSMA config revision key schema marker is missing.");
   }
   database.exec(
     OPENCLAW_STATE_SCHEMA_SQL.slice(start, endMarkerStart + CONFIG_REVISION_KEY_SCHEMA_END.length),

@@ -36,7 +36,7 @@ function createContext(request: ReturnType<typeof vi.fn>): ApplicationContext {
     basePath: "",
     gateway: { snapshot, subscribe },
     config: {
-      current: { assistantIdentity: { name: "OpenClaw" } },
+      current: { assistantIdentity: { name: "HSMA" } },
       subscribe,
     },
     agents: { state: { agentsList: null } },

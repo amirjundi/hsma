@@ -609,7 +609,7 @@ describe("plugin authoring commands", () => {
     );
   });
 
-  it("loads source entries that import the OpenClaw plugin SDK package subpath", async () => {
+  it("loads source entries that import the HSMA plugin SDK package subpath", async () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-plugin-source-"));
     const entryPath = writeSourceToolPluginProject({
       tmpDir,

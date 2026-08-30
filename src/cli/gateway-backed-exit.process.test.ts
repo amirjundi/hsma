@@ -652,7 +652,7 @@ describe("gateway-backed CLI process exit", () => {
       ok: false,
       error: {
         type: "cli_error",
-        message: expect.stringContaining("OpenClaw config is invalid:"),
+        message: expect.stringContaining("HSMA config is invalid:"),
       },
       issues: [
         {
@@ -662,7 +662,7 @@ describe("gateway-backed CLI process exit", () => {
         },
       ],
     });
-    expect(result.stderr).toContain("OpenClaw config is invalid");
+    expect(result.stderr).toContain("HSMA config is invalid");
     expect(result.stderr).toContain("gateway.mode");
     expect(gateway.calls).toEqual([]);
     await expect(fs.stat(path.join(stateDir, "state", "openclaw.sqlite"))).rejects.toMatchObject({

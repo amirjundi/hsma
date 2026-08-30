@@ -312,18 +312,18 @@ async function collectServiceFiles(params: {
 async function scanLaunchdDir(params: {
   dir: string;
   scope: "user" | "system";
-  includeManagedOpenClaw?: boolean;
+  includeManagedHSMA?: boolean;
   managedLabel?: string;
 }): Promise<ExtraGatewayService[]> {
   const results: ExtraGatewayService[] = [];
   const candidates = await collectServiceFiles({
     dir: params.dir,
     extension: ".plist",
-    isIgnoredName: params.includeManagedOpenClaw ? () => false : isIgnoredLaunchdLabel,
+    isIgnoredName: params.includeManagedHSMA ? () => false : isIgnoredLaunchdLabel,
   });
 
   for (const { name: labelFromName, fullPath, contents } of candidates) {
-    const nativeLabel = params.includeManagedOpenClaw
+    const nativeLabel = params.includeManagedHSMA
       ? await readLaunchDaemonPlistLabel(fullPath)
       : null;
     const label =
@@ -345,11 +345,11 @@ async function scanLaunchdDir(params: {
     }
     // Managed current services are expected; this scan reports extra jobs that
     // can compete for ports or survive old installs.
-    if (!params.includeManagedOpenClaw && isIgnoredLaunchdLabel(label)) {
+    if (!params.includeManagedHSMA && isIgnoredLaunchdLabel(label)) {
       continue;
     }
     if (
-      !params.includeManagedOpenClaw &&
+      !params.includeManagedHSMA &&
       marker === "openclaw" &&
       isOpenClawGatewayLaunchdService(label, contents)
     ) {
@@ -371,13 +371,13 @@ async function scanLaunchdDir(params: {
 async function scanSystemdDir(params: {
   dir: string;
   scope: "user" | "system";
-  includeManagedOpenClaw?: boolean;
+  includeManagedHSMA?: boolean;
 }): Promise<ExtraGatewayService[]> {
   const results: ExtraGatewayService[] = [];
   const candidates = await collectServiceFiles({
     dir: params.dir,
     extension: ".service",
-    isIgnoredName: params.includeManagedOpenClaw ? () => false : isIgnoredSystemdName,
+    isIgnoredName: params.includeManagedHSMA ? () => false : isIgnoredSystemdName,
   });
 
   for (const { entry, name, fullPath, contents } of candidates) {
@@ -388,7 +388,7 @@ async function scanSystemdDir(params: {
       continue;
     }
     if (
-      !params.includeManagedOpenClaw &&
+      !params.includeManagedHSMA &&
       marker === "openclaw" &&
       isOpenClawGatewaySystemdService(name, contents)
     ) {
@@ -419,7 +419,7 @@ export async function findSystemGatewayServices(): Promise<ExtraGatewayService[]
         ...(await scanSystemdDir({
           dir,
           scope: "system",
-          includeManagedOpenClaw: true,
+          includeManagedHSMA: true,
         })),
       );
     }
@@ -513,7 +513,7 @@ export async function findExtraGatewayServices(
         for (const svc of await scanLaunchdDir({
           dir: path.join(path.sep, "Library", "LaunchDaemons"),
           scope: "system",
-          includeManagedOpenClaw: true,
+          includeManagedHSMA: true,
           managedLabel: resolveLaunchAgentLabel(env),
         })) {
           push(svc);

@@ -59,7 +59,7 @@ describe.each(platforms)("$name meeting status source parity", (platform) => {
       autoJoin: false,
       captureCaptions: false,
       expectedIdentity: `${platform.token}:meeting`,
-      guestName: "OpenClaw",
+      guestName: "HSMA",
       pageIdentitySource: "const meetingIdentity = () => undefined;",
       selectors: "{}",
       toggleStateFunction: "() => undefined",

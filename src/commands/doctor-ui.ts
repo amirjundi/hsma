@@ -125,7 +125,7 @@ export function uiProtocolFreshnessIssueToHealthFinding(
       ? issue.kind === "missing-assets"
         ? "Run `openclaw doctor --fix` to build Control UI assets."
         : "Run `openclaw doctor --fix --force` to rebuild Control UI assets, or run `pnpm ui:build`."
-      : "Reinstall OpenClaw to restore bundled Control UI assets.",
+      : "Reinstall HSMA to restore bundled Control UI assets.",
   };
 }
 
@@ -153,7 +153,7 @@ function formatUiProtocolFreshnessIssue(issue: UiProtocolFreshnessIssue): string
       "- Control UI assets are missing.",
       issue.canBuild
         ? "- Run: pnpm ui:build"
-        : "- Reinstall OpenClaw to restore bundled Control UI assets.",
+        : "- Reinstall HSMA to restore bundled Control UI assets.",
     ].join("\n");
   }
   if (issue.changesSinceBuild.length === 0) {

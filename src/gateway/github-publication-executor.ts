@@ -49,7 +49,7 @@ import { parseGitHubRemoteUrl } from "./github-remote.js";
 import { resolveGitHubRepositoryTarget } from "./github-repository-target.js";
 import { SessionMutationAuthorizationChangedError } from "./session-sharing.js";
 
-const PUBLICATION_MARKER = "OpenClaw-Publication";
+const PUBLICATION_MARKER = "HSMA-Publication";
 
 type PublicationRow = StateDatabase["github_publication_requests"];
 
@@ -503,7 +503,7 @@ export async function executeGitHubPublication(params: {
       const description = (
         row.body?.trim() || "Published by the Gateway after authoritative workspace reconciliation."
       )
-        .replace(/(?:\s*---\s*\n\[View the OpenClaw team session\]\([^\r\n)]*\)\s*)+$/u, "")
+        .replace(/(?:\s*---\s*\n\[View the HSMA team session\]\([^\r\n)]*\)\s*)+$/u, "")
         .replace(
           /(?:^|\n\n)## Worked on by\n\n(?:- @[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})\n)*- @[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})(?=\n\n|$)/gu,
           "",
@@ -513,7 +513,7 @@ export async function executeGitHubPublication(params: {
         ? `\n\n## Worked on by\n\n${contributorCredit}`
         : "";
       const footer = sessionUrl?.startsWith("https://")
-        ? `\n\n---\n[View the OpenClaw team session](${sessionUrl})`
+        ? `\n\n---\n[View the HSMA team session](${sessionUrl})`
         : "";
       const body = `${description}${participantCredit}\n\n${pullRequestMarker}${footer}`;
       identity = await refreshIdentity();

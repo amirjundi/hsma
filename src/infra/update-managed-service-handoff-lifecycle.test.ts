@@ -508,7 +508,7 @@ describe("managed service update handoff", () => {
     const serviceIdentityEnv = {
       OPENCLAW_LAUNCHD_LABEL: "com.example.openclaw.test",
       OPENCLAW_SYSTEMD_UNIT: "openclaw-test.service",
-      OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Test Gateway",
+      OPENCLAW_WINDOWS_TASK_NAME: "HSMA Test Gateway",
     } satisfies NodeJS.ProcessEnv;
     const supervisorEnv = Object.fromEntries(
       SUPERVISOR_HINT_ENV_VARS.map((key) => [key, "supervised"]),
@@ -941,8 +941,8 @@ describe("managed service update handoff", () => {
       },
       {
         supervisor: "schtasks" as const,
-        env: { OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Test Gateway" },
-        expected: { kind: "schtasks", taskName: "OpenClaw Test Gateway" },
+        env: { OPENCLAW_WINDOWS_TASK_NAME: "HSMA Test Gateway" },
+        expected: { kind: "schtasks", taskName: "HSMA Test Gateway" },
       },
     ];
 

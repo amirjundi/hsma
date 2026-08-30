@@ -636,16 +636,16 @@ async function probeMcpServersOrFail(params: {
 }
 
 const OPENCLAW_MCP_REGISTRY_SCOPE_NOTE =
-  "Note: this command only shows OpenClaw-managed mcp.servers entries and does not include mcporter servers from config/mcporter.json.";
+  "Note: this command only shows HSMA-managed mcp.servers entries and does not include mcporter servers from config/mcporter.json.";
 
 export function registerMcpCli(program: Command) {
   const mcp = program
     .command("mcp")
-    .description("Manage OpenClaw mcp.servers config and channel bridge");
+    .description("Manage HSMA mcp.servers config and channel bridge");
 
   mcp
     .command("serve")
-    .description("Expose OpenClaw channels over MCP stdio")
+    .description("Expose HSMA channels over MCP stdio")
     .option("--url <url>", "Gateway WebSocket URL (defaults to gateway.remote.url when configured)")
     .option("--token <token>", "Gateway token (if required)")
     .option("--token-file <path>", "Read gateway token from file")
@@ -687,7 +687,7 @@ export function registerMcpCli(program: Command) {
 
   mcp
     .command("list")
-    .description("List OpenClaw-managed MCP servers from mcp.servers")
+    .description("List HSMA-managed MCP servers from mcp.servers")
     .option("--json", "Print JSON")
     .action(async (opts: { json?: boolean }) => {
       const loaded = await listConfiguredMcpServers();
@@ -702,12 +702,12 @@ export function registerMcpCli(program: Command) {
       const names = entries.map(([name]) => name);
       if (names.length === 0) {
         defaultRuntime.log(
-          `No OpenClaw-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('openclaw mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
+          `No HSMA-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('openclaw mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
         );
         defaultRuntime.log(OPENCLAW_MCP_REGISTRY_SCOPE_NOTE);
         return;
       }
-      defaultRuntime.log(`OpenClaw-managed MCP servers (${loaded.path}):`);
+      defaultRuntime.log(`HSMA-managed MCP servers (${loaded.path}):`);
       for (const [name, server] of entries) {
         const connectedPrincipals = countConnectedMcpPrincipals(name, server);
         const connected =
@@ -722,7 +722,7 @@ export function registerMcpCli(program: Command) {
 
   mcp
     .command("show")
-    .description("Show one OpenClaw-managed MCP server or the full mcp.servers config")
+    .description("Show one HSMA-managed MCP server or the full mcp.servers config")
     .argument("[name]", "MCP server name")
     .option("--json", "Print JSON")
     .action(async (name: string | undefined, opts: { json?: boolean }) => {
@@ -741,9 +741,9 @@ export function registerMcpCli(program: Command) {
         return;
       }
       if (name) {
-        defaultRuntime.log(`OpenClaw-managed MCP server "${name}" (${loaded.path}):`);
+        defaultRuntime.log(`HSMA-managed MCP server "${name}" (${loaded.path}):`);
       } else {
-        defaultRuntime.log(`OpenClaw-managed MCP servers (${loaded.path}):`);
+        defaultRuntime.log(`HSMA-managed MCP servers (${loaded.path}):`);
       }
       printJson(value ?? {});
     });
@@ -1125,7 +1125,7 @@ export function registerMcpCli(program: Command) {
 
   mcp
     .command("set")
-    .description("Set one OpenClaw-managed MCP server from a JSON object")
+    .description("Set one HSMA-managed MCP server from a JSON object")
     .argument("<name>", "MCP server name")
     .argument("<value>", 'JSON object, for example {"command":"uvx","args":["context7-mcp"]}')
     .action(async (name: string, rawValue: string) => {
@@ -1420,7 +1420,7 @@ export function registerMcpCli(program: Command) {
         defaultRuntime.log(`Open this URL to authorize "${name}":`);
         defaultRuntime.log(session.authorizationUrl);
         if (callbackServer) {
-          defaultRuntime.log("Waiting for the browser to return to OpenClaw...");
+          defaultRuntime.log("Waiting for the browser to return to HSMA...");
           defaultRuntime.log(`If the callback cannot reach this terminal, run ${manualCommand}.`);
         } else {
           defaultRuntime.log(`After approval, run ${manualCommand}.`);
@@ -1489,7 +1489,7 @@ export function registerMcpCli(program: Command) {
 
   mcp
     .command("unset")
-    .description("Remove one OpenClaw-managed MCP server")
+    .description("Remove one HSMA-managed MCP server")
     .argument("<name>", "MCP server name")
     .action(async (name: string) => {
       const result = await unsetConfiguredMcpServer({ name });

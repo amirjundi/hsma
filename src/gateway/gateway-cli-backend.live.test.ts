@@ -645,7 +645,7 @@ describeLive("gateway live (cli backend)", () => {
             sessionKey,
           });
           if (!history.sessionId) {
-            throw new Error("Claude CLI cache probe could not resolve its OpenClaw session");
+            throw new Error("Claude CLI cache probe could not resolve its HSMA session");
           }
           cacheProbeOwner = {
             backendId: providerId,
@@ -752,7 +752,7 @@ describeLive("gateway live (cli backend)", () => {
             const continuitySessionId = nativeHistory.sessionId;
             expect(continuitySessionId).toBeTruthy();
             if (!continuitySessionId) {
-              throw new Error("Claude CLI continuity probe could not resolve its OpenClaw session");
+              throw new Error("Claude CLI continuity probe could not resolve its HSMA session");
             }
             continuityOwner = {
               backendId: providerId,

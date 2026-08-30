@@ -37,7 +37,7 @@ const WORKER_RESULT_REF_PREFIX = "refs/openclaw/worker-results";
 const WORKER_RESULT_CANDIDATE_REF_PREFIX = "refs/openclaw/worker-result-candidates";
 const WORKER_RESULT_CLEANUP_REF_PREFIX = "refs/openclaw/worker-result-cleanup";
 const WORKER_RESULT_CLAIM_ID_PATTERN = /^[A-Za-z0-9-]+$/u;
-const STAGED_RESULT_MESSAGE = "OpenClaw worker workspace result";
+const STAGED_RESULT_MESSAGE = "HSMA worker workspace result";
 const STAGED_RESULT_METADATA_LIMIT = 128 * 1024 * 1024 + 4_096;
 const workspaceLog = createSubsystemLogger("gateway/worker-workspace");
 // Git documents the platform null device as the per-command way to disable
@@ -315,7 +315,7 @@ async function stageWorkerWorkspaceResult(params: {
   }
   chunks.push(
     Buffer.from(
-      `commit ${stagedResultRef}\nauthor OpenClaw <openclaw@localhost> 0 +0000\ncommitter OpenClaw <openclaw@localhost> 0 +0000\ndata ${message.byteLength}\n`,
+      `commit ${stagedResultRef}\nauthor HSMA <openclaw@localhost> 0 +0000\ncommitter HSMA <openclaw@localhost> 0 +0000\ndata ${message.byteLength}\n`,
     ),
     message,
     Buffer.from("\ndeleteall\n"),

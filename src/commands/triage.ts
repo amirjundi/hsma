@@ -143,7 +143,7 @@ export async function triageCommand(
       agentId &&
       resolveAgentEffectiveModelPrimary(config, agentId)
     ) {
-      choices.push({ value: { kind: "embedded" }, label: "OpenClaw embedded agent" });
+      choices.push({ value: { kind: "embedded" }, label: "HSMA embedded agent" });
     }
     for (const { agent, executablePath } of externalAgents) {
       // Windows command shims need a shell, so keep them manual-only rather than offering a broken launch.
@@ -157,7 +157,7 @@ export async function triageCommand(
     }
     choices.push({ value: { kind: "print" }, label: "Just print the commands" });
     const selected = await select<TriageHandoff>({
-      message: "Choose an agent to investigate this OpenClaw installation",
+      message: "Choose an agent to investigate this HSMA installation",
       options: choices,
     });
     if (typeof selected === "symbol") {

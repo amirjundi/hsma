@@ -129,7 +129,7 @@ if (isMain && !handledRootVersion) {
       defaultRuntime.writeJson(formatCliJsonFailure(error));
     }
     for (const line of formatCliFailureLines({
-      title: "OpenClaw hit an unexpected runtime error.",
+      title: "HSMA hit an unexpected runtime error.",
       error,
       argv: process.argv,
     })) {

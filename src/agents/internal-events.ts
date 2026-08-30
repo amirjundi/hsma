@@ -223,7 +223,7 @@ export function formatAgentInternalEventsForPrompt(events?: AgentInternalEvent[]
   }
   return [
     INTERNAL_RUNTIME_CONTEXT_BEGIN,
-    "OpenClaw runtime context (internal):",
+    "HSMA runtime context (internal):",
     "This context is runtime-generated, not user-authored. Keep internal details private.",
     "",
     blocks.join("\n\n---\n\n"),
@@ -243,7 +243,7 @@ export function formatGeneratedMediaDeliveryRetryForPrompt(mediaUrls: string[]):
   }
   return [
     INTERNAL_RUNTIME_CONTEXT_BEGIN,
-    "OpenClaw runtime context (internal):",
+    "HSMA runtime context (internal):",
     "This context is runtime-generated, not user-authored. Keep internal details private.",
     "",
     "[Generated media delivery retry]",

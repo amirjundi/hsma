@@ -59,12 +59,12 @@ function stripInlineLeakedInternalContext(value: string): string {
   if (
     beginIndex !== -1 &&
     (value.includes(INTERNAL_RUNTIME_CONTEXT_END) ||
-      value.includes("OpenClaw runtime context (internal):") ||
+      value.includes("HSMA runtime context (internal):") ||
       value.includes("[Internal task completion event]"))
   ) {
     return value.slice(0, beginIndex);
   }
-  const legacyHeaderIndex = value.indexOf("OpenClaw runtime context (internal):");
+  const legacyHeaderIndex = value.indexOf("HSMA runtime context (internal):");
   if (
     legacyHeaderIndex !== -1 &&
     (value.includes("Keep internal details private.") ||

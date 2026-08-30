@@ -32,9 +32,7 @@ describe("state database schema migration error classification", () => {
   it("does not classify similar operator guidance as the migration error", () => {
     expect(
       findOpenClawStateDatabaseSchemaMigrationRequiredError(
-        new Error(
-          "OpenClaw state database /tmp/openclaw.sqlite is stale; run openclaw doctor --fix.",
-        ),
+        new Error("HSMA state database /tmp/openclaw.sqlite is stale; run openclaw doctor --fix."),
       ),
     ).toBeUndefined();
   });
@@ -44,7 +42,7 @@ describe("state database schema migration error classification", () => {
     expect(
       findOpenClawStateDatabaseSchemaMigrationRequiredError(
         new Error(
-          "OpenClaw agent database /tmp/openclaw-agent.sqlite uses schema version 5; run openclaw doctor --fix to migrate persisted media before using it.",
+          "HSMA agent database /tmp/openclaw-agent.sqlite uses schema version 5; run openclaw doctor --fix to migrate persisted media before using it.",
         ),
       ),
     ).toBeUndefined();

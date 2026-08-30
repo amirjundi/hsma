@@ -468,7 +468,7 @@ export async function maybeStopManagedServiceBeforeMutableUpdate(params: {
     if (!params.jsonMode) {
       defaultRuntime.log(
         theme.muted(
-          `Managed gateway service points at a different OpenClaw root; leaving it running during this ${params.updateInstallKind} update.`,
+          `Managed gateway service points at a different HSMA root; leaving it running during this ${params.updateInstallKind} update.`,
         ),
       );
     }

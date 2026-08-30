@@ -37,7 +37,7 @@ describe("buildCliAgentSystemPrompt", () => {
     expect(prompt).not.toContain("Do not poll `subagents list` / `sessions_list` in a loop");
   });
 
-  it("uses CLI backend tool fallback instead of OpenClaw tool assumptions", () => {
+  it("uses CLI backend tool fallback instead of HSMA tool assumptions", () => {
     const prompt = buildCliAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
       docsPath: "/tmp/openclaw/docs",
@@ -45,12 +45,12 @@ describe("buildCliAgentSystemPrompt", () => {
       modelDisplay: "test/model",
     });
 
-    expect(prompt).not.toContain("OpenClaw lists the standard tools above");
+    expect(prompt).not.toContain("HSMA lists the standard tools above");
     expect(prompt).not.toContain("This runtime enables:");
     expect(prompt).not.toContain("For long waits, avoid rapid poll loops");
     expect(prompt).not.toContain("Larger work: use `sessions_spawn`");
     expect(prompt).not.toContain("Do not poll `subagents list` / `sessions_list` in a loop");
-    expect(prompt).toContain("No OpenClaw tool list is injected");
+    expect(prompt).toContain("No HSMA tool list is injected");
     expect(prompt).toContain("docs first via `read`");
     expect(prompt).not.toContain("exec approval-pending");
     expect(prompt).not.toContain("Config read: `gateway`");
@@ -136,7 +136,7 @@ describe("buildCliAgentSystemPrompt", () => {
           surfaces: ["cli_backend"],
         },
         {
-          text: "OpenClaw-only command guidance.",
+          text: "HSMA-only command guidance.",
           surfaces: ["openclaw_main"],
         },
       ],
@@ -150,7 +150,7 @@ describe("buildCliAgentSystemPrompt", () => {
     });
 
     expect(prompt).toContain("CLI-only command guidance.");
-    expect(prompt).not.toContain("OpenClaw-only command guidance.");
+    expect(prompt).not.toContain("HSMA-only command guidance.");
   });
 
   it("includes session identity in runtime when provided", () => {

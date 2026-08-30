@@ -21,7 +21,7 @@ export type RuntimeBackendEntry = ReturnType<
 
 export async function initializeCacheProbeGitWorkspace(workspaceDir: string): Promise<void> {
   await execFileAsync("git", ["init", "--quiet", workspaceDir]);
-  await execFileAsync("git", ["-C", workspaceDir, "config", "user.name", "OpenClaw Tests"]);
+  await execFileAsync("git", ["-C", workspaceDir, "config", "user.name", "HSMA Tests"]);
   await execFileAsync("git", [
     "-C",
     workspaceDir,

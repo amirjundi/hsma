@@ -177,7 +177,7 @@ describe("device worker placement dispatch", () => {
     expect(harness.placements.current()).toMatchObject({ state: "active" });
   });
 
-  it("syncs paired-device remote-exec without launching an OpenClaw worker child", async () => {
+  it("syncs paired-device remote-exec without launching an HSMA worker child", async () => {
     const harness = createHarness(placementStore);
     bindDeviceWorkerAvailability(harness.environments, async () => ({
       available: true,

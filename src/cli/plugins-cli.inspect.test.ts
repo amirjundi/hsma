@@ -238,7 +238,7 @@ describe("plugins cli inspect", () => {
     );
 
     const output = runtimeErrors.at(-1);
-    expect(output).toContain("Skill Workshop is built into OpenClaw, not a plugin");
+    expect(output).toContain("Skill Workshop is built into HSMA, not a plugin");
     expect(output).toContain('tools.profile: "messaging" does not include "skill_workshop".');
     expect(output).toContain('Add tools.alsoAllow: ["skill_workshop"].');
     for (const agentId of agentIds) {

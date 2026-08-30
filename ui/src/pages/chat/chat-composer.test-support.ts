@@ -21,7 +21,7 @@ export function createComposerProps(overrides: Partial<ComposerProps> = {}): Com
     modelCatalog: [],
     modelSwitching: false,
     sessions: null,
-    assistantName: "OpenClaw",
+    assistantName: "HSMA",
     onDraftChange: vi.fn(),
     onSend: vi.fn(),
     onQueueRemove: vi.fn(),

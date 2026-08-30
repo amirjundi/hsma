@@ -27,7 +27,7 @@ function createPlugin(
     id: string;
     packageName: string;
     manifest?: Record<string, unknown>;
-    packageOpenClaw?: Record<string, unknown>;
+    packageHSMA?: Record<string, unknown>;
   },
 ) {
   const pluginDir = path.join(repoRoot, "extensions", params.id);
@@ -39,7 +39,7 @@ function createPlugin(
   });
   writeJson(path.join(pluginDir, "package.json"), {
     name: params.packageName,
-    ...(params.packageOpenClaw ? { openclaw: params.packageOpenClaw } : {}),
+    ...(params.packageHSMA ? { openclaw: params.packageHSMA } : {}),
   });
   return pluginDir;
 }
@@ -76,7 +76,7 @@ function createTlonSkillPlugin(repoRoot: string, skillPath = "node_modules/@tlon
     id: "tlon",
     packageName: "@openclaw/tlon",
     manifest: { skills: [skillPath] },
-    packageOpenClaw: { extensions: ["./index.ts"] },
+    packageHSMA: { extensions: ["./index.ts"] },
   });
 }
 
@@ -91,7 +91,7 @@ describe("copyBundledPluginMetadata", () => {
       id: "acpx",
       packageName: "@openclaw/acpx",
       manifest: { skills: ["./skills"] },
-      packageOpenClaw: { extensions: ["./index.ts"] },
+      packageHSMA: { extensions: ["./index.ts"] },
     });
     fs.mkdirSync(path.join(pluginDir, "skills", "acp-router"), { recursive: true });
     fs.writeFileSync(
@@ -132,7 +132,7 @@ describe("copyBundledPluginMetadata", () => {
           },
         },
       },
-      packageOpenClaw: { extensions: ["./index.ts"] },
+      packageHSMA: { extensions: ["./index.ts"] },
     });
     fs.mkdirSync(path.join(repoRoot, "src", "config"), { recursive: true });
     fs.writeFileSync(
@@ -278,7 +278,7 @@ describe("copyBundledPluginMetadata", () => {
       id: "diffs",
       packageName: "@openclaw/diffs",
       manifest: { skills: ["./skills"] },
-      packageOpenClaw: { extensions: ["./index.ts"] },
+      packageHSMA: { extensions: ["./index.ts"] },
     });
     fs.mkdirSync(path.join(pluginDir, "skills", "diffs"), { recursive: true });
     fs.writeFileSync(path.join(pluginDir, "skills", "diffs", "SKILL.md"), "# Diffs\n", "utf8");
@@ -375,7 +375,7 @@ describe("copyBundledPluginMetadata", () => {
     createPlugin(repoRoot, {
       id: "qa-lab",
       packageName: "@openclaw/qa-lab",
-      packageOpenClaw: { extensions: ["./index.ts"] },
+      packageHSMA: { extensions: ["./index.ts"] },
     });
     const staleDistDir = path.join(repoRoot, "dist", "extensions", "qa-lab");
     fs.mkdirSync(staleDistDir, { recursive: true });
@@ -399,7 +399,7 @@ describe("copyBundledPluginMetadata", () => {
       name: "skips metadata for optional bundled clusters only when explicitly disabled",
       pluginId: "acpx",
       packageName: "@openclaw/acpx-plugin",
-      packageOpenClaw: { extensions: ["./index.ts"] },
+      packageHSMA: { extensions: ["./index.ts"] },
       env: excludeOptionalEnv,
       expectedExists: false,
     },
@@ -407,19 +407,19 @@ describe("copyBundledPluginMetadata", () => {
       name: "removes externalized optional plugin metadata from the core dist",
       pluginId: "whatsapp",
       packageName: "@openclaw/whatsapp",
-      packageOpenClaw: {
+      packageHSMA: {
         extensions: ["./index.ts"],
         install: { npmSpec: "@openclaw/whatsapp" },
       },
       env: {},
       expectedExists: false,
     },
-  ] as const)("$name", ({ pluginId, packageName, packageOpenClaw, env, expectedExists }) => {
+  ] as const)("$name", ({ pluginId, packageName, packageHSMA, env, expectedExists }) => {
     const repoRoot = makeRepoRoot(`openclaw-bundled-plugin-${pluginId}-`);
     createPlugin(repoRoot, {
       id: pluginId,
       packageName,
-      packageOpenClaw,
+      packageHSMA,
     });
 
     copyBundledPluginMetadataWithEnv({ repoRoot, env });
@@ -432,7 +432,7 @@ describe("copyBundledPluginMetadata", () => {
     createPlugin(repoRoot, {
       id: "whatsapp",
       packageName: "@openclaw/whatsapp",
-      packageOpenClaw: {
+      packageHSMA: {
         extensions: ["./index.ts"],
         setupEntry: "./setup-entry.ts",
       },
@@ -451,7 +451,7 @@ describe("copyBundledPluginMetadata", () => {
     createPlugin(repoRoot, {
       id: "sms",
       packageName: "@openclaw/sms",
-      packageOpenClaw: {
+      packageHSMA: {
         extensions: ["./index.ts"],
         build: { bundledDist: false },
         release: { publishToNpm: true },

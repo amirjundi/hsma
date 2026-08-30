@@ -111,7 +111,7 @@ describe("supervised gateway lock recovery", () => {
 
   it("preserves an agent-embedded owner error under a supervisor", async () => {
     const err = new GatewayLockError(
-      "another embedded OpenClaw state writer is active (pid 123); lock timeout after 5000ms",
+      "another embedded HSMA state writer is active (pid 123); lock timeout after 5000ms",
     );
     const startLoop = vi.fn(async () => {
       throw err;
@@ -232,7 +232,7 @@ describe("supervised gateway lock recovery", () => {
     });
   });
 
-  it("recognizes only the OpenClaw health response", () => {
+  it("recognizes only the HSMA health response", () => {
     expect(
       testing.isGatewayHealthzResponse(200, JSON.stringify({ ok: true, status: "live" })),
     ).toBe(true);

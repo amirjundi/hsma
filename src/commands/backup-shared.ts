@@ -456,7 +456,7 @@ export async function resolveBackupPlanFromDisk(
   const discoverySnapshot = resolveUpgradeConfigSnapshot(configSnapshot) ?? configSnapshot;
   if (includeWorkspace && discoverySnapshot.exists && !discoverySnapshot.valid) {
     throw new Error(
-      `Config invalid at ${shortenHomePath(discoverySnapshot.path)}. OpenClaw cannot reliably discover custom workspaces for backup. Fix the config or rerun with --no-include-workspace for a partial backup.`,
+      `Config invalid at ${shortenHomePath(discoverySnapshot.path)}. HSMA cannot reliably discover custom workspaces for backup. Fix the config or rerun with --no-include-workspace for a partial backup.`,
     );
   }
   const cleanupPlan = buildCleanupPlan({

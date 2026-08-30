@@ -31,7 +31,7 @@ describe("buildReplyPromptEnvelope", () => {
 
     expect(envelope.prefixedCommandBody).toContain("sender_id=telegram-user-1");
     expect(envelope.prefixedCommandBody).toContain("Startup context");
-    expect(envelope.transcriptCommandBody).toBe("[OpenClaw session reset]");
+    expect(envelope.transcriptCommandBody).toBe("[HSMA session reset]");
     expect(envelope.currentInboundContext).toBeUndefined();
   });
 
@@ -162,7 +162,7 @@ describe("buildReplyPromptEnvelope", () => {
     expect(envelope.queuedBody).toBe(envelope.transcriptCommandBody);
     expect(envelope.currentInboundContext?.text).toBe(
       [
-        "[OpenClaw room event]",
+        "[HSMA room event]",
         [
           "Room context:",
           "Conversation info:",
@@ -183,7 +183,7 @@ describe("buildReplyPromptEnvelope", () => {
     expect(envelope.currentInboundContext?.text).not.toContain("Current event:");
     expect(envelope.currentInboundContext?.resumableText).toBe(
       [
-        "[OpenClaw room event]",
+        "[HSMA room event]",
         [
           "Room context:",
           "Conversation info:",

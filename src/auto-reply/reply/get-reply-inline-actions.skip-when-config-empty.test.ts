@@ -1080,7 +1080,7 @@ describe("handleInlineActions", () => {
       inlineStatusRequested: true,
     },
     {
-      channelBody: "/skill@OpenClaw: wait-what first line\nsecond line\n\n  indented third",
+      channelBody: "/skill@HSMA: wait-what first line\nsecond line\n\n  indented third",
       normalizedBody: "/skill wait-what first line\nsecond line\n\n  indented third",
       expectedRequest: "/skill wait-what first line\nsecond line\n\n  indented third",
       botUsername: "openclaw",

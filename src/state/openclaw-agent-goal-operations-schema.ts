@@ -18,7 +18,7 @@ export function ensureSessionGoalOperationsSchema(db: DatabaseSync): void {
     start,
   );
   if (start < 0 || end < 0) {
-    throw new Error("OpenClaw Goal operation schema markers are missing.");
+    throw new Error("HSMA Goal operation schema markers are missing.");
   }
   runSqliteImmediateTransactionSync(db, () => {
     db.exec(OPENCLAW_AGENT_SCHEMA_SQL.slice(start, end)); // sqlite-allow-raw -- Canonical additive DDL only.

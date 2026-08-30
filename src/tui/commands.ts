@@ -111,7 +111,7 @@ const TUI_COMMAND_ROWS = [
   ["agents", "Open agent picker"],
   [
     "openclaw",
-    "Return to OpenClaw",
+    "Return to HSMA",
     "/openclaw [request]",
     undefined,
     { aliases: [{ name: "crestodian", hidden: true }] },

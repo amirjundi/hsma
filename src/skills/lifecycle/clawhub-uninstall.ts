@@ -80,7 +80,7 @@ export async function planTrackedClawHubSkillState(params: {
       ok: false,
       code: "ambiguous",
       error: link.valid
-        ? `Skill ${JSON.stringify(slug)} was installed before OpenClaw recorded file fingerprints, so local changes cannot be detected.`
+        ? `Skill ${JSON.stringify(slug)} was installed before HSMA recorded file fingerprints, so local changes cannot be detected.`
         : link.reason,
     };
   }

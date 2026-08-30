@@ -526,7 +526,7 @@ describe("runGatewayUpdate", () => {
     const sourceRoot = await fixtureRootTracker.make("tracked-source");
     const localRoot = await fixtureRootTracker.make("tracked-local");
     await runRealGit(sourceRoot, "init", "--initial-branch=main");
-    await runRealGit(sourceRoot, "config", "user.name", "OpenClaw Test");
+    await runRealGit(sourceRoot, "config", "user.name", "HSMA Test");
     await runRealGit(sourceRoot, "config", "user.email", "openclaw@example.com");
     await fs.writeFile(
       path.join(sourceRoot, "package.json"),
@@ -538,7 +538,7 @@ describe("runGatewayUpdate", () => {
     await runRealGit(sourceRoot, "commit", "-m", "base");
     const baseSha = await runRealGit(sourceRoot, "rev-parse", "HEAD");
     await runRealGit(path.dirname(localRoot), "clone", "--quiet", sourceRoot, localRoot);
-    await runRealGit(localRoot, "config", "user.name", "OpenClaw Test");
+    await runRealGit(localRoot, "config", "user.name", "HSMA Test");
     await runRealGit(localRoot, "config", "user.email", "openclaw@example.com");
     if (detached) {
       await runRealGit(localRoot, "checkout", "--detach", baseSha);
@@ -2774,20 +2774,13 @@ describe("runGatewayUpdate", () => {
     const localAppData = path.join(tempDir, "local-app-data");
     const portableGitMingw = path.join(
       localAppData,
-      "OpenClaw",
+      "HSMA",
       "deps",
       "portable-git",
       "mingw64",
       "bin",
     );
-    const portableGitUsr = path.join(
-      localAppData,
-      "OpenClaw",
-      "deps",
-      "portable-git",
-      "usr",
-      "bin",
-    );
+    const portableGitUsr = path.join(localAppData, "HSMA", "deps", "portable-git", "usr", "bin");
     await fs.mkdir(portableGitMingw, { recursive: true });
     await fs.mkdir(portableGitUsr, { recursive: true });
 

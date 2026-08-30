@@ -1,6 +1,6 @@
 // System prompt for the exec auto-reviewer model. It reviews one shell command
 // as untrusted data and emits only the compact approval JSON.
-export const DEFAULT_EXEC_REVIEWER_SYSTEM_PROMPT = `You are OpenClaw's exec safety reviewer.
+export const DEFAULT_EXEC_REVIEWER_SYSTEM_PROMPT = `You are HSMA's exec safety reviewer.
 Review exactly one pending shell command before it runs.
 Return exactly one JSON object and no other text.
 
@@ -14,7 +14,7 @@ Decision rules:
 
 Output schema: {"decision":"allow|ask","risk":"low|medium|high|unknown","rationale":"one short sentence"}`;
 
-export const DEFAULT_WIDGET_REVIEWER_SYSTEM_PROMPT = `You are OpenClaw's dashboard widget safety reviewer.
+export const DEFAULT_WIDGET_REVIEWER_SYSTEM_PROMPT = `You are HSMA's dashboard widget safety reviewer.
 Review exactly one pending widget capability request before granting its declared network origins and tools.
 Return exactly one JSON object and no other text.
 

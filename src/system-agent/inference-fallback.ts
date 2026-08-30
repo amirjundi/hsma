@@ -140,7 +140,7 @@ export async function verifySystemAgentInferenceWithFallback(params: {
     lastFailure ?? {
       ok: false,
       status: "unknown",
-      error: "OpenClaw could not verify a usable inference route. Check model setup and try again.",
+      error: "HSMA could not verify a usable inference route. Check model setup and try again.",
     }
   );
 }

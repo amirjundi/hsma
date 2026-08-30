@@ -166,12 +166,12 @@ function assertRecognizedRetiredCommitmentsSchema(db: DatabaseSync): void {
   }
   assertSqliteSchemaContains(
     db,
-    "retired OpenClaw commitments schema",
+    "retired HSMA commitments schema",
     RETIRED_COMMITMENTS_SCHEMA_SQL,
     RETIRED_COMMITMENTS_SCHEMA_COMPATIBILITY,
   );
   throw new Error(
-    "Retired OpenClaw commitments schema has unsupported additional indexes; refusing destructive migration.",
+    "Retired HSMA commitments schema has unsupported additional indexes; refusing destructive migration.",
   );
 }
 
@@ -212,7 +212,7 @@ function assertNoRetiredCommitmentsForeignKeys(db: DatabaseSync): void {
       )
     ) {
       throw new Error(
-        `Retired OpenClaw commitments schema is referenced by table ${table.name}; refusing destructive migration.`,
+        `Retired HSMA commitments schema is referenced by table ${table.name}; refusing destructive migration.`,
       );
     }
   }
@@ -240,7 +240,7 @@ function assertNoRetiredCommitmentsSchemaDependencies(db: DatabaseSync): void {
   const probeTable = "__openclaw_retired_commitments_probe";
   if (tableExists(db, probeTable)) {
     throw new Error(
-      `OpenClaw state database already contains ${probeTable}; refusing destructive migration.`,
+      `HSMA state database already contains ${probeTable}; refusing destructive migration.`,
     );
   }
   const before = collectRetainedSchemaSql(db);
@@ -264,7 +264,7 @@ function assertNoRetiredCommitmentsSchemaDependencies(db: DatabaseSync): void {
   if (changedObject) {
     const [type, name] = changedObject.split(":", 2);
     throw new Error(
-      `Retired OpenClaw commitments schema is referenced by ${type} ${name}; refusing destructive migration.`,
+      `Retired HSMA commitments schema is referenced by ${type} ${name}; refusing destructive migration.`,
     );
   }
 }

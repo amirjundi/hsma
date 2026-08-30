@@ -155,7 +155,7 @@ describe("runSystemAgentTui", () => {
     expect(runChannelsAdd).not.toHaveBeenCalled();
   });
 
-  it("runs OpenClaw inside the shared TUI shell", async () => {
+  it("runs HSMA inside the shared TUI shell", async () => {
     let runTuiCalls = 0;
     let runTuiOptions: unknown;
     const verified = await createVerifiedTuiOptions(

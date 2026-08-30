@@ -325,7 +325,7 @@ type MockNpmPackage = {
   installedIntegrity?: string;
   omitInstalledVersion?: boolean;
   omitInstalledIntegrity?: boolean;
-  materializesRootOpenClaw?: boolean;
+  materializesRootHSMA?: boolean;
   skipLockfileEntry?: boolean;
   packArchivePath?: string;
   packTarballName?: string;
@@ -352,7 +352,7 @@ function writeNpmRootPackageLock(params: {
         ? {}
         : { integrity: pkg.installedIntegrity ?? pkg.integrity ?? "sha512-plugin-test" }),
     };
-    if (pkg.materializesRootOpenClaw) {
+    if (pkg.materializesRootHSMA) {
       lockPackages["node_modules/openclaw"] = {
         peer: true,
         version: "2026.5.3",
@@ -559,7 +559,7 @@ function mockNpmViewAndInstallMany(packages: MockNpmPackage[]) {
             npmRoot,
             version: pkg.installedVersion ?? pkg.version,
           });
-          if (pkg.materializesRootOpenClaw) {
+          if (pkg.materializesRootHSMA) {
             const openclawRoot = path.join(npmRoot, "node_modules", "openclaw");
             fs.mkdirSync(openclawRoot, { recursive: true });
             fs.writeFileSync(
@@ -2572,7 +2572,7 @@ describe("installPluginFromNpmSpec", () => {
         pluginId: "required-peer-plugin",
         npmRoot,
         peerDependencies: { openclaw: "^2026.0.0" },
-        materializesRootOpenClaw: true,
+        materializesRootHSMA: true,
       });
 
       const result = await installPluginFromNpmSpec({
@@ -3420,7 +3420,7 @@ describe("installPluginFromNpmSpec", () => {
       expect(fs.existsSync(resolveTestPluginPackageDir(npmRoot, spec))).toBe(true);
       expect(
         warnings.some((warning) =>
-          warning.includes("allowed because it is an official OpenClaw package"),
+          warning.includes("allowed because it is an official HSMA package"),
         ),
       ).toBe(false);
     },

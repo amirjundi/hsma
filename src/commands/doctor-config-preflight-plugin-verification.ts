@@ -220,7 +220,7 @@ export function formatStartupPluginVerificationFailure(
   diagnostic: StartupPluginVerificationDiagnostic,
 ): string {
   return [
-    "OpenClaw plugin verification failed; refusing to report the gateway ready.",
+    "HSMA plugin verification failed; refusing to report the gateway ready.",
     ...diagnostic.messages.map((message) => `- ${message}`),
     "Resolve the plugin verification errors above, then restart the Gateway.",
   ].join("\n");

@@ -103,7 +103,7 @@ const subCliCommandCatalog = defineCommandDescriptorCatalog([
   },
   {
     name: "connect",
-    description: "Connect this machine to an OpenClaw Gateway as a node",
+    description: "Connect this machine to an HSMA Gateway as a node",
     hasSubcommands: false,
   },
   {
@@ -173,7 +173,7 @@ const subCliCommandCatalog = defineCommandDescriptorCatalog([
   },
   {
     name: "docs",
-    description: "Search the live OpenClaw docs",
+    description: "Search the live HSMA docs",
     hasSubcommands: false,
   },
   {
@@ -183,7 +183,7 @@ const subCliCommandCatalog = defineCommandDescriptorCatalog([
   },
   {
     name: "proxy",
-    description: "Run the OpenClaw debug proxy and inspect captured traffic",
+    description: "Run the HSMA debug proxy and inspect captured traffic",
     hasSubcommands: true,
     machineOutput: ({ argv }) => isProxyMachineOutput(argv),
   },
@@ -214,7 +214,7 @@ const subCliCommandCatalog = defineCommandDescriptorCatalog([
   },
   {
     name: "plugins",
-    description: "Manage OpenClaw plugins and extensions",
+    description: "Manage HSMA plugins and extensions",
     hasSubcommands: true,
     parentDefaultHelp: true,
   },
@@ -247,7 +247,7 @@ const subCliCommandCatalog = defineCommandDescriptorCatalog([
   },
   {
     name: "update",
-    description: "Update OpenClaw and inspect update channel status",
+    description: "Update HSMA and inspect update channel status",
     hasSubcommands: true,
   },
   {

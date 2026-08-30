@@ -10,7 +10,7 @@ export function formatStartupMigrationFailure(params: {
     ...params.blockers.map((blocker) => `- ${blocker}`),
   ];
   return [
-    "OpenClaw startup migrations did not complete cleanly; refusing to report the gateway ready.",
+    "HSMA startup migrations did not complete cleanly; refusing to report the gateway ready.",
     ...details,
     'Run "openclaw doctor --fix" against the same state/config, then restart the gateway.',
   ].join("\n");
@@ -24,13 +24,13 @@ export function throwStartupMigrationRefusal(message: string): never {
 
 export function throwStartupMigrationGuardRejected(): never {
   throw new Error(
-    "OpenClaw startup migrations were skipped because the selected config changed during startup; refusing to report the gateway ready. Retry startup so the new config can be validated.",
+    "HSMA startup migrations were skipped because the selected config changed during startup; refusing to report the gateway ready. Retry startup so the new config can be validated.",
   );
 }
 
 export function throwStartupMigrationIdentityChanged(): never {
   throwStartupMigrationRefusal(
-    "OpenClaw plugin migration inputs changed during startup convergence; refusing to report the gateway ready. Restart OpenClaw so state migrations run against the final config and plugin inventory.",
+    "HSMA plugin migration inputs changed during startup convergence; refusing to report the gateway ready. Restart HSMA so state migrations run against the final config and plugin inventory.",
   );
 }
 

@@ -71,7 +71,7 @@ afterEach(() => {
   resetAppHostTestGlobals();
 });
 
-describe("OpenClaw shell deleted-session recovery", () => {
+describe("HSMA shell deleted-session recovery", () => {
   it("retires an externally observed batch once and shows one actionable cleanup failure", async () => {
     const gatewayUrl = "ws://gateway.test";
     const storage = createStorageMock();

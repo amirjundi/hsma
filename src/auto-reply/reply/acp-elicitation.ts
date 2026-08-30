@@ -24,7 +24,7 @@ export function parseAcpElicitationRequest(
 ): ParsedAcpElicitationRequest {
   const snapshot = snapshotStructuredInput(request);
   if (!isStructuredInputRecord(snapshot)) {
-    return unsupported("OpenClaw declined a malformed or over-limit ACP input request.");
+    return unsupported("HSMA declined a malformed or over-limit ACP input request.");
   }
   const correlation = readScope(snapshot);
   if (typeof correlation === "string") {
@@ -45,7 +45,7 @@ export function parseAcpElicitationRequest(
   }
   if (mode !== "form") {
     return unsupported(
-      `OpenClaw does not support ACP elicitation mode ${JSON.stringify(mode ?? "unknown")}.`,
+      `HSMA does not support ACP elicitation mode ${JSON.stringify(mode ?? "unknown")}.`,
     );
   }
   return {
@@ -76,12 +76,12 @@ function readScope(
   const hasSession = sessionId !== undefined;
   const hasRequest = requestId !== undefined;
   if (hasSession === hasRequest) {
-    return "OpenClaw declined an ACP input request with an invalid or ambiguous scope.";
+    return "HSMA declined an ACP input request with an invalid or ambiguous scope.";
   }
   if (hasSession) {
     const normalizedSessionId = readCorrelationText(sessionId);
     if (!normalizedSessionId) {
-      return "OpenClaw declined an ACP input request with an invalid session id.";
+      return "HSMA declined an ACP input request with an invalid session id.";
     }
     const toolCallId = readValue(request, "toolCallId");
     const normalizedToolCallId =
@@ -89,7 +89,7 @@ function readScope(
         ? toolCallId
         : readCorrelationText(toolCallId);
     if (toolCallId !== undefined && toolCallId !== null && !normalizedToolCallId) {
-      return "OpenClaw declined an ACP input request with an invalid tool-call id.";
+      return "HSMA declined an ACP input request with an invalid tool-call id.";
     }
     return {
       sessionId: normalizedSessionId,
@@ -105,7 +105,7 @@ function readScope(
   const normalizedRequestId = readCorrelationText(requestId);
   return normalizedRequestId
     ? { requestId: normalizedRequestId }
-    : "OpenClaw declined an ACP input request with an invalid request scope.";
+    : "HSMA declined an ACP input request with an invalid request scope.";
 }
 
 function readCorrelationText(value: unknown): string | undefined {

@@ -54,7 +54,7 @@ describe("shell completion health mapping", () => {
     await fs.writeFile(cachePath, "complete -W 'status' openclaw\n", "utf-8");
     await fs.writeFile(
       path.join(homeDir, ".bash_profile"),
-      `# OpenClaw Completion\n[ -f "${cachePath}" ] && source "${cachePath}"\n`,
+      `# HSMA Completion\n[ -f "${cachePath}" ] && source "${cachePath}"\n`,
       "utf-8",
     );
 
@@ -101,7 +101,7 @@ describe("shell completion health mapping", () => {
     await fs.writeFile(cachePath, "complete -W 'status' openclaw\n", "utf-8");
     await fs.writeFile(
       path.join(homeDir, ".bash_profile"),
-      "# OpenClaw Completion\nexport IMPORTANT=keep\n",
+      "# HSMA Completion\nexport IMPORTANT=keep\n",
       "utf-8",
     );
 

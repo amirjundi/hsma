@@ -243,14 +243,14 @@ async function acquireStateCleanupOwnership(cleanup: CleanupResolvedPaths) {
   } catch (error) {
     if (error instanceof GatewayLockError) {
       throw new Error(
-        "Cannot remove OpenClaw state while the Gateway or another state maintenance command owns this state directory. Stop the Gateway and retry.",
+        "Cannot remove HSMA state while the Gateway or another state maintenance command owns this state directory. Stop the Gateway and retry.",
         { cause: error },
       );
     }
     throw error;
   }
   if (!lock) {
-    throw new Error("Cannot remove OpenClaw state without exclusive state ownership.");
+    throw new Error("Cannot remove HSMA state without exclusive state ownership.");
   }
   return lock;
 }
@@ -326,7 +326,7 @@ async function detachStateLockDirectory(
     await fs.rename(lockDir, tombstone);
     return tombstone;
   } catch (error) {
-    const message = `Failed to finalize OpenClaw state cleanup because the lock directory changed: ${String(error)}`;
+    const message = `Failed to finalize HSMA state cleanup because the lock directory changed: ${String(error)}`;
     runtime.error(message);
     throw new Error(message, { cause: error });
   }
@@ -444,7 +444,7 @@ export async function removeStateAndLinkedPaths(
     }
     const lockDir = path.dirname(lock.stateLockPath);
     if (!isPathWithin(lockDir, stateDir)) {
-      throw new Error("Cannot remove OpenClaw state because its active lock is outside state.");
+      throw new Error("Cannot remove HSMA state because its active lock is outside state.");
     }
     const databasePath = resolveOpenClawStateSqlitePath({
       ...process.env,
@@ -466,7 +466,7 @@ export async function removeStateAndLinkedPaths(
     );
     if (overlappingPreservePath) {
       throw new Error(
-        `Cannot remove OpenClaw state while preserving ${shortenHomeInString(overlappingPreservePath)} because it overlaps the active state lock. Move the workspace outside the lock directory and retry.`,
+        `Cannot remove HSMA state while preserving ${shortenHomeInString(overlappingPreservePath)} because it overlaps the active state lock. Move the workspace outside the lock directory and retry.`,
       );
     }
     const stateRemoval = await removePathPreserving(
@@ -476,7 +476,7 @@ export async function removeStateAndLinkedPaths(
       { label: cleanup.stateDir },
     );
     if (!stateRemoval.ok) {
-      throw new Error("Failed to remove non-preserved OpenClaw state while ownership was held.");
+      throw new Error("Failed to remove non-preserved HSMA state while ownership was held.");
     }
 
     // Drop only the removable in-tree handles; external Gateway presence stays held
@@ -492,7 +492,7 @@ export async function removeStateAndLinkedPaths(
       (await pathExists(lockDir)) || (preservePaths.length === 0 && !stateDirRemoved);
     if (newStateOperationStarted) {
       throw new Error(
-        "OpenClaw state cleanup was interrupted by a new state operation. Stop other OpenClaw commands and retry.",
+        "HSMA state cleanup was interrupted by a new state operation. Stop other HSMA commands and retry.",
       );
     }
     if (stateDirRemoved) {

@@ -258,7 +258,7 @@ async function expectNextRunUsesTargetSession(
   );
 
   expect(params.runEmbeddedAgentMock).toHaveBeenCalledOnce();
-  const runParams = firstMockCallArg(params.runEmbeddedAgentMock, "embedded OpenClaw agent");
+  const runParams = firstMockCallArg(params.runEmbeddedAgentMock, "embedded HSMA agent");
   for (const [key, value] of Object.entries(expected)) {
     expect(runParams[key]).toEqual(value);
   }
@@ -490,8 +490,7 @@ describe("trigger handling", () => {
         expect(text, testCase.label).not.toMatch(/Thinking level set/i);
         expect(runEmbeddedAgentMock, testCase.label).toHaveBeenCalledOnce();
         if (testCase.assertPrompt) {
-          const prompt =
-            firstMockCallArg(runEmbeddedAgentMock, "embedded OpenClaw agent").prompt ?? "";
+          const prompt = firstMockCallArg(runEmbeddedAgentMock, "embedded HSMA agent").prompt ?? "";
           expect(prompt).toContain("Give me the status");
           expect(prompt).not.toContain("/thinking high");
           expect(prompt).not.toContain("/think high");
@@ -533,7 +532,7 @@ describe("trigger handling", () => {
         testCase.setup(cfg);
         await getReplyFromConfig(BASE_MESSAGE, { isHeartbeat: true }, cfg);
 
-        const call = firstMockCallArg(runEmbeddedAgentMock, "embedded OpenClaw agent");
+        const call = firstMockCallArg(runEmbeddedAgentMock, "embedded HSMA agent");
         expect(call?.provider).toBe(testCase.expected.provider);
         expect(call?.model).toBe(testCase.expected.model);
       }
@@ -601,7 +600,7 @@ describe("trigger handling", () => {
       expect(getCompactEmbeddedAgentSessionMock()).toHaveBeenCalledOnce();
       const call = firstMockCallArg(
         getCompactEmbeddedAgentSessionMock(),
-        "embedded OpenClaw compaction",
+        "embedded HSMA compaction",
       );
       expect(call.sessionTarget).toMatchObject({
         agentId: "worker1",

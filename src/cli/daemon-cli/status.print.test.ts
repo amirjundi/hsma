@@ -518,7 +518,7 @@ describe("printDaemonStatus", () => {
       { json: false },
     );
 
-    expectMockLineContains(runtime.error, "Stale OpenClaw updater launchd job(s) detected.");
+    expectMockLineContains(runtime.error, "Stale HSMA updater launchd job(s) detected.");
     expectMockLineContains(runtime.error, "ai.openclaw.update.2026.5.12");
     expectMockLineContains(runtime.error, "ai.openclaw.manual-update.1717168800");
     expectMockLineContains(runtime.error, "launchctl remove <label>");
@@ -750,7 +750,7 @@ describe("printDaemonStatus", () => {
 
     expectMockLineContains(runtime.log, "CLI version: 2026.4.23 (/usr/local/bin/openclaw)");
     expectMockLineContains(runtime.log, "Gateway version: 2026.5.6");
-    expectMockLineContains(runtime.error, "this OpenClaw command is version 2026.4.23");
+    expectMockLineContains(runtime.error, "this HSMA command is version 2026.4.23");
     expectMockLineContains(
       runtime.error,
       "if this mismatch is unexpected, update PATH so `openclaw` points to the version you want",
@@ -792,7 +792,7 @@ describe("printDaemonStatus", () => {
     );
 
     expectMockLineContains(runtime.log, "Gateway version: 2026.5.7");
-    expectMockLineContains(runtime.error, "this OpenClaw command is version 2026.4.23");
+    expectMockLineContains(runtime.error, "this HSMA command is version 2026.4.23");
   });
 
   it("prints restart handoff diagnostics when deep status gathered one", () => {

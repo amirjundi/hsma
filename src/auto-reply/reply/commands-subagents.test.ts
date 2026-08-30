@@ -348,7 +348,7 @@ describe("subagents info", () => {
         outcome: {
           status: "error",
           error: [
-            "OpenClaw runtime context (internal):",
+            "HSMA runtime context (internal):",
             "This context is runtime-generated, not user-authored. Keep internal details private.",
             "",
             "[Internal task completion event]",
@@ -371,7 +371,7 @@ describe("subagents info", () => {
       runId,
       endedAt: now - 1_000,
       error: [
-        "OpenClaw runtime context (internal):",
+        "HSMA runtime context (internal):",
         "This context is runtime-generated, not user-authored. Keep internal details private.",
         "",
         "[Internal task completion event]",
@@ -389,7 +389,7 @@ describe("subagents info", () => {
     expect(text).toContain("Subagent info");
     expect(text).toContain("Outcome: error");
     expect(text).toContain("Task summary: Needs manual follow-up.");
-    expect(text).not.toContain("OpenClaw runtime context (internal):");
+    expect(text).not.toContain("HSMA runtime context (internal):");
     expect(text).not.toContain("Internal task completion event");
   });
 

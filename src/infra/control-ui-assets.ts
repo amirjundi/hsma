@@ -376,9 +376,7 @@ export async function ensureControlUiAssetsBuilt(
       : indexFromDist
         ? `Missing Control UI assets at ${indexFromDist}`
         : "Missing Control UI assets";
-    return controlUiAssetsFailure(
-      `${hint}. Reinstall OpenClaw to restore bundled Control UI assets.`,
-    );
+    return controlUiAssetsFailure(`${hint}. Reinstall HSMA to restore bundled Control UI assets.`);
   }
 
   const indexPath = resolveControlUiDistIndexPathForRoot(repoRoot);

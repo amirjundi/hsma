@@ -560,7 +560,7 @@ function firstRunCliAgentArg(callIndex = 0) {
 }
 
 function firstEmbeddedAgentArg(callIndex = 0) {
-  return requireMockArg(runEmbeddedAgentMock, callIndex, "embedded OpenClaw agent argument");
+  return requireMockArg(runEmbeddedAgentMock, callIndex, "embedded HSMA agent argument");
 }
 
 describe("CLI attempt execution", () => {
@@ -4070,7 +4070,7 @@ describe("embedded attempt harness pinning", () => {
     expectMockArgFields(runEmbeddedAgentMock, { agentHarnessId: undefined });
   });
 
-  it("honors a resolved persisted OpenClaw harness", async () => {
+  it("honors a resolved persisted HSMA harness", async () => {
     const sessionEntry = makeSessionEntry("stale-agent-session", {
       agentHarnessId: "openclaw",
     });
@@ -4092,7 +4092,7 @@ describe("embedded attempt harness pinning", () => {
     });
   });
 
-  it("honors an explicit OpenClaw session runtime override", async () => {
+  it("honors an explicit HSMA session runtime override", async () => {
     const sessionEntry = makeSessionEntry("explicit-openclaw-session", {
       agentRuntimeOverride: "openclaw",
       agentHarnessId: "codex",
@@ -4134,7 +4134,7 @@ describe("embedded attempt harness pinning", () => {
     });
   });
 
-  it("routes explicit OpenAI native runs with legacy Codex OAuth through OpenClaw", async () => {
+  it("routes explicit OpenAI native runs with legacy Codex OAuth through HSMA", async () => {
     const sessionEntry = makeSessionEntry("explicit-agent-codex-oauth-session", {
       authProfileOverride: "openai:work",
       authProfileOverrideSource: "user",

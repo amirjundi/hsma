@@ -100,7 +100,7 @@ describe("Control UI doctor repair owner", () => {
     await maybeRepairUiProtocolFreshness(runtime, createPrompter());
 
     expect(mocks.note).toHaveBeenCalledWith(
-      expect.stringContaining("Reinstall OpenClaw to restore bundled Control UI assets."),
+      expect.stringContaining("Reinstall HSMA to restore bundled Control UI assets."),
       "UI",
     );
     expect(mocks.ensureControlUiAssetsBuilt).not.toHaveBeenCalled();

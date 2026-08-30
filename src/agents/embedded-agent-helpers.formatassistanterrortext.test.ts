@@ -411,7 +411,7 @@ describe("formatAssistantErrorText", () => {
     (errorMessage) => {
       const msg = makeAssistantError(errorMessage);
       expect(formatAssistantErrorText(msg)).toBe(
-        "OpenClaw could not write local session data because the disk is full. Free some disk space and try again.",
+        "HSMA could not write local session data because the disk is full. Free some disk space and try again.",
       );
     },
   );

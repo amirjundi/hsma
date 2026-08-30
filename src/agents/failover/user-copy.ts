@@ -202,7 +202,7 @@ export function formatDiskSpaceErrorCopy(raw: string): string | undefined {
   return /\benospc\b/i.test(raw) ||
     lower.includes("no space left on device") ||
     lower.includes("disk full")
-    ? "OpenClaw could not write local session data because the disk is full. Free some disk space and try again."
+    ? "HSMA could not write local session data because the disk is full. Free some disk space and try again."
     : undefined;
 }
 
@@ -582,11 +582,11 @@ export function renderCliTimeoutReplyCopy(params: {
         ? " The CLI had already begun work, so effects may be partial; check before retrying."
         : "";
   if (params.replayPrevented) {
-    workStatus += " OpenClaw did not replay this turn automatically.";
+    workStatus += " HSMA did not replay this turn automatically.";
   }
   return mode === "no-output"
     ? `⚠️ CLI subprocess${routingSuffix}: no output for ${seconds}s, so the no-output watchdog stopped it. This is separate from the overall agent timeout; the gateway is unaffected.${workStatus} Check for an interactive prompt. The CLI backend ${params.provider ?? "<id>"} produced no output before its watchdog expired.`
-    : `⚠️ CLI turn${routingSuffix}: timed out after ${seconds}s (overall turn limit). The gateway is unaffected.${workStatus} For long work, use a detached OpenClaw sub-agent (no run timeout by default), or raise \`agents.defaults.timeoutSeconds\`.`;
+    : `⚠️ CLI turn${routingSuffix}: timed out after ${seconds}s (overall turn limit). The gateway is unaffected.${workStatus} For long work, use a detached HSMA sub-agent (no run timeout by default), or raise \`agents.defaults.timeoutSeconds\`.`;
 }
 
 type AuthProfileFailureCopyParams = {

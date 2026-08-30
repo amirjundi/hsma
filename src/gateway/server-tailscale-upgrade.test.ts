@@ -51,7 +51,7 @@ describe("managed Tailscale upgrade", () => {
             backend: { host: "127.0.0.1", port: 19000 },
             logTailscale: { info: () => undefined, warn: () => undefined },
           }),
-        ).rejects.toThrow("ownership OpenClaw cannot prove; it was not modified");
+        ).rejects.toThrow("ownership HSMA cannot prove; it was not modified");
         expect(await readFile(marker, "utf8")).toBe(before);
       } finally {
         env.restore();

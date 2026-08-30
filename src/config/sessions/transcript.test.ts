@@ -1250,7 +1250,7 @@ describe("appendAssistantMessageToSessionTranscript", () => {
     }
   });
 
-  it("skips transcript-only OpenClaw assistant entries when reading latest assistant text", async () => {
+  it("skips transcript-only HSMA assistant entries when reading latest assistant text", async () => {
     await writeTranscriptStore();
 
     const finalResult = await appendExactAssistantMessageToSessionTranscript({
@@ -1288,7 +1288,7 @@ describe("appendAssistantMessageToSessionTranscript", () => {
     expect(latestAssistantText?.text).toBe("Complete final answer");
   });
 
-  it("does not report transcript-only OpenClaw assistant entries as latest assistant text", async () => {
+  it("does not report transcript-only HSMA assistant entries as latest assistant text", async () => {
     await writeTranscriptStore();
 
     const mirrorResult = await appendAssistantMessageToSessionTranscript({

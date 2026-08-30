@@ -197,7 +197,7 @@ function widgetPresentationFailureText(
   }
   const nextStep =
     error.code === "no_eligible_node"
-      ? "Pair a canvas-capable device or open the OpenClaw app, then retry."
+      ? "Pair a canvas-capable device or open the HSMA app, then retry."
       : "Retry the requested presentation destination when it is available.";
   return `${message} The widget is available inline here. ${nextStep}`;
 }

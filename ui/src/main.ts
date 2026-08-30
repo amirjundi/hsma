@@ -32,7 +32,7 @@ if (isProd && "serviceWorker" in navigator) {
   void navigator.serviceWorker
     .register(swUrl, { updateViaCache: "none" })
     .catch((error: unknown) => {
-      console.warn("OpenClaw service worker registration failed.", error);
+      console.warn("HSMA service worker registration failed.", error);
     });
 } else if (!isProd && "serviceWorker" in navigator) {
   // Unregister any leftover dev SW to avoid stale cache issues.

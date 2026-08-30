@@ -512,7 +512,7 @@ process.kill = function(pid, signal) {
       ["add", ".gitignore"],
       [
         "-c",
-        "user.name=OpenClaw Test",
+        "user.name=HSMA Test",
         "-c",
         "user.email=test@openclaw.invalid",
         "commit",
@@ -708,7 +708,7 @@ process.kill = function(pid, signal) {
       ["add", ".gitignore"],
       [
         "-c",
-        "user.name=OpenClaw Test",
+        "user.name=HSMA Test",
         "-c",
         "user.email=test@openclaw.invalid",
         "commit",
@@ -786,7 +786,7 @@ process.kill = function(pid, signal) {
       ["add", "."],
       [
         "-c",
-        "user.name=OpenClaw Test",
+        "user.name=HSMA Test",
         "-c",
         "user.email=test@openclaw.invalid",
         "commit",

@@ -12,7 +12,7 @@ const sourceUrl = (relative: string) => new URL(relative, import.meta.url).href;
 const doctorSource = `
 import { intro, note, outro } from ${JSON.stringify(pathToFileURL(require.resolve("@clack/prompts")).href)};
 export async function doctorCommand() {
-  intro('OpenClaw doctor');
+  intro('HSMA doctor');
   note('Doctor panel diagnostic', 'Repair');
   if (!process.argv.includes('--no-workspace-suggestions')) note('Doctor workspace diagnostic', 'Workspace');
   console.log('Doctor console diagnostic');

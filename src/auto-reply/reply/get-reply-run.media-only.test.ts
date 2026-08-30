@@ -3210,7 +3210,7 @@ describe("runPreparedReply media-only handling", () => {
     expect(call?.followupRun.currentInboundContext?.text).toContain(
       "#35675 obviyus ->#35674: Are you fr fr",
     );
-    expect(call?.followupRun.currentInboundContext?.text).toContain("[OpenClaw room event]");
+    expect(call?.followupRun.currentInboundContext?.text).toContain("[HSMA room event]");
     expect(call?.followupRun.currentInboundContext?.text).toContain(
       ROOM_EVENT_MESSAGE_TOOL_DIRECTIVE,
     );
@@ -3514,8 +3514,8 @@ describe("runPreparedReply media-only handling", () => {
         OriginatingChannel: "discord",
         OriginatingTo: "discord:channel-123",
       });
-      expect(call?.transcriptCommandBody).toBe("[OpenClaw heartbeat poll]");
-      expect(call?.followupRun.transcriptPrompt).toBe("[OpenClaw heartbeat poll]");
+      expect(call?.transcriptCommandBody).toBe("[HSMA heartbeat poll]");
+      expect(call?.followupRun.transcriptPrompt).toBe("[HSMA heartbeat poll]");
       expect(call?.followupRun.userTurnTranscriptRecorder?.message).toMatchObject({
         provenance: { kind: "internal_system", sourceTool: "heartbeat" },
       });
@@ -4066,8 +4066,8 @@ describe("runPreparedReply media-only handling", () => {
       expect(call?.commandBody).toContain("telegram-user-1");
       expect(call?.followupRun.prompt).toContain("A new session was started via /new or /reset.");
       expect(call?.followupRun.prompt).toContain("Sender:");
-      expect(call?.transcriptCommandBody).toBe(`[OpenClaw session ${startupAction}]`);
-      expect(call?.followupRun.transcriptPrompt).toBe(`[OpenClaw session ${startupAction}]`);
+      expect(call?.transcriptCommandBody).toBe(`[HSMA session ${startupAction}]`);
+      expect(call?.followupRun.transcriptPrompt).toBe(`[HSMA session ${startupAction}]`);
       expect(call?.followupRun.transcriptPrompt).not.toContain("Sender:");
     },
   );

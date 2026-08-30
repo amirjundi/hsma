@@ -534,7 +534,7 @@ function createNpmUpdateFixture(params: {
   registryVersion?: string;
   registryIntegrity?: string;
   registryShasum?: string;
-  registryOpenClaw?: Record<string, unknown>;
+  registryHSMA?: Record<string, unknown>;
   spec?: string;
   resolvedSpec?: string;
   integrity?: string;
@@ -556,7 +556,7 @@ function createNpmUpdateFixture(params: {
       version: params.registryVersion,
       ...(params.registryIntegrity ? { integrity: params.registryIntegrity } : {}),
       ...(params.registryShasum ? { shasum: params.registryShasum } : {}),
-      ...(params.registryOpenClaw ? { openclaw: params.registryOpenClaw } : {}),
+      ...(params.registryHSMA ? { openclaw: params.registryHSMA } : {}),
     });
   }
   if (params.installerVersion) {
@@ -1519,7 +1519,7 @@ describe("updateNpmInstalledPlugins", () => {
       installedVersion: "2026.5.2",
       registryVersion: "2026.5.2",
       registryIntegrity: "sha512-old",
-      registryOpenClaw: { compat: { pluginApi: ">=9999.0.0" } },
+      registryHSMA: { compat: { pluginApi: ">=9999.0.0" } },
       spec: "@openclaw/acpx@2026.5.2",
       integrity: "sha512-old",
       installerVersion: "2026.5.1",
@@ -1941,7 +1941,7 @@ describe("updateNpmInstalledPlugins", () => {
       registryVersion: "2026.5.28-beta.4",
       registryIntegrity: "sha512-newer",
       registryShasum: "newer",
-      registryOpenClaw: { extensions: ["./dist/index.js"], ...compatibility },
+      registryHSMA: { extensions: ["./dist/index.js"], ...compatibility },
       integrity: "sha512-newer",
       shasum: "newer",
       installerVersion: "2026.5.28-beta.3",
@@ -2764,7 +2764,7 @@ describe("updateNpmInstalledPlugins", () => {
     });
 
     const message =
-      'Disabled "lossless-claw" after plugin update failure; OpenClaw will continue without it. Failed to check lossless-claw: npm view failed: registry timeout';
+      'Disabled "lossless-claw" after plugin update failure; HSMA will continue without it. Failed to check lossless-claw: npm view failed: registry timeout';
     expect(warn).toHaveBeenCalledWith(message);
     expect(result.changed).toBe(true);
     expect(result.config.plugins?.entries?.["lossless-claw"]).toEqual({
@@ -2861,7 +2861,7 @@ describe("updateNpmInstalledPlugins", () => {
     });
 
     const message =
-      'Disabled "demo" after plugin update failure; OpenClaw will continue without it. Failed to update demo: npm view failed: registry timeout';
+      'Disabled "demo" after plugin update failure; HSMA will continue without it. Failed to update demo: npm view failed: registry timeout';
     expect(warn).toHaveBeenCalledWith(message);
     expect(result.changed).toBe(true);
     expect(result.config.plugins?.entries?.demo).toEqual({
@@ -3425,7 +3425,7 @@ describe("updateNpmInstalledPlugins", () => {
     expect(npmInstallCall()?.spec).toBe("@acme/demo");
     expect(npmInstallCall()?.expectedPluginId).toBe("demo");
     const message =
-      'Disabled "demo" after plugin update failure; OpenClaw will continue without it. Failed to update demo: registry timeout';
+      'Disabled "demo" after plugin update failure; HSMA will continue without it. Failed to update demo: registry timeout';
     expect(warn).toHaveBeenCalledWith(message);
     expect(result.changed).toBe(true);
     expect(result.config.plugins?.entries?.demo).toEqual({
@@ -3548,7 +3548,7 @@ describe("updateNpmInstalledPlugins", () => {
     expect(result.config.plugins?.allow).toEqual(["demo"]);
     expect(result.config.plugins?.slots).toBeUndefined();
     const message =
-      'Disabled "demo" after plugin update failure; OpenClaw will continue without it. Failed to update demo: ClawHub blocked this release; update was not started. (ClawHub clawhub:demo).';
+      'Disabled "demo" after plugin update failure; HSMA will continue without it. Failed to update demo: ClawHub blocked this release; update was not started. (ClawHub clawhub:demo).';
     expect(warn).toHaveBeenCalledWith(message);
     expect(result.outcomes).toEqual([
       {
@@ -5508,7 +5508,7 @@ describe("syncPluginsForUpdateChannel", () => {
     });
   });
 
-  it("does not fall back from ClawHub to non-OpenClaw npm packages", async () => {
+  it("does not fall back from ClawHub to non-HSMA npm packages", async () => {
     resolveBundledPluginSourcesMock.mockReturnValue(new Map());
     installPluginFromClawHubMock.mockResolvedValue({
       ok: false,

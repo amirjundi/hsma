@@ -410,9 +410,7 @@ describeControlUiE2e("Control UI live device scope upgrade", () => {
     });
     await page.goto(`${server.baseUrl}custodian?onboarding=1`);
 
-    expect(
-      await page.getByText("Update the Gateway to continue setup with OpenClaw.").count(),
-    ).toBe(0);
+    expect(await page.getByText("Update the Gateway to continue setup with HSMA.").count()).toBe(0);
     const inbox = page.locator(".sidebar-attention--floating .sidebar-issues-button");
     await expect.poll(() => inbox.getAttribute("aria-label")).toBe("1 inbox item");
     const item = await openLimitedAccessItem(await openInbox(page));

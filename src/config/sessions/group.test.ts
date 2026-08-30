@@ -73,7 +73,7 @@ describe("buildGroupDisplayTitle", () => {
   });
 
   it("falls back to the chat subject, then the space, then undefined", () => {
-    expect(buildGroupDisplayTitle({ subject: "OpenClaw Devs" })).toBe("OpenClaw Devs");
+    expect(buildGroupDisplayTitle({ subject: "HSMA Devs" })).toBe("HSMA Devs");
     expect(buildGroupDisplayTitle({ space: "Acme" })).toBe("Acme");
     expect(buildGroupDisplayTitle({})).toBeUndefined();
     expect(buildGroupDisplayTitle({ subject: "  " })).toBeUndefined();

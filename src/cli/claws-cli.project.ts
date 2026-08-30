@@ -88,7 +88,7 @@ async function prepareDev(projectPath: string, opts: ClawsDevOptions): Promise<P
       if (!configSnapshot.valid) {
         throw new ClawProjectError(
           "config_unavailable",
-          "OpenClaw config is invalid; fix it before previewing a Claw project.",
+          "HSMA config is invalid; fix it before previewing a Claw project.",
         );
       }
       const config = configSnapshot.resolved;

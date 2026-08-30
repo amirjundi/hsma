@@ -208,7 +208,7 @@ async function createStatusServiceSummary(
     label: service.label,
     installed: Boolean(command) || runtime?.status === "running",
     loaded,
-    managedByOpenClaw: Boolean(command),
+    managedByHSMA: Boolean(command),
     externallyManaged: !command && runtime?.status === "running",
     loadedText: service.loadedText,
     runtime,
@@ -900,7 +900,7 @@ vi.mock("./status.daemon.js", () => ({
       label: service.label,
       installed: Boolean(command) || runtimeValue?.status === "running",
       loaded,
-      managedByOpenClaw: Boolean(command),
+      managedByHSMA: Boolean(command),
       externallyManaged: !command && runtimeValue?.status === "running",
       loadedText: loaded ? service.loadedText : service.notLoadedText,
       runtimeShort: runtimeValue?.pid ? `pid ${runtimeValue.pid}` : null,
@@ -915,7 +915,7 @@ vi.mock("./status.daemon.js", () => ({
       label: service.label,
       installed: Boolean(command) || runtimeLocal?.status === "running",
       loaded,
-      managedByOpenClaw: Boolean(command),
+      managedByHSMA: Boolean(command),
       externallyManaged: !command && runtimeLocal?.status === "running",
       loadedText: loaded ? service.loadedText : service.notLoadedText,
       runtimeShort: runtimeLocal?.pid ? `pid ${runtimeLocal.pid}` : null,
@@ -1230,7 +1230,7 @@ describe("statusCommand", () => {
     ]);
     const logs = await runStatusAndGetLogs({ verbose: true });
     for (const token of [
-      "OpenClaw status",
+      "HSMA status",
       "Overview",
       "Security audit",
       "Skipped in fast status",

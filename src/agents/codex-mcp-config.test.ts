@@ -44,7 +44,7 @@ afterEach(async () => {
 });
 
 describe("buildCodexMcpServersConfig", () => {
-  it("normalizes OpenClaw MCP servers into Codex app-server mcp_servers shape", () => {
+  it("normalizes HSMA MCP servers into Codex app-server mcp_servers shape", () => {
     // Authorization is represented as Codex's bearer env var, while other env
     // placeholders become env_http_headers for per-thread substitution.
     expect(

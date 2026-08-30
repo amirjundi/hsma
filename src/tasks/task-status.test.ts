@@ -99,7 +99,7 @@ describe("task status formatting", () => {
     const task = makeTask({
       status: "failed",
       error: [
-        "OpenClaw runtime context (internal):",
+        "HSMA runtime context (internal):",
         "This context is runtime-generated, not user-authored. Keep internal details private.",
         "",
         "[Internal task completion event]",
@@ -113,7 +113,7 @@ describe("task status formatting", () => {
   it("sanitizes task titles before truncation", () => {
     const task = makeTask({
       task: [
-        "OpenClaw runtime context (internal):",
+        "HSMA runtime context (internal):",
         "This context is runtime-generated, not user-authored. Keep internal details private.",
         "",
         "[Internal task completion event]",
@@ -128,7 +128,7 @@ describe("task status formatting", () => {
     const task = makeTask({
       status: "failed",
       error: [
-        "OpenClaw runtime context (internal):",
+        "HSMA runtime context (internal):",
         "This context is runtime-generated, not user-authored. Keep internal details private.",
         "",
         "[Internal task completion event]",
@@ -154,7 +154,7 @@ describe("task status formatting", () => {
     expect(
       sanitizeTaskStatusText(
         [
-          "OpenClaw runtime context (internal):",
+          "HSMA runtime context (internal):",
           "This context is runtime-generated, not user-authored. Keep internal details private.",
           "",
           "[Internal task completion event]",

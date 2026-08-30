@@ -756,7 +756,7 @@ describe("host-hook fixture plugin contract", () => {
     });
   });
 
-  it("scopes trusted policies through canonical OpenClaw tool ids", async () => {
+  it("scopes trusted policies through canonical HSMA tool ids", async () => {
     const evaluate = vi.fn(() => ({ block: true, blockReason: "covered" }));
     const registry = createEmptyPluginRegistry();
     registry.trustedToolPolicies = [

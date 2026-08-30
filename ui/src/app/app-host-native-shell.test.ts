@@ -70,7 +70,7 @@ afterEach(() => {
   resetAppHostTestGlobals();
 });
 
-describe("OpenClaw native shell", () => {
+describe("HSMA native shell", () => {
   it("opens Settings with Shift-Command-Comma", () => {
     const navigate = vi.fn();
     const shell = document.createElement("openclaw-app-shell") as unknown as ShellKeyboardState;
@@ -489,7 +489,7 @@ describe("OpenClaw native shell", () => {
   });
 });
 
-describe("OpenClaw shell update affordance", () => {
+describe("HSMA shell update affordance", () => {
   it("renders floating attention while keeping update actions in navigation", async () => {
     const container = document.createElement("div");
     document.body.append(container);

@@ -393,7 +393,7 @@ export async function expectedIntegrityForNpmFallback(params: {
 
 export function isNpmMetadataCompatibleWithCurrentHost(metadata: NpmSpecResolution): boolean {
   const hostVersion = resolveCompatibilityHostVersion();
-  const installMetadata = metadata.packageOpenClaw?.install;
+  const installMetadata = metadata.packageHSMA?.install;
   const minHostVersionCheck = checkMinHostVersion({
     currentVersion: hostVersion,
     minHostVersion: isRecord(installMetadata) ? installMetadata.minHostVersion : undefined,
@@ -401,7 +401,7 @@ export function isNpmMetadataCompatibleWithCurrentHost(metadata: NpmSpecResoluti
   if (!minHostVersionCheck.ok) {
     return false;
   }
-  const pluginApiRangeCheck = resolvePackagePluginApiRange(metadata.packageOpenClaw);
+  const pluginApiRangeCheck = resolvePackagePluginApiRange(metadata.packageHSMA);
   if (!pluginApiRangeCheck.ok) {
     return false;
   }

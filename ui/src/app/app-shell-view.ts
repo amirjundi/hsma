@@ -539,11 +539,11 @@ export function renderApplicationShell(host: ShellViewHost) {
                 </button>
               </openclaw-tooltip>
               ${navCollapsed && custodianPanelAvailable
-                ? html`<openclaw-tooltip .content=${t("nav.askOpenClaw")}>
+                ? html`<openclaw-tooltip .content=${t("nav.askHSMA")}>
                     <button
                       type="button"
                       class="shell-chrome-controls__button shell-chrome-controls__custodian"
-                      aria-label=${t("nav.askOpenClaw")}
+                      aria-label=${t("nav.askHSMA")}
                       @click=${() =>
                         window.dispatchEvent(new CustomEvent(CUSTODIAN_PANEL_TOGGLE_EVENT))}
                     >

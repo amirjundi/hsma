@@ -438,7 +438,7 @@ describe("applySystemAgentSetup transaction boundaries", () => {
   });
 
   it.each([
-    { id: "OpenClaw", reserved: "openclaw" },
+    { id: "HSMA", reserved: "openclaw" },
     { id: "crestodian", reserved: "crestodian" },
   ])("rejects the reserved user agent id $id", async ({ id, reserved }) => {
     const config = {
@@ -936,7 +936,7 @@ describe("applySystemAgentSetup transaction boundaries", () => {
     expect(result.lines).toEqual(
       expect.arrayContaining([
         "Workspace files: workspace exploded",
-        "OpenClaw exec approval: approval exploded; local model harnesses may ask again.",
+        "HSMA exec approval: approval exploded; local model harnesses may ask again.",
         "Plugin registry refresh failed: registry exploded",
         "Gateway service: service exploded",
       ]),

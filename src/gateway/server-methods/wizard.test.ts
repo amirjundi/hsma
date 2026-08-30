@@ -588,7 +588,7 @@ describe("wizard step serialization", () => {
     const context = createWizardContext(async (_opts, _runtime, prompter) => {
       await prompter.text({
         message: "Display name",
-        initialValue: "OpenClaw",
+        initialValue: "HSMA",
       });
       await prompter.text({
         message: "Bot token",
@@ -597,7 +597,7 @@ describe("wizard step serialization", () => {
       });
     });
     const startResult = await invokeWizard("wizard.start", {}, context);
-    expect(startResult.step).toMatchObject({ initialValue: "OpenClaw" });
+    expect(startResult.step).toMatchObject({ initialValue: "HSMA" });
     const sessionId = startResult.sessionId;
     expect(typeof sessionId).toBe("string");
 
