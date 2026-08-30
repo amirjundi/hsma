@@ -70,8 +70,20 @@ know what judged it.
 
 ## Install
 
-Requires **Node >=22.22.3 <23, >=24.15 <25, or >=25.9** — a disjunction, not a floor.
-Node 23.x and 24.11 are excluded despite being numerically higher than 22.22.3.
+```bash
+curl -fsSL https://raw.githubusercontent.com/amirjundi/hsma/main/install.sh | bash
+```
+
+That checks the runtime, fetches the source, builds, installs the `hsma` command, and
+tells you whether collection is available. Expect it to take around twenty minutes:
+most of that is one compile step.
+
+Requires **Node >=22.22.3 <23, >=24.15 <25, or >=25.9**. That is a disjunction, not a
+floor — Node 23.x and 24.11 are excluded even though they look newer than 22.22.3. The
+installer checks the real ranges and stops with the fix rather than failing mid-build.
+
+<details>
+<summary>Manual install</summary>
 
 This is a pnpm workspace; plain `npm install` at the root is not supported.
 
@@ -81,7 +93,17 @@ cd hsma
 pnpm install
 pnpm build
 npm install -g . --allow-scripts=openclaw
+```
 
+`--allow-scripts` names the npm package, which is still `openclaw`, not the command.
+The command is `hsma`. Without the flag the bundled-plugin postinstall is skipped
+silently.
+
+</details>
+
+Then:
+
+```bash
 hsma onboard
 ```
 
