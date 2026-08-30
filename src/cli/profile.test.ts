@@ -579,106 +579,104 @@ describe("formatCliCommand", () => {
   it.each([
     {
       name: "no profile is set",
-      cmd: "openclaw doctor --fix",
+      cmd: "hsma doctor --fix",
       env: {},
-      expected: "openclaw doctor --fix",
+      expected: "hsma doctor --fix",
     },
     {
       name: "profile is default",
-      cmd: "openclaw doctor --fix",
+      cmd: "hsma doctor --fix",
       env: { OPENCLAW_PROFILE: "default" },
-      expected: "openclaw doctor --fix",
+      expected: "hsma doctor --fix",
     },
     {
       name: "profile is Default (case-insensitive)",
-      cmd: "openclaw doctor --fix",
+      cmd: "hsma doctor --fix",
       env: { OPENCLAW_PROFILE: "Default" },
-      expected: "openclaw doctor --fix",
+      expected: "hsma doctor --fix",
     },
     {
       name: "profile is invalid",
-      cmd: "openclaw doctor --fix",
+      cmd: "hsma doctor --fix",
       env: { OPENCLAW_PROFILE: "bad profile" },
-      expected: "openclaw doctor --fix",
+      expected: "hsma doctor --fix",
     },
     {
       name: "--profile is already present",
-      cmd: "openclaw --profile work doctor --fix",
+      cmd: "hsma --profile work doctor --fix",
       env: { OPENCLAW_PROFILE: "work" },
-      expected: "openclaw --profile work doctor --fix",
+      expected: "hsma --profile work doctor --fix",
     },
     {
       name: "--dev is already present",
-      cmd: "openclaw --dev doctor",
+      cmd: "hsma --dev doctor",
       env: { OPENCLAW_PROFILE: "dev" },
-      expected: "openclaw --dev doctor",
+      expected: "hsma --dev doctor",
     },
   ])("returns command unchanged when $name", ({ cmd, env, expected }) => {
     expect(formatCliCommand(cmd, env)).toBe(expected);
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
-      "openclaw --profile work doctor --fix",
+    expect(formatCliCommand("hsma doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
+      "hsma --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
-      "openclaw --profile jbopenclaw doctor --fix",
+    expect(formatCliCommand("hsma doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
+      "hsma --profile jbopenclaw doctor --fix",
     );
   });
 
-  it("handles command with no args after openclaw", () => {
-    expect(formatCliCommand("openclaw", { OPENCLAW_PROFILE: "test" })).toBe(
-      "openclaw --profile test",
-    );
+  it("handles command with no args after hsma", () => {
+    expect(formatCliCommand("hsma", { OPENCLAW_PROFILE: "test" })).toBe("hsma --profile test");
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { OPENCLAW_PROFILE: "work" })).toBe(
-      "pnpm openclaw --profile work doctor",
+    expect(formatCliCommand("pnpm hsma doctor", { OPENCLAW_PROFILE: "work" })).toBe(
+      "pnpm hsma --profile work doctor",
     );
   });
 
   it("inserts --container when a container hint is set", () => {
     expect(
-      formatCliCommand("openclaw gateway status --deep", { OPENCLAW_CONTAINER_HINT: "demo" }),
-    ).toBe("openclaw --container demo gateway status --deep");
+      formatCliCommand("hsma gateway status --deep", { OPENCLAW_CONTAINER_HINT: "demo" }),
+    ).toBe("hsma --container demo gateway status --deep");
   });
 
   it("ignores unsafe container hints", () => {
     expect(
-      formatCliCommand("openclaw gateway status --deep", {
+      formatCliCommand("hsma gateway status --deep", {
         OPENCLAW_CONTAINER_HINT: "demo; rm -rf /",
       }),
-    ).toBe("openclaw gateway status --deep");
+    ).toBe("hsma gateway status --deep");
   });
 
   it("preserves both --container and --profile hints", () => {
     expect(
-      formatCliCommand("openclaw doctor", {
+      formatCliCommand("hsma doctor", {
         OPENCLAW_CONTAINER_HINT: "demo",
         OPENCLAW_PROFILE: "work",
       }),
-    ).toBe("openclaw --container demo doctor");
+    ).toBe("hsma --container demo doctor");
   });
 
   it.each([
-    "openclaw update",
-    "pnpm openclaw update --channel beta",
-    "npm openclaw update",
-    "bunx openclaw update",
-    "npx openclaw update",
-    "openclaw --profile work update",
-    "openclaw --profile=work update",
-    "openclaw --log-level debug update",
-    "openclaw --log-level=debug update",
-    "openclaw --dev update",
-    "openclaw --no-color update",
-    "openclaw --no-color --profile work --log-level=debug update",
-    "openclaw --profile update update",
-    "pnpm openclaw --profile work update --channel beta",
+    "hsma update",
+    "pnpm hsma update --channel beta",
+    "npm hsma update",
+    "bunx hsma update",
+    "npx hsma update",
+    "hsma --profile work update",
+    "hsma --profile=work update",
+    "hsma --log-level debug update",
+    "hsma --log-level=debug update",
+    "hsma --dev update",
+    "hsma --no-color update",
+    "hsma --no-color --profile work --log-level=debug update",
+    "hsma --profile update update",
+    "pnpm hsma --profile work update --channel beta",
   ])("does not prepend --container to root update: %s", (command) => {
     expect(
       formatCliCommand(command, { OPENCLAW_CONTAINER_HINT: "demo", OPENCLAW_PROFILE: "work" }),
@@ -686,16 +684,16 @@ describe("formatCliCommand", () => {
   });
 
   it.each([
-    ["openclaw", "plugins update telegram"],
-    ["openclaw", "hooks update webhook"],
-    ["openclaw", "skills update summarize"],
-    ["pnpm openclaw", "plugins update telegram"],
-    ["openclaw", "--profile work plugins update telegram"],
-    ["openclaw", "--log-level=debug plugins update telegram"],
-    ["openclaw", "--profile update plugins list"],
-    ["openclaw", "--log-level update plugins list"],
-    ["openclaw", "config set action update"],
-    ["openclaw", "gateway status --name update"],
+    ["hsma", "plugins update telegram"],
+    ["hsma", "hooks update webhook"],
+    ["hsma", "skills update summarize"],
+    ["pnpm hsma", "plugins update telegram"],
+    ["hsma", "--profile work plugins update telegram"],
+    ["hsma", "--log-level=debug plugins update telegram"],
+    ["hsma", "--profile update plugins list"],
+    ["hsma", "--log-level update plugins list"],
+    ["hsma", "config set action update"],
+    ["hsma", "gateway status --name update"],
   ])("preserves the active container for non-root update: %s %s", (prefix, command) => {
     expect(
       formatCliCommand(`${prefix} ${command}`, {

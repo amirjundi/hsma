@@ -38,14 +38,14 @@ describe("renderGatewayServiceStartHints", () => {
     {
       name: "the default profile",
       env: {},
-      installCommand: "openclaw gateway install",
-      startCommand: "openclaw gateway start",
+      installCommand: "hsma gateway install",
+      startCommand: "hsma gateway start",
     },
     {
       name: "a named profile",
       env: { OPENCLAW_PROFILE: "work" },
-      installCommand: "openclaw --profile work gateway install",
-      startCommand: "openclaw --profile work gateway start",
+      installCommand: "hsma --profile work gateway install",
+      startCommand: "hsma --profile work gateway start",
     },
   ])("recommends managed service commands for $name", ({ env, installCommand, startCommand }) => {
     expect(renderGatewayServiceStartHints(env).slice(0, 2)).toEqual([installCommand, startCommand]);
@@ -88,7 +88,7 @@ describe("filterContainerGenericHints", () => {
       filterContainerGenericHints(
         [
           "systemd user services are unavailable; install/enable systemd or run the gateway under your supervisor.",
-          "If you're in a container, run the gateway in the foreground instead of `openclaw gateway`.",
+          "If you're in a container, run the gateway in the foreground instead of `hsma gateway`.",
         ],
         { OPENCLAW_CONTAINER: "openclaw-demo-container" } as NodeJS.ProcessEnv,
       ),
@@ -100,7 +100,7 @@ describe("filterContainerGenericHints", () => {
       filterContainerGenericHints(
         [
           "systemd user services are unavailable; install/enable systemd or run the gateway under your supervisor.",
-          "If you're in a container, run the gateway in the foreground instead of `openclaw gateway`.",
+          "If you're in a container, run the gateway in the foreground instead of `hsma gateway`.",
         ],
         { OPENCLAW_CONTAINER_HINT: "openclaw-demo-container" } as NodeJS.ProcessEnv,
       ),

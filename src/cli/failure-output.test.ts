@@ -131,11 +131,11 @@ describe("formatCliFailureLines", () => {
     });
 
     expect(lines).toEqual([
-      "[openclaw] Could not start the CLI.",
-      "[openclaw] Reason: config file is invalid",
-      "[openclaw] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.",
-      "[openclaw] Try: openclaw doctor",
-      "[openclaw] Help: openclaw --help",
+      "[hsma] Could not start the CLI.",
+      "[hsma] Reason: config file is invalid",
+      "[hsma] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.",
+      "[hsma] Try: hsma doctor",
+      "[hsma] Help: hsma --help",
     ]);
   });
 
@@ -185,11 +185,11 @@ describe("formatCliFailureLines", () => {
 
       expect(lines).toEqual(error.message.split("\n"));
       const output = lines.join("\n");
-      expect(output).not.toContain("[openclaw] The CLI command failed.");
-      expect(output).not.toContain("[openclaw] Reason:");
+      expect(output).not.toContain("[hsma] The CLI command failed.");
+      expect(output).not.toContain("[hsma] Reason:");
       expect(output).not.toContain("OPENCLAW_DEBUG");
       expect(output).not.toContain("Stack:");
-      expect(output).not.toContain("openclaw doctor");
+      expect(output).not.toContain("hsma doctor");
     },
   );
 
@@ -201,10 +201,10 @@ describe("formatCliFailureLines", () => {
     });
 
     expect(lines.slice(0, 4)).toEqual([
-      "[openclaw] The CLI command failed.",
-      "[openclaw] Reason: boom",
-      "[openclaw] Stack:",
-      "[openclaw] Error: boom",
+      "[hsma] The CLI command failed.",
+      "[hsma] Reason: boom",
+      "[hsma] Stack:",
+      "[hsma] Error: boom",
     ]);
     expect(lines.join("\n")).toContain("Error: boom");
   });
@@ -217,9 +217,9 @@ describe("formatCliFailureLines", () => {
       env: {},
     });
 
-    expect(lines).toContain("[openclaw] Reason: boom | transport detail");
-    expect(lines).toContain("[openclaw] Stack:");
-    expect(lines).toContain("[openclaw] Error: boom");
+    expect(lines).toContain("[hsma] Reason: boom | transport detail");
+    expect(lines).toContain("[hsma] Stack:");
+    expect(lines).toContain("[hsma] Error: boom");
   });
 
   it.each(["--debug", "--verbose"])(
@@ -232,8 +232,8 @@ describe("formatCliFailureLines", () => {
         env: {},
       });
 
-      expect(lines).not.toContain("[openclaw] Stack:");
-      expect(lines).toContain("[openclaw] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.");
+      expect(lines).not.toContain("[hsma] Stack:");
+      expect(lines).toContain("[hsma] Debug: set OPENCLAW_DEBUG=1 to include the stack trace.");
     },
   );
 });

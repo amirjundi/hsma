@@ -2,7 +2,11 @@
 import { replaceCliName, resolveCliName } from "./cli-name.js";
 import { normalizeProfileName } from "./profile-utils.js";
 
-const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+openclaw\b|^openclaw\b/;
+// Accepts the legacy name as well as the current one. This is a second, independent
+// copy of the prefix pattern (cli-name.ts has the other); matching only `openclaw`
+// here meant an `hsma ...` command silently lost its --profile and --container
+// flags, because the prefix never matched and nothing was inserted.
+const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+(?:hsma|openclaw)\b|^(?:hsma|openclaw)\b/;
 const CONTAINER_FLAG_RE = /(?:^|\s)--container(?:\s|=|$)/;
 const PROFILE_FLAG_RE = /(?:^|\s)--profile(?:\s|=|$)/;
 const DEV_FLAG_RE = /(?:^|\s)--dev(?:\s|$)/;

@@ -7,7 +7,8 @@
       "hasSubcommands": true
     }
   ],
-  "enabledByDefault": true,
+  "_hsmaNote": "Disabled by default in HSMA. Collection uses Camoufox, a hardened Firefox, because this plugin drives Chromium over CDP with no anti-detection and CDP is exactly what social platforms fingerprint. Leaving it on also made `browser --help` hang past 120s, which failed the write-cli-startup-metadata build step. Re-enable with plugins.entries.browser.enabled=true.",
+  "enabledByDefault": false,
   "activation": {
     "onStartup": true,
     "onConfigPaths": ["browser"]

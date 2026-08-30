@@ -115,8 +115,10 @@ banned one.
 
 ```bash
 cd extensions/hsma-domain && npm install camoufox && npx camoufox fetch
-hsma config set plugins.entries.browser.enabled false
 ```
+
+The bundled Chromium plugin is already disabled by default, so there is nothing to
+turn off.
 
 Everything except collection works without a browser. If Camoufox will not start, the
 agent classifies as normal and says so plainly rather than refusing to start.
