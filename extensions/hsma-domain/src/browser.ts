@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+
 /**
  * Collection through Camoufox.
  *
@@ -165,9 +168,6 @@ export async function probe(): Promise<{ ok: boolean; detail: string }> {
  * can read anything that account can read; without one it says so and asks, instead
  * of failing silently or pretending a page was empty.
  * ------------------------------------------------------------------------- */
-
-import fs from "node:fs";
-import path from "node:path";
 
 /** Where a platform's persistent browser profile lives. */
 export function sessionDir(platform: string, root: string): string {

@@ -11,7 +11,9 @@
     "test": "vitest run --config vitest.config.ts",
     "test:e2e": "node test/e2e-plugin.mjs",
     "plugin:build": "tsc -p tsconfig.json && node ../../openclaw.mjs plugins build --entry ./dist/index.js",
-    "plugin:validate": "node ../../openclaw.mjs plugins validate --entry ./dist/index.js"
+    "plugin:validate": "node ../../openclaw.mjs plugins validate --entry ./dist/index.js",
+    "test:reporting": "node test/e2e-reporting.mjs",
+    "test:lexicon-update": "node test/e2e-lexicon-update.mjs"
   },
   "devDependencies": {
     "typescript": "6.0.3",
