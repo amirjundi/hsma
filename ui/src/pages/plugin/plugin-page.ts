@@ -85,6 +85,13 @@ const EXTERNAL_AUTH_PROBE_TIMEOUT_MS = 5_000;
 
 // Keyed by pluginId/tabId: tab ids are only unique within their plugin.
 const BUNDLED_TAB_VIEWS: Record<string, () => Promise<BundledPluginTabView>> = {
+  "hsma/hsma": async () => {
+    const [{ renderHsma }, { stopHsmaPolling }] = await Promise.all([
+      import("./hsma-view.ts"),
+      import("./hsma-controller.ts"),
+    ]);
+    return { render: renderHsma, stop: stopHsmaPolling };
+  },
   "logbook/logbook": async () => {
     const [{ renderLogbook }, { stopLogbookPolling }] = await Promise.all([
       import("./logbook-view.ts"),

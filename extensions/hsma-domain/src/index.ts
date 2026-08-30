@@ -30,7 +30,7 @@ export * from "./store.js";
 export * from "./platform/client.js";
 export * from "./platform/lexicon-store.js";
 
-interface AnkedoConfig {
+interface HsmaConfig {
   platformUrl?: string;
   agentKey?: string;
   agentId?: string;
@@ -42,12 +42,12 @@ interface AnkedoConfig {
 let store: EvidenceStore | null = null;
 let lexicon: LexiconStore | null = null;
 
-function evidence(config: AnkedoConfig): EvidenceStore {
+function evidence(config: HsmaConfig): EvidenceStore {
   store ??= new EvidenceStore(config.databasePath ?? "./hsma.db");
   return store;
 }
 
-function platform(config: AnkedoConfig): LexiconStore {
+function platform(config: HsmaConfig): LexiconStore {
   if (!lexicon) {
     if (!config.platformUrl || !config.agentKey) {
       throw new Error(
@@ -107,7 +107,7 @@ export default defineToolPlugin({
           Type.Array(Type.String(), { description: "Group slugs, if already known." }),
         ),
       }),
-      async execute({ text, parentPostText, targetGroups }, config: AnkedoConfig, context) {
+      async execute({ text, parentPostText, targetGroups }, config: HsmaConfig, context) {
         context.signal?.throwIfAborted();
 
         const { snapshot, staleness } = await platform(config).ensureFresh();
@@ -157,7 +157,7 @@ export default defineToolPlugin({
         "How many terms and patterns the agent is matching with, and how old they are. " +
         "A stale lexicon misses terms a curator has added, with no error anywhere.",
       parameters: Type.Object({}),
-      async execute(_params, config: AnkedoConfig) {
+      async execute(_params, config: HsmaConfig) {
         const cache = platform(config);
         const current = cache.current();
         const staleness = cache.staleness();
@@ -183,7 +183,7 @@ export default defineToolPlugin({
         narrative: Type.Optional(Type.String({ description: "What this case is about." })),
         watchKeywords: Type.Optional(Type.Array(Type.String())),
       }),
-      async execute(params, config: AnkedoConfig) {
+      async execute(params, config: HsmaConfig) {
         const record = evidence(config).openCase(params);
         return { id: record.id, state: record.state };
       },
@@ -196,7 +196,7 @@ export default defineToolPlugin({
         "Every case with its state, what it has found, and the hours the agent has " +
         "learned to crawl — including the hours it is not watching.",
       parameters: Type.Object({}),
-      async execute(_params, config: AnkedoConfig) {
+      async execute(_params, config: HsmaConfig) {
         const db = evidence(config);
         const counts = db.crawlCounts();
 
@@ -228,7 +228,7 @@ export default defineToolPlugin({
       parameters: Type.Object({
         limit: Type.Optional(Type.Number({ description: "How many, default 20." })),
       }),
-      async execute({ limit }, config: AnkedoConfig) {
+      async execute({ limit }, config: HsmaConfig) {
         const rows = evidence(config).reviewQueue(limit ?? 20);
         return {
           count: rows.length,
@@ -253,7 +253,7 @@ export default defineToolPlugin({
       parameters: Type.Object({
         caseId: Type.Optional(Type.String()),
       }),
-      async execute({ caseId }, config: AnkedoConfig) {
+      async execute({ caseId }, config: HsmaConfig) {
         const db = evidence(config);
         const counts = db.crawlCounts();
         const hour = new Date().getUTCHours();
@@ -288,4 +288,120 @@ export default defineToolPlugin({
       },
     }),
   ],
+
+  // Backs the Control UI tab. The tools above answer the model; these answer the
+  // dashboard, and both read the same evidence store so the two cannot disagree.
+  register(api, config) {
+    const cfg = config as HsmaConfig;
+
+    api.session.controls.registerControlUiDescriptor({
+      surface: "tab",
+      id: "hsma",
+      label: "Hate speech",
+      description: "Cases, findings awaiting review, lexicon freshness, platform link.",
+    });
+
+    const handle =
+      (run: (params: unknown) => unknown) =>
+      async ({
+        params,
+        respond,
+      }: {
+        params: unknown;
+        respond: (ok: boolean, body: unknown) => void;
+      }) => {
+        try {
+          respond(true, await run(params));
+        } catch (err) {
+          respond(false, { error: err instanceof Error ? err.message : String(err) });
+        }
+      };
+
+    const read = (method: string, run: (params: unknown) => unknown) =>
+      api.registerGatewayMethod(method, handle(run), { scope: "operator.read" });
+
+    read("hsma.cases", () => {
+      const db = evidence(cfg);
+      const counts = db.crawlCounts();
+      return {
+        cases: db.listCases().map((c) => {
+          const window = activeHours(db.flaggedHours(c.id));
+          return {
+            id: c.id,
+            targetGroup: c.targetGroupSlug,
+            narrative: c.narrative,
+            state: c.state,
+            lastActivityAt: c.lastActivityAt,
+            hours: window.hours,
+            learned: window.learned,
+            why: window.reason,
+            // The gap is reported, not hidden: a learned schedule creates real blind
+            // spots and a reader has to be able to see them.
+            coverage: coverage(window, counts.baseline, counts.total),
+          };
+        }),
+        crawls: counts,
+      };
+    });
+
+    read("hsma.reviewQueue", (params) => {
+      const limit = Number((params as { limit?: unknown } | null)?.limit ?? 50);
+      const rows = evidence(cfg).reviewQueue(Number.isFinite(limit) ? limit : 50);
+      return {
+        count: rows.length,
+        items: rows.map((r) => ({
+          id: r.id,
+          verdict: r.verdict,
+          confidence: r.confidence,
+          text: r.comment_text ?? r.post_text,
+          url: r.url,
+          // Travels with the verdict so a reviewer months later knows what judged it.
+          lexiconAgeHours: r.lexicon_age_hours,
+          trace: r.trace,
+        })),
+      };
+    });
+
+    read("hsma.lexicon", async () => {
+      const cache = platform(cfg);
+      const current = cache.current();
+      const staleness = cache.staleness();
+      return {
+        terms: current?.terms.length ?? 0,
+        tropes: current?.tropes.length ?? 0,
+        state: staleness.state,
+        ageHours: staleness.state === "never-fetched" ? null : staleness.ageHours,
+        // Never silent: a term the platform sent that would not compile here is a
+        // silently missed category of hate speech.
+        rejected: current?.rejected ?? [],
+      };
+    });
+
+    read("hsma.platform", async () => {
+      if (!cfg.platformUrl || !cfg.agentKey) {
+        return {
+          configured: false,
+          reason:
+            "No platform configured. The lexicon lives on the platform and is deliberately not hardcoded here.",
+        };
+      }
+      let reachable = false;
+      let detail = "";
+      try {
+        await platform(cfg).ensureFresh();
+        reachable = true;
+      } catch (err) {
+        detail = err instanceof Error ? err.message : String(err);
+      }
+      return {
+        configured: true,
+        url: cfg.platformUrl,
+        agentId: cfg.agentId ?? null,
+        reachable,
+        detail,
+        // Outbox depth is the honest measure of whether reporting is actually working.
+        pending: evidence(cfg).pendingOutbox().length,
+      };
+    });
+  },
 });

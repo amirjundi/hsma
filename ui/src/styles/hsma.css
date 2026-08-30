@@ -1,0 +1,151 @@
+/* HSMA monitoring tab. Uses the app's own theme variables so it follows phosphor/dark
+   rather than defining its own palette. */
+
+.hsma-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 68rem;
+}
+
+.hsma-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hsma-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.hsma-refresh {
+  padding: 0.35rem 0.9rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border, currentColor);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.hsma-refresh[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.hsma-section {
+  border: 1px solid var(--border, rgba(128, 128, 128, 0.3));
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+}
+
+.hsma-section h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hsma-count {
+  font-variant-numeric: tabular-nums;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--border, rgba(128, 128, 128, 0.4));
+  font-size: 0.8rem;
+}
+
+.hsma-muted {
+  opacity: 0.72;
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0;
+}
+.hsma-warn {
+  color: var(--warn, #ffb020);
+}
+.hsma-ok {
+  color: var(--success, #2fbf71);
+}
+.hsma-error {
+  color: var(--error, #e23d2d);
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+}
+
+/* 24 cells, one per UTC hour. The unfilled ones are the coverage gap, and showing
+   them is the point: a learned schedule creates real blind spots. */
+.hsma-hours {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 2px;
+  margin-top: 0.5rem;
+}
+.hsma-hour {
+  height: 0.85rem;
+  border-radius: 2px;
+  background: var(--border, rgba(128, 128, 128, 0.25));
+}
+.hsma-hour--on {
+  background: var(--accent, #2fe07a);
+}
+
+.hsma-cases,
+.hsma-review {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.hsma-case-head,
+.hsma-review-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.hsma-state,
+.hsma-verdict {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid currentColor;
+}
+.hsma-state--active {
+  color: var(--success, #2fbf71);
+}
+.hsma-state--cooling {
+  color: var(--warn, #ffb020);
+}
+.hsma-state--dormant {
+  opacity: 0.6;
+}
+.hsma-verdict--hate {
+  color: var(--error, #e23d2d);
+}
+.hsma-verdict--ambiguous {
+  color: var(--warn, #ffb020);
+}
+
+/* Arabic and Kurdish content: dir=auto on the element handles direction, but the text
+   needs room to breathe and must never be clipped mid-word. */
+.hsma-review-text {
+  margin: 0.4rem 0 0.2rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hsma-cmd {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.4rem;
+  background: var(--surface-2, rgba(128, 128, 128, 0.12));
+  font-size: 0.8rem;
+  overflow-x: auto;
+}

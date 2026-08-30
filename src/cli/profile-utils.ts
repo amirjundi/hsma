@@ -1,4 +1,5 @@
 // Profile name validation and normalization helpers for root CLI profile routing.
+import fs from "node:fs";
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
@@ -38,5 +39,21 @@ export function resolveProfileStateDir(
     throw new Error(`Invalid profile name: ${JSON.stringify(profile)}`);
   }
   const suffix = normalizeLowercaseStringOrEmpty(trimmed) === "default" ? "" : `-${trimmed}`;
-  return path.join(resolveRequiredHomeDir(env, homedir), `.openclaw${suffix}`);
+  // Must agree with resolveConfigDir in src/utils.ts, which resolves ~/.hsma and falls
+  // back to an existing ~/.openclaw. Without the same rule here the default profile
+  // could read config from one directory and profile state from another.
+  const home = resolveRequiredHomeDir(env, homedir);
+  const current = path.join(home, `.hsma${suffix}`);
+  try {
+    if (fs.existsSync(current)) {
+      return current;
+    }
+    const inherited = path.join(home, `.openclaw${suffix}`);
+    if (fs.existsSync(inherited)) {
+      return inherited;
+    }
+  } catch {
+    // best-effort
+  }
+  return current;
 }

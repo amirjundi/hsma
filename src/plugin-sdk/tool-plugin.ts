@@ -137,6 +137,15 @@ export type DefineToolPluginOptions<TConfigSchema extends TSchema | undefined = 
   tools: (
     tool: ToolPluginToolFactory<ToolPluginConfig<TConfigSchema>>,
   ) => readonly DefinedToolPluginTool[];
+  /**
+   * Extra registration run after the tools are registered, with the same plugin API
+   * that definePluginEntry receives.
+   *
+   * A tool plugin that also backs a Control UI tab needs registerGatewayMethod, which
+   * is only reachable from a plugin entry's register(). Without this hook the only way
+   * to get it is to abandon defineToolPlugin entirely and hand-roll the tool wiring.
+   */
+  register?: (api: OpenClawPluginApi, config: ToolPluginConfig<TConfigSchema>) => void;
 };
 
 /** Plugin entry returned by `defineToolPlugin`, including hidden metadata. */
@@ -240,6 +249,7 @@ export function defineToolPlugin<TConfigSchema extends TSchema | undefined = und
           tool.optional ? { optional: true } : undefined,
         );
       }
+      definition.register?.(api, config);
     },
   }) as DefinedToolPluginEntry;
 
