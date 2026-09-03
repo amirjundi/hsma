@@ -330,7 +330,7 @@ async function loadRemoteGatewayRosterWithShellEnvFallback(
 }
 
 function formatActiveGatewayLocalRefusal(identity: GatewayLockIdentity): string {
-  return `A Gateway is running for this state directory (pid ${identity.pid}, port ${identity.port}). Run without --local to use it, or stop the Gateway first (${formatCliCommand("openclaw gateway stop")}).`;
+  return `A Gateway is running for this state directory (pid ${identity.pid}, port ${identity.port}). Run without --local to use it, or stop the Gateway first (${formatCliCommand("hsma gateway stop")}).`;
 }
 
 async function acquireEmbeddedAgentStateLock(
@@ -375,7 +375,7 @@ function protectJsonStdout(opts: Pick<AgentCliOpts, "json">): void {
 
 function missingAgentMessageError(): Error {
   return new Error(
-    `Missing message. Use ${formatCliCommand('openclaw agent --message "..." --agent <id>')} or ${formatCliCommand("openclaw agent --message-file <path> --agent <id>")}.`,
+    `Missing message. Use ${formatCliCommand('hsma agent --message "..." --agent <id>')} or ${formatCliCommand("hsma agent --message-file <path> --agent <id>")}.`,
   );
 }
 
@@ -990,7 +990,7 @@ async function agentViaGatewayCommand(
     !hasImplicitGlobalTarget
   ) {
     throw new Error(
-      `No target session selected. Use --agent <id>, --session-key <key>, --session-id <id>, or --to <E.164>. Run ${formatCliCommand("openclaw agents list")} to see agents.`,
+      `No target session selected. Use --agent <id>, --session-key <key>, --session-id <id>, or --to <E.164>. Run ${formatCliCommand("hsma agents list")} to see agents.`,
     );
   }
 
@@ -1003,7 +1003,7 @@ async function agentViaGatewayCommand(
       opts.remoteGatewayRoster?.agentIds ?? (remoteGateway ? undefined : listAgentIds(cfg));
     if (knownAgents && !knownAgents.includes(agentId)) {
       throw new Error(
-        `Unknown agent id "${agentIdRaw}". Use "${formatCliCommand("openclaw agents list")}" to see configured agents.`,
+        `Unknown agent id "${agentIdRaw}". Use "${formatCliCommand("hsma agents list")}" to see configured agents.`,
       );
     }
   }
@@ -1246,7 +1246,7 @@ export async function agentCliCommand(
   // Fail loudly and point at the first-class command instead of no-opping.
   if (isCompactControlCommand(messageOpts.message)) {
     runtime.error?.(
-      "Slash commands cannot be executed via --message from the CLI. Use: openclaw sessions compact <key>",
+      "Slash commands cannot be executed via --message from the CLI. Use: hsma sessions compact <key>",
     );
     runtime.exit(1);
     return undefined;
@@ -1307,7 +1307,7 @@ export async function agentCliCommand(
         // finish this turn. Recommending a blind retry or --local here could
         // double-execute the message, so point at verification first.
         runtime.error?.(
-          `Gateway agent call ${failureHint}; the Gateway may still be running this turn. Check \`openclaw gateway status\` and the session transcript before retrying or rerunning with --local, so the turn does not execute twice.`,
+          `Gateway agent call ${failureHint}; the Gateway may still be running this turn. Check \`hsma gateway status\` and the session transcript before retrying or rerunning with --local, so the turn does not execute twice.`,
         );
       }
       throw err;

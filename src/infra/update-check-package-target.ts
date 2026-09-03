@@ -55,7 +55,7 @@ function parseNpmPackageTargetMetadata(raw: string): {
   const schemaVersions =
     parseOpenClawSchemaVersions(rec["openclaw.schemaVersions"]) ??
     (openclaw
-      ? parseOpenClawSchemaVersions((openclaw as Record<string, unknown>).schemaVersions)
+      ? parseOpenClawSchemaVersions((hsma as Record<string, unknown>).schemaVersions)
       : undefined);
   return {
     version: toOptionalTrimmedString(rec.version),

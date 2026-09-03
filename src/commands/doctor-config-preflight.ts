@@ -400,7 +400,7 @@ export async function runDoctorConfigPreflight(
         !parseConfigJson5(snapshot.raw).ok
       ) {
         throw new Error(
-          `Config at ${snapshot.path} is not parseable and cannot be repaired automatically. The file remains unchanged. Inspect the exact parse error with ${formatCliCommand("openclaw config validate")}, then hand-edit the file; or move it aside and run ${formatCliCommand("openclaw onboard")} to generate a fresh config.`,
+          `Config at ${snapshot.path} is not parseable and cannot be repaired automatically. The file remains unchanged. Inspect the exact parse error with ${formatCliCommand("hsma config validate")}, then hand-edit the file; or move it aside and run ${formatCliCommand("hsma onboard")} to generate a fresh config.`,
         );
       }
     }
@@ -630,7 +630,7 @@ export async function runDoctorConfigPreflight(
           persistedIdentity.pluginDoctorConfigFingerprint
       ) {
         throw new Error(
-          'HSMA config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
+          'HSMA config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "hsma doctor --fix" and retry.',
         );
       }
       // The persisted reread is the only inventory mutation in preflight. Replace both the

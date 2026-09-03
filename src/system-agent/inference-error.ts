@@ -4,7 +4,7 @@ import { formatErrorMessage } from "../infra/errors.js";
 type SystemAgentInferenceStage = "agent-turn" | "planner" | "conversation";
 
 const INFERENCE_UNAVAILABLE_MESSAGE =
-  "HSMA could not reach working inference. Run `openclaw onboard` on the machine running HSMA to reconnect — it live-tests the route before saving it. Then try again.";
+  "HSMA could not reach working inference. Run `hsma onboard` on the machine running HSMA to reconnect — it live-tests the route before saving it. Then try again.";
 const INFERENCE_FAILURE_SUMMARY_MAX_CHARS = 300;
 
 function inferenceUnavailableMessage(failures: readonly unknown[]): string {

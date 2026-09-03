@@ -1,4 +1,4 @@
-// Runtime implementations for `openclaw plugins` subcommands. Heavy plugin modules stay
+// Runtime implementations for `hsma plugins` subcommands. Heavy plugin modules stay
 // lazy-loaded so the base CLI can start without activating the plugin registry.
 import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
@@ -175,7 +175,7 @@ function collectConfiguredRuntimePluginWarnings(params: {
     }
     const installSpec = formatConfiguredRuntimePluginInstallSpec(candidate);
     return [
-      `- Configured runtime "${runtimeId}" requires the ${candidate.label} plugin, but no enabled "${runtimeId}" plugin was found. Run "openclaw doctor --fix" to install ${installSpec}, or install it manually with "openclaw plugins install ${installSpec}".`,
+      `- Configured runtime "${runtimeId}" requires the ${candidate.label} plugin, but no enabled "${runtimeId}" plugin was found. Run "hsma doctor --fix" to install ${installSpec}, or install it manually with "hsma plugins install ${installSpec}".`,
     ];
   });
 }
@@ -386,7 +386,7 @@ export async function runPluginsRegistryCommand(opts: PluginRegistryOptions): Pr
   ];
   if (inspection.refreshReasons.length > 0) {
     lines.push(`${theme.muted("Refresh reasons:")} ${inspection.refreshReasons.join(", ")}`);
-    lines.push(`${theme.muted("Repair:")} ${theme.command("openclaw plugins registry --refresh")}`);
+    lines.push(`${theme.muted("Repair:")} ${theme.command("hsma plugins registry --refresh")}`);
   }
   defaultRuntime.log(lines.join("\n"));
 }
@@ -421,7 +421,7 @@ export async function runPluginsDoctorCommand(opts: PluginDoctorOptions = {}): P
     ),
     ...collectStalePluginConfigWarnings({
       hits: scanStalePluginConfig(sourceCfg, process.env),
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "hsma doctor --fix",
       autoRepairBlocked: isStalePluginAutoRepairBlocked(sourceCfg, process.env),
     }),
     ...collectConfiguredRuntimePluginWarnings({ cfg: sourceCfg, plugins: report.plugins }),
@@ -462,10 +462,10 @@ export async function runPluginsDoctorCommand(opts: PluginDoctorOptions = {}): P
             : {}),
           ...(entry.source ? { shadowedSource: shortenHomeInString(entry.source) } : {}),
           repair: [
-            `openclaw plugins inspect ${entry.pluginId ?? "<plugin-id>"}`,
+            `hsma plugins inspect ${entry.pluginId ?? "<plugin-id>"}`,
             "edit or remove the config-selected plugin source",
-            "openclaw plugins registry --refresh",
-            "openclaw gateway restart --force",
+            "hsma plugins registry --refresh",
+            "hsma gateway restart --force",
           ],
         };
       }),
@@ -480,7 +480,7 @@ export async function runPluginsDoctorCommand(opts: PluginDoctorOptions = {}): P
 
   const healthyMessage =
     "Plugin discovery, module loading, compatibility, and configuration checks passed. " +
-    'Run "openclaw health" to check the running Gateway, including runtime quarantines and fallbacks.';
+    'Run "hsma health" to check the running Gateway, including runtime quarantines and fallbacks.';
   if (!hasInstallTreeIssues && pluginConfigWarnings.size === 0 && compatibility.length === 0) {
     defaultRuntime.log(healthyMessage);
     return;
@@ -523,10 +523,10 @@ export async function runPluginsDoctorCommand(opts: PluginDoctorOptions = {}): P
         lines.push(`  shadowed: ${shortenHomeInString(diag.source)}`);
       }
       lines.push("  repair:");
-      lines.push("    openclaw plugins inspect " + (diag.pluginId ?? "<plugin-id>"));
+      lines.push("    hsma plugins inspect " + (diag.pluginId ?? "<plugin-id>"));
       lines.push("    edit or remove the config-selected plugin source");
-      lines.push("    openclaw plugins registry --refresh");
-      lines.push("    openclaw gateway restart --force");
+      lines.push("    hsma plugins registry --refresh");
+      lines.push("    hsma gateway restart --force");
     }
   }
   if (compatibility.length > 0) {
@@ -861,7 +861,7 @@ function formatPinnedMarketplaceRefreshFailure(payload: MarketplaceRefreshPayloa
 }
 
 const MARKETPLACE_GATEWAY_RESTART_GUIDANCE =
-  'The running Gateway could not refresh its marketplace catalog. Run "openclaw gateway restart" to apply the current catalog state.';
+  'The running Gateway could not refresh its marketplace catalog. Run "hsma gateway restart" to apply the current catalog state.';
 
 /** List entries from the configured OpenClaw marketplace feed. */
 export async function runPluginMarketplaceEntriesCommand(

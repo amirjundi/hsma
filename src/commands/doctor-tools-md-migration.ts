@@ -370,7 +370,7 @@ function migrationFinding(params: {
     path: params.path,
     target: params.agentId,
     requirement: params.requirement,
-    fixHint: `Run ${formatCliCommand("openclaw doctor --fix")} to merge TOOLS.md into AGENTS.md.`,
+    fixHint: `Run ${formatCliCommand("hsma doctor --fix")} to merge TOOLS.md into AGENTS.md.`,
   };
 }
 

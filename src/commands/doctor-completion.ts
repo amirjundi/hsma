@@ -98,7 +98,7 @@ export type ShellCompletionStatus = {
   profileInstalled: boolean;
   cacheExists: boolean;
   cachePath: string;
-  /** True if profile uses slow dynamic pattern like `source <(openclaw completion ...)` */
+  /** True if profile uses slow dynamic pattern like `source <(hsma completion ...)` */
   usesSlowPattern: boolean;
 };
 
@@ -135,7 +135,7 @@ export function shellCompletionStatusToHealthFindings(
         severity: "info",
         message: `Your ${status.shell} profile uses slow dynamic completion (source <(...)).`,
         path: pathLocal,
-        fixHint: "Run `openclaw doctor --fix` to upgrade to cached completion.",
+        fixHint: "Run `hsma doctor --fix` to upgrade to cached completion.",
       },
     ];
   }
@@ -146,7 +146,7 @@ export function shellCompletionStatusToHealthFindings(
         severity: "info",
         message: `Shell completion is configured in your ${status.shell} profile but the cache is missing.`,
         path: pathLocal,
-        fixHint: `Run \`openclaw completion --write-state\` or \`openclaw doctor --fix\` to regenerate ${status.cachePath}.`,
+        fixHint: `Run \`hsma completion --write-state\` or \`hsma doctor --fix\` to regenerate ${status.cachePath}.`,
       },
     ];
   }

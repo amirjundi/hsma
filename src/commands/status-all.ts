@@ -1,4 +1,4 @@
-// Entry point for `openclaw status --all`.
+// Entry point for `hsma status --all`.
 // Orchestrates the scan, local service probes, and report rendering while report builders own formatting.
 
 import { withProgress } from "../cli/progress.js";

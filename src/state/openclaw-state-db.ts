@@ -261,7 +261,7 @@ function repairOpenClawStateDatabaseSchemaWithWriteAccess(
       warnings: quarantineCleared
         ? []
         : [
-            `Persisted quarantine record for ${pathname} could not be cleared; rerun openclaw doctor --fix so the repaired database is not refused again.`,
+            `Persisted quarantine record for ${pathname} could not be cleared; rerun hsma doctor --fix so the repaired database is not refused again.`,
           ],
     };
   } catch (err) {
@@ -270,9 +270,9 @@ function repairOpenClawStateDatabaseSchemaWithWriteAccess(
       throw err;
     }
     // Reaching this catch inside doctor means repair itself refused or failed,
-    // so the runtime asserts' "run openclaw doctor --fix" advice is circular here.
+    // so the runtime asserts' "run hsma doctor --fix" advice is circular here.
     const reason = String(err).replace(
-      /has a legacy ([a-z ]+) schema; run openclaw doctor --fix to migrate it\./u,
+      /has a legacy ([a-z ]+) schema; run hsma doctor --fix to migrate it\./u,
       "has a legacy $1 schema; automatic repair refused the unrecognized schema shape.",
     );
     return {

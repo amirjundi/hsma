@@ -585,7 +585,7 @@ function stripUnsafeBlockedRunMetadata(messages: AgentMessage[]): AgentMessage[]
     if (!openclaw || typeof openclaw !== "object") {
       return message;
     }
-    const beforeAgentRunBlocked = (openclaw as { beforeAgentRunBlocked?: unknown })
+    const beforeAgentRunBlocked = (hsma as { beforeAgentRunBlocked?: unknown })
       .beforeAgentRunBlocked;
     if (!beforeAgentRunBlocked || typeof beforeAgentRunBlocked !== "object") {
       return message;
@@ -599,7 +599,7 @@ function stripUnsafeBlockedRunMetadata(messages: AgentMessage[]): AgentMessage[]
       safeBlocked.blockedAt = blocked.blockedAt;
     }
     const nextHSMA = {
-      ...(openclaw as Record<string, unknown>),
+      ...(hsma as Record<string, unknown>),
       beforeAgentRunBlocked: safeBlocked,
     };
     changed = true;

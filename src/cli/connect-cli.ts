@@ -268,13 +268,13 @@ export function registerConnectCli(program: Command): void {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw connect oc-pair://<setup-code>", "Connect in the foreground."],
+          ["hsma connect oc-pair://<setup-code>", "Connect in the foreground."],
           [
-            "openclaw connect https://gateway.example/j/<code> --service",
+            "hsma connect https://gateway.example/j/<code> --service",
             "Install the node host service.",
           ],
           [
-            "openclaw connect https://gateway.example/j/<code> --service --session-host",
+            "hsma connect https://gateway.example/j/<code> --service --session-host",
             "Install a worker-session host service.",
           ],
         ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/connect", "docs.openclaw.ai/cli/connect")}\n`,

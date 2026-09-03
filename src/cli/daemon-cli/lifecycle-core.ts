@@ -596,7 +596,7 @@ export async function runServiceRestart(params: {
             `${params.serviceNoun} service needs repair before restart: ${issues
               .map((issue) => issue.message)
               .join("; ")}`,
-            [formatCliCommand("openclaw gateway install --force")],
+            [formatCliCommand("hsma gateway install --force")],
           );
           return false;
         }

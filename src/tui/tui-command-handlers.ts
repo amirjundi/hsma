@@ -213,7 +213,7 @@ export function createCommandHandlers(context: CommandHandlerContext) {
 
   const setAgent = async (id: string) => {
     await setSession("", normalizeAgentId(id));
-    chatLog.addSystem(`agent set to ${state.currentAgentId}; use /openclaw to return`);
+    chatLog.addSystem(`agent set to ${state.currentAgentId}; use /hsma to return`);
   };
 
   const beginPickerRequest = (): { overlay?: OverlayHandle; noticeId: string } => {

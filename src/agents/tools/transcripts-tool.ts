@@ -640,7 +640,7 @@ export function createTranscriptsAutoStartService(ctx: TranscriptsRuntimeContext
           // never the tool content or summary. Skipped captures have no warnings.
           if (typeof details.summaryExportError === "string") {
             warnings.push(
-              `summary saved; export failed intendedSummaryPath=${formatAutoStopDiagnostic(details.intendedSummaryPath)}: ${formatAutoStopDiagnostic(details.summaryExportError)}. Correct the export destination, then run openclaw transcripts path <session> or openclaw transcripts show <session>.`,
+              `summary saved; export failed intendedSummaryPath=${formatAutoStopDiagnostic(details.intendedSummaryPath)}: ${formatAutoStopDiagnostic(details.summaryExportError)}. Correct the export destination, then run hsma transcripts path <session> or hsma transcripts show <session>.`,
             );
           }
           if (typeof details.providerStopError === "string") {

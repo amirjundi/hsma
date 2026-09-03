@@ -115,7 +115,7 @@ function resolveLocalProviderPolicyBlockGuidance(
     case "plugins-disabled":
       return {
         message: "Plugin loading is disabled for this config.",
-        fix: `Fix: ${formatCliCommand("openclaw config set plugins.enabled true --strict-json")}, or select another memory provider.`,
+        fix: `Fix: ${formatCliCommand("hsma config set plugins.enabled true --strict-json")}, or select another memory provider.`,
       };
     case "blocked-by-denylist":
       return {
@@ -125,7 +125,7 @@ function resolveLocalProviderPolicyBlockGuidance(
     case "plugin-disabled":
       return {
         message: `Installed plugin "${pluginId}" is disabled for this config.`,
-        fix: `Fix: Enable it: ${formatCliCommand(`openclaw plugins enable ${pluginId} --accept-capabilities`)}, or select another memory provider.`,
+        fix: `Fix: Enable it: ${formatCliCommand(`hsma plugins enable ${pluginId} --accept-capabilities`)}, or select another memory provider.`,
       };
     case "not-in-allowlist":
       return {
@@ -232,8 +232,8 @@ function buildMemoryRecallIssueNote(audit: ShortTermAuditSummary): string | null
   const issueLines = audit.issues.map((issue) => `- ${issue.message}`);
   const hasFixableIssue = audit.issues.some((issue) => issue.fixable);
   const guidance = hasFixableIssue
-    ? `Fix: ${formatCliCommand("openclaw doctor --fix")} or ${formatCliCommand("openclaw memory status --fix")}`
-    : `Verify: ${formatCliCommand("openclaw memory status --deep")}`;
+    ? `Fix: ${formatCliCommand("hsma doctor --fix")} or ${formatCliCommand("hsma memory status --fix")}`
+    : `Verify: ${formatCliCommand("hsma memory status --deep")}`;
   return [
     "Memory recall artifacts need attention:",
     ...issueLines,
@@ -253,8 +253,8 @@ function buildDreamingArtifactIssueNote(audit: DreamingArtifactsAuditSummary): s
     ...issueLines,
     `Dream corpus: ${audit.sessionCorpusDir}`,
     hasFixableIssue
-      ? `Fix: ${formatCliCommand("openclaw doctor --fix")} or ${formatCliCommand("openclaw memory status --fix")}`
-      : `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+      ? `Fix: ${formatCliCommand("hsma doctor --fix")} or ${formatCliCommand("hsma memory status --fix")}`
+      : `Verify: ${formatCliCommand("hsma memory status --deep")}`,
   ].join("\n");
 }
 
@@ -357,7 +357,7 @@ export async function maybeRepairMemoryRecallHealth(params: {
                 ? `- rewrote recall store${details ? ` (${details})` : ""}`
                 : null,
               repair.removedStaleLock ? "- removed stale promotion lock" : null,
-              `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+              `Verify: ${formatCliCommand("hsma memory status --deep")}`,
             ].filter(Boolean);
             note(
               formatAgentMessage(scope.agentId, labelAgents, lines.join("\n")),
@@ -394,7 +394,7 @@ export async function maybeRepairMemoryRecallHealth(params: {
         dreamingRepair.archivedDreamsDiary ? "- archived dream diary" : null,
         dreamingRepair.archiveDir ? `- archive dir: ${dreamingRepair.archiveDir}` : null,
         ...dreamingRepair.warnings.map((warning) => `- warning: ${warning}`),
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ].filter(Boolean);
       note(formatAgentMessage(scope.agentId, labelAgents, lines.join("\n")), "Doctor changes");
     } catch (err) {
@@ -504,7 +504,7 @@ function noteRememberAcrossConversationsHealth(params: {
 
 /**
  * Check whether memory search has a usable embedding provider.
- * Runs as part of `openclaw doctor` using config-only checks where possible.
+ * Runs as part of `hsma doctor` using config-only checks where possible.
  */
 type MemorySearchHealthOptions = {
   gatewayMemoryProbe?: {
@@ -584,7 +584,7 @@ async function noteMemorySearchHealthForAgent(
         "",
         policyBlock.fix,
         "",
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -673,7 +673,7 @@ async function noteMemorySearchHealthForAgent(
     const setupFix = setup?.fixHint?.trim();
     const updateFix =
       !ownerPolicyBlock && !inspectSetup
-        ? `Fix: Update the installed plugin: ${formatCliCommand(`openclaw plugins update ${installedOwner.id}`)}`
+        ? `Fix: Update the installed plugin: ${formatCliCommand(`hsma plugins update ${installedOwner.id}`)}`
         : null;
     const policyBlock = ownerPolicyBlock
       ? resolveLocalProviderPolicyBlockGuidance(ownerPolicyBlock, installedOwner.id)
@@ -703,7 +703,7 @@ async function noteMemorySearchHealthForAgent(
                 ? "Fix: Repair the llama.cpp server problem reported by the Gateway."
                 : null),
         "",
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ]
         .filter(Boolean)
         .join("\n"),
@@ -722,9 +722,9 @@ async function noteMemorySearchHealthForAgent(
         "Set memory.search.remote.baseUrl to the /v1 endpoint for your embeddings server.",
         "",
         "Fix:",
-        `- ${formatCliCommand("openclaw config set memory.search.remote.baseUrl http://127.0.0.1:1234/v1")}`,
+        `- ${formatCliCommand("hsma config set memory.search.remote.baseUrl http://127.0.0.1:1234/v1")}`,
         "",
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -738,9 +738,9 @@ async function noteMemorySearchHealthForAgent(
         "Set memory.search.model to the embedding model id your server expects.",
         "",
         "Fix:",
-        `- ${formatCliCommand("openclaw config set memory.search.model text-embedding-bge-m3")}`,
+        `- ${formatCliCommand("hsma config set memory.search.model text-embedding-bge-m3")}`,
         "",
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -753,7 +753,7 @@ async function noteMemorySearchHealthForAgent(
     }
     // When the probe was intentionally skipped (skipped: true / checked: false
     // due to probe:false path), we have no embedding status information — do
-    // not warn. A skipped probe means the user ran `openclaw doctor` without
+    // not warn. A skipped probe means the user ran `hsma doctor` without
     // --deep; it does not mean embeddings are unavailable.
     // NOTE: a transport timeout also sets checked: false, but skipped stays
     // false/absent — a timeout is a real diagnostic signal and should fall
@@ -768,7 +768,7 @@ async function noteMemorySearchHealthForAgent(
           ? `Memory search provider "${provider}" is configured, but the gateway reports embeddings are not ready.`
           : `Memory search provider "${provider}" is configured, but the gateway could not confirm embeddings are ready.`,
         gatewayProbeWarning,
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ]
         .filter(Boolean)
         .join("\n"),
@@ -792,7 +792,7 @@ async function noteMemorySearchHealthForAgent(
       [
         `Memory search provider is set to "${provider}" but the API key was not found in the CLI environment.`,
         "The running gateway reports memory embeddings are ready for the default agent.",
-        `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+        `Verify: ${formatCliCommand("hsma memory status --deep")}`,
       ].join("\n"),
       "Memory search",
     );
@@ -809,10 +809,10 @@ async function noteMemorySearchHealthForAgent(
       "",
       "Fix (pick one):",
       `- Set ${envVar} in your environment`,
-      `- Configure credentials: ${formatCliCommand("openclaw configure --section model")}`,
-      `- To disable: ${formatCliCommand("openclaw config set memory.search.enabled false")}`,
+      `- Configure credentials: ${formatCliCommand("hsma configure --section model")}`,
+      `- To disable: ${formatCliCommand("hsma config set memory.search.enabled false")}`,
       "",
-      `Verify: ${formatCliCommand("openclaw memory status --deep")}`,
+      `Verify: ${formatCliCommand("hsma memory status --deep")}`,
     ].join("\n"),
     "Memory search",
   );

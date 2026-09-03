@@ -162,7 +162,7 @@ export function formatCliFailureLines(options: FormatCliFailureOptions): string[
   }
 
   if (options.includeDoctorHint !== false) {
-    lines.push(`[hsma] Try: ${formatCliCommand("openclaw doctor", env)}`);
+    lines.push(`[hsma] Try: ${formatCliCommand("hsma doctor", env)}`);
   }
   lines.push(`[hsma] Help: ${formatCliCommand("openclaw --help", env)}`);
   return lines;

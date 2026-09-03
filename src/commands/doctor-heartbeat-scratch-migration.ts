@@ -74,7 +74,7 @@ async function readHeartbeatSource(
     }
     if (!options?.recoverClaims) {
       throw new Error(
-        `an interrupted migration claim exists at ${staleClaim}; run openclaw doctor --fix to restore it`,
+        `an interrupted migration claim exists at ${staleClaim}; run hsma doctor --fix to restore it`,
         { cause: error },
       );
     }
@@ -354,7 +354,7 @@ function migrationFinding(params: {
     path: params.path,
     target: params.agentId,
     requirement: params.requirement,
-    fixHint: `Run ${formatCliCommand("openclaw doctor --fix")} to migrate HEARTBEAT.md into cron scratch.`,
+    fixHint: `Run ${formatCliCommand("hsma doctor --fix")} to migrate HEARTBEAT.md into cron scratch.`,
   };
 }
 

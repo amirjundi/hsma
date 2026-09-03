@@ -120,7 +120,7 @@ function splitModelRef(ref: string | undefined): { provider?: string; model?: st
 }
 
 class SystemAgentTuiBackend implements TuiBackend {
-  readonly connection = { url: "openclaw local" };
+  readonly connection = { url: "hsma local" };
 
   onEvent?: (evt: TuiEvent) => void;
   onConnected?: () => void;
@@ -236,7 +236,7 @@ class SystemAgentTuiBackend implements TuiBackend {
   async patchSession(opts: SessionsPatchParams): Promise<SessionsPatchResult> {
     if (opts.model !== undefined) {
       throw new Error(
-        "HSMA cannot change the model inside its active verified session. Exit and run `openclaw onboard`, then start HSMA again.",
+        "HSMA cannot change the model inside its active verified session. Exit and run `hsma onboard`, then start HSMA again.",
       );
     }
     return {
@@ -394,7 +394,7 @@ async function runSetupHandoff(
     handoff.target !== "gateway"
   ) {
     runtime.error(
-      "Setup cannot replace the inference route powering HSMA. Exit and run `openclaw onboard`, then start HSMA again.",
+      "Setup cannot replace the inference route powering HSMA. Exit and run `hsma onboard`, then start HSMA again.",
     );
     return;
   }
@@ -424,7 +424,7 @@ async function runSetupHandoff(
   if (handoff.target === "gateway") {
     if (opts.runGatewaySetupHandoff) {
       await opts.runGatewaySetupHandoff(runtime, beforePersistentEffect);
-      runtime.log("Done — gateway settings saved. Run `openclaw gateway restart` to apply them.");
+      runtime.log("Done — gateway settings saved. Run `hsma gateway restart` to apply them.");
       return;
     }
     const { createClackPrompter, hostedSetup } = await loadHostedSetupForTui();
@@ -433,7 +433,7 @@ async function runSetupHandoff(
       async () => await beforePersistentEffect(),
       runtime,
     );
-    runtime.log("Done — gateway settings saved. Run `openclaw gateway restart` to apply them.");
+    runtime.log("Done — gateway settings saved. Run `hsma gateway restart` to apply them.");
     return;
   }
   if (handoff.target === "search") {
@@ -503,7 +503,7 @@ export async function runSystemAgentTui(
         historyLimit: SYSTEM_AGENT_HISTORY_LIMIT,
         backend,
         config: {},
-        title: "openclaw setup",
+        title: "hsma setup",
         ...(initialMessage ? { message: initialMessage } : {}),
       });
     } finally {
@@ -516,7 +516,7 @@ export async function runSystemAgentTui(
     }
     if (handoff.kind === "model-setup") {
       runtime.error(
-        "HSMA cannot replace its active inference route. Run `openclaw onboard` outside this session, then start HSMA again.",
+        "HSMA cannot replace its active inference route. Run `hsma onboard` outside this session, then start HSMA again.",
       );
       return;
     }

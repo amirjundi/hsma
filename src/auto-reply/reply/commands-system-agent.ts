@@ -13,7 +13,7 @@ export const handleSystemAgentCommand: CommandHandler = async (params, allowText
   }
   if (!params.command.isAuthorizedSender) {
     logVerbose(
-      `Ignoring /openclaw from unauthorized sender: ${params.command.senderId || "<unknown>"}`,
+      `Ignoring /hsma from unauthorized sender: ${params.command.senderId || "<unknown>"}`,
     );
     return { shouldContinue: false };
   }

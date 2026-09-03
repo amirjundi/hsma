@@ -235,7 +235,7 @@ export function formatConfigReloadHealthLine(summary: HealthSummary): string | n
 const resolveHeartbeatSummary = (cfg: OpenClawConfig, agentId: string) =>
   resolveHeartbeatSummaryForAgent(cfg, agentId);
 
-/** Runs the `openclaw health` command against the gateway and renders JSON or text. */
+/** Runs the `hsma health` command against the gateway and renders JSON or text. */
 export async function healthCommand(
   opts: {
     json?: boolean;

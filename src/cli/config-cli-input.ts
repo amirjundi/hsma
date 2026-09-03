@@ -611,8 +611,8 @@ export function formatPluginInstallConfigSetError(): string {
     "plugins.installs is managed by the plugin index and cannot be edited with config set.",
     "",
     "Use plugin commands instead:",
-    `  ${formatCliCommand("openclaw plugins install <spec>")}`,
-    `  ${formatCliCommand("openclaw plugins update <plugin-id>")}`,
-    `  ${formatCliCommand("openclaw plugins uninstall <plugin-id>")}`,
+    `  ${formatCliCommand("hsma plugins install <spec>")}`,
+    `  ${formatCliCommand("hsma plugins update <plugin-id>")}`,
+    `  ${formatCliCommand("hsma plugins uninstall <plugin-id>")}`,
   ].join("\n");
 }

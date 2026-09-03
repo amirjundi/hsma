@@ -214,7 +214,7 @@ function buildAuditDetails(input: SystemAgentRescueMessageInput): Record<string,
 function formatPersistentPlan(operation: SystemAgentOperation): string {
   return formatSystemAgentPersistentPlan(operation).replace(
     "Say yes to apply.",
-    "Reply /openclaw yes to apply.",
+    "Reply /hsma yes to apply.",
   );
 }
 
@@ -228,25 +228,25 @@ function formatUnsupportedRemoteOperation(operation: SystemAgentOperation): stri
   if (operation.kind === "channel-setup") {
     return [
       "HSMA rescue cannot host the interactive channel setup from a message channel.",
-      "Run `openclaw setup` locally and say `connect " + operation.channel + "` instead.",
+      "Run `hsma setup` locally and say `connect " + operation.channel + "` instead.",
     ].join(" ");
   }
   if (operation.kind === "model-setup") {
     return [
       "HSMA rescue cannot host model-provider credential setup from a message channel.",
-      "Run `openclaw onboard` locally; it live-tests the candidate route before saving it.",
+      "Run `hsma onboard` locally; it live-tests the candidate route before saving it.",
     ].join(" ");
   }
   if (operation.kind === "doctor-fix") {
     return [
       "HSMA rescue cannot run doctor repairs from a message channel because they can change the inference route powering this session.",
-      "On the machine running HSMA, with HSMA stopped, run `openclaw doctor --fix`.",
+      "On the machine running HSMA, with HSMA stopped, run `hsma doctor --fix`.",
     ].join(" ");
   }
   if (operation.kind === "plugin-install") {
     return [
       "HSMA rescue cannot install plugins from a message channel by default because plugin install downloads executable code.",
-      "Use local `openclaw setup` or `openclaw plugins install` instead.",
+      "Use local `hsma setup` or `hsma plugins install` instead.",
     ].join(" ");
   }
   return null;

@@ -318,14 +318,14 @@ async function collectMcpDoctorIssues(params: {
             issues.push(
               issue(
                 "warning",
-                `OAuth credentials require additional authorization; run ${formatCliCommand(`openclaw mcp login ${name}`)}`,
+                `OAuth credentials require additional authorization; run ${formatCliCommand(`hsma mcp login ${name}`)}`,
               ),
             );
           } else if (authStatus.state !== "authorized") {
             issues.push(
               issue(
                 "warning",
-                `OAuth credentials are not authorized; run ${formatCliCommand(`openclaw mcp login ${name}`)}`,
+                `OAuth credentials are not authorized; run ${formatCliCommand(`hsma mcp login ${name}`)}`,
               ),
             );
           }
@@ -679,7 +679,7 @@ export function registerMcpCli(program: Command) {
         });
       } catch (err) {
         defaultRuntime.error(
-          `MCP server failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("openclaw gateway status --deep --require-rpc")} to inspect Gateway health.`,
+          `MCP server failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("hsma gateway status --deep --require-rpc")} to inspect Gateway health.`,
         );
         defaultRuntime.exit(1);
       }
@@ -702,7 +702,7 @@ export function registerMcpCli(program: Command) {
       const names = entries.map(([name]) => name);
       if (names.length === 0) {
         defaultRuntime.log(
-          `No HSMA-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('openclaw mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
+          `No HSMA-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('hsma mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
         );
         defaultRuntime.log(OPENCLAW_MCP_REGISTRY_SCOPE_NOTE);
         return;
@@ -733,7 +733,7 @@ export function registerMcpCli(program: Command) {
       const value = name ? loaded.mcpServers[name] : loaded.mcpServers;
       if (name && !value) {
         fail(
-          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       if (opts.json) {
@@ -822,12 +822,12 @@ export function registerMcpCli(program: Command) {
         : loaded.mcpServers;
       if (!servers) {
         fail(
-          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       if (name && loaded.mcpServers[name]?.enabled === false) {
         fail(
-          `MCP server "${name}" is disabled in ${loaded.path}. Run ${formatCliCommand(`openclaw mcp configure ${name} --enable`)} before probing it.`,
+          `MCP server "${name}" is disabled in ${loaded.path}. Run ${formatCliCommand(`hsma mcp configure ${name} --enable`)} before probing it.`,
         );
       }
       // Without this the human output is a bare header: both probe loops are empty,
@@ -835,7 +835,7 @@ export function registerMcpCli(program: Command) {
       // emitting its empty envelope so machine consumers see a stable shape.
       if (!opts.json && Object.keys(servers).length === 0) {
         defaultRuntime.log(
-          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("openclaw mcp add <name> --command <command>")}.`,
+          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("hsma mcp add <name> --command <command>")}.`,
         );
         return;
       }
@@ -893,7 +893,7 @@ export function registerMcpCli(program: Command) {
         : loaded.mcpServers;
       if (!selected) {
         fail(
-          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       const tasks = Object.entries(selected)
@@ -935,7 +935,7 @@ export function registerMcpCli(program: Command) {
       }
       if (servers.length === 0) {
         defaultRuntime.log(
-          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("openclaw mcp add <name> --command <command>")}.`,
+          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("hsma mcp add <name> --command <command>")}.`,
         );
         return;
       }
@@ -1117,7 +1117,7 @@ export function registerMcpCli(program: Command) {
         defaultRuntime.log(`Saved MCP server "${name}" to ${result.path}.`);
         if (server.auth === "oauth") {
           defaultRuntime.log(
-            `Run ${formatCliCommand(`openclaw mcp login ${name}`)} to authorize this MCP server.`,
+            `Run ${formatCliCommand(`hsma mcp login ${name}`)} to authorize this MCP server.`,
           );
         }
       },
@@ -1165,7 +1165,7 @@ export function registerMcpCli(program: Command) {
       }
       if (!result.updated) {
         fail(
-          `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       defaultRuntime.log(`Updated MCP tool selection for "${name}" in ${result.path}.`);
@@ -1232,7 +1232,7 @@ export function registerMcpCli(program: Command) {
         const current = loaded.mcpServers[name];
         if (!current) {
           fail(
-            `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+            `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
           );
         }
         const next = { ...current };
@@ -1349,7 +1349,7 @@ export function registerMcpCli(program: Command) {
         }
         if (!result.updated) {
           fail(
-            `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+            `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
           );
         }
         defaultRuntime.log(`Updated MCP server "${name}" in ${result.path}.`);
@@ -1369,7 +1369,7 @@ export function registerMcpCli(program: Command) {
       const server = loaded.mcpServers[name];
       if (!server) {
         fail(
-          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       if (asRecord(server.oauth)?.identity === "per-requester") {
@@ -1397,7 +1397,7 @@ export function registerMcpCli(program: Command) {
       }
 
       let callbackServer: OAuthLoopbackCallbackServer | undefined;
-      const manualCommand = formatCliCommand(`openclaw mcp login ${name} --code <code>`);
+      const manualCommand = formatCliCommand(`hsma mcp login ${name} --code <code>`);
       try {
         const session = await startMcpOAuthAuthorization(identity, resolved, {});
         if (session.status === "authorized") {
@@ -1459,7 +1459,7 @@ export function registerMcpCli(program: Command) {
       const server = loaded.mcpServers[name];
       if (!server) {
         fail(
-          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${loaded.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       if (asRecord(server.oauth)?.identity === "per-requester") {
@@ -1498,7 +1498,7 @@ export function registerMcpCli(program: Command) {
       }
       if (!result.removed) {
         fail(
-          `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+          `No MCP server named "${name}" in ${result.path}. Run ${formatCliCommand("hsma mcp list")} to see configured servers.`,
         );
       }
       defaultRuntime.log(`Removed MCP server "${name}" from ${result.path}.`);

@@ -63,7 +63,7 @@ function noteCliGatewayVersionSkew(status: StatusSummary | undefined): void {
   note(
     [
       `This command is HSMA ${VERSION}; the running Gateway is HSMA ${gatewayVersion}.`,
-      "Check `openclaw --version`, `which openclaw`, and `openclaw gateway status --deep`.",
+      "Check `openclaw --version`, `which openclaw`, and `hsma gateway status --deep`.",
       "If this mismatch is unexpected, update PATH so `openclaw` points to the version you want, or reinstall the Gateway service from that same HSMA install.",
     ].join("\n"),
     "HSMA version mismatch",
@@ -147,7 +147,7 @@ export async function checkGatewayHealth(params: {
       note(
         [
           `Channel status probe failed: ${sanitizeTerminalText(formatErrorMessage(channelsResult.reason))}`,
-          `Retry: ${formatCliCommand("openclaw channels status --probe")}`,
+          `Retry: ${formatCliCommand("hsma channels status --probe")}`,
         ].join("\n"),
         "Channel warnings",
       );
@@ -161,7 +161,7 @@ export async function checkGatewayHealth(params: {
       note(
         [
           `Exporter diagnostics failed: ${sanitizeTerminalText(formatErrorMessage(exporterResult.reason))}`,
-          `Retry: ${formatCliCommand("openclaw gateway stability --type telemetry.exporter")}`,
+          `Retry: ${formatCliCommand("hsma gateway stability --type telemetry.exporter")}`,
         ].join("\n"),
         "Telemetry exporters",
       );

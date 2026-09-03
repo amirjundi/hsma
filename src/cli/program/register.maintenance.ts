@@ -84,7 +84,7 @@ export function registerMaintenanceCommands(program: Command) {
     )
     .option(
       "--github-issue",
-      "With --session-sqlite recover: prepare and optionally create an openclaw/openclaw issue",
+      "With --session-sqlite recover: prepare and optionally create an openclaw/hsma issue",
       false,
     )
     .option("--json", "Emit JSON; bare --json runs advisory read-only health checks", false)
@@ -117,7 +117,7 @@ export function registerMaintenanceCommands(program: Command) {
       }
       if (hasSessionSqliteOnlyDoctorOptions(opts)) {
         return exitDoctorError(
-          "doctor session SQLite options require --session-sqlite. Use `openclaw doctor --session-sqlite dry-run ...`.",
+          "doctor session SQLite options require --session-sqlite. Use `hsma doctor --session-sqlite dry-run ...`.",
           opts.json === true || (opts.lint === true && !process.stdout.isTTY),
         );
       }
@@ -146,7 +146,7 @@ export function registerMaintenanceCommands(program: Command) {
       }
       if (opts.lint !== true && hasLintOnlyDoctorOptions(opts)) {
         return exitDoctorError(
-          "doctor lint options require --lint. Use `openclaw doctor --lint ...`.",
+          "doctor lint options require --lint. Use `hsma doctor --lint ...`.",
           opts.json === true,
         );
       }

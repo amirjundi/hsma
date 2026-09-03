@@ -47,7 +47,7 @@ function assertAuthProfileNotRetired(params: {
     return;
   }
   throw new Error(
-    `Auth profile "${params.profileId}" is retired. Run ${formatCliCommand("openclaw doctor --fix")}.`,
+    `Auth profile "${params.profileId}" is retired. Run ${formatCliCommand("hsma doctor --fix")}.`,
   );
 }
 
@@ -647,7 +647,7 @@ export async function resolveApiKeyForProviderCore(params: {
     [
       `No API key found for provider "${provider}".`,
       `Auth store: ${authStorePath}${agentDirContext}.`,
-      `Configure an API key (${formatCliCommand(`openclaw models auth paste-api-key --provider ${provider}`)}; add --agent <id> for a non-default agent) or copy only portable static auth profiles from the main agentDir.`,
+      `Configure an API key (${formatCliCommand(`hsma models auth paste-api-key --provider ${provider}`)}; add --agent <id> for a non-default agent) or copy only portable static auth profiles from the main agentDir.`,
     ].join(" "),
   );
 }

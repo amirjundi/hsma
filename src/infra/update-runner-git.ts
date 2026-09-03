@@ -485,7 +485,7 @@ export async function updateGitCheckout(params: {
     );
     if (!doctorEntryExists) {
       steps.push({
-        name: "openclaw doctor entry",
+        name: "hsma doctor entry",
         command: `verify ${doctorEntry}`,
         cwd: gitRoot,
         durationMs: 0,
@@ -502,7 +502,7 @@ export async function updateGitCheckout(params: {
     });
     const doctorStep = await runStep(
       step(
-        "openclaw doctor",
+        "hsma doctor",
         [
           doctorNodePath,
           doctorEntry,

@@ -246,8 +246,8 @@ export async function executeSystemAgentOperation(
       runtime.log(
         [
           `Connecting ${operation.channel} needs an interactive session.`,
-          "Run `openclaw setup` and say `connect " + operation.channel + "`,",
-          "or run `openclaw channels add` for the terminal wizard.",
+          "Run `hsma setup` and say `connect " + operation.channel + "`,",
+          "or run `hsma channels add` for the terminal wizard.",
         ].join("\n"),
       );
       return { applied: false };
@@ -255,8 +255,8 @@ export async function executeSystemAgentOperation(
       runtime.log(
         [
           "Skills setup needs an interactive session.",
-          "Run `openclaw setup` and say `configure skills`,",
-          "or run `openclaw configure --section skills` for the terminal wizard.",
+          "Run `hsma setup` and say `configure skills`,",
+          "or run `hsma configure --section skills` for the terminal wizard.",
         ].join("\n"),
       );
       return { applied: false };
@@ -264,8 +264,8 @@ export async function executeSystemAgentOperation(
       runtime.log(
         [
           "Web search setup needs an interactive session.",
-          "Run `openclaw setup` and say `configure search`,",
-          "or run `openclaw configure --section web` for the masked terminal wizard.",
+          "Run `hsma setup` and say `configure search`,",
+          "or run `hsma configure --section web` for the masked terminal wizard.",
         ].join("\n"),
       );
       return { applied: false };
@@ -273,8 +273,8 @@ export async function executeSystemAgentOperation(
       runtime.log(
         [
           "Gateway configuration needs an interactive session.",
-          "Run `openclaw setup` and say `configure gateway`,",
-          "or run `openclaw configure --section gateway` for the masked terminal wizard.",
+          "Run `hsma setup` and say `configure gateway`,",
+          "or run `hsma configure --section gateway` for the masked terminal wizard.",
         ].join("\n"),
       );
       return { applied: false };
@@ -283,7 +283,7 @@ export async function executeSystemAgentOperation(
         [
           "Memory import needs an interactive session.",
           "Open the Memory page in the Control UI,",
-          "or run `openclaw onboard` for the terminal wizard.",
+          "or run `hsma onboard` for the terminal wizard.",
         ].join("\n"),
       );
       return { applied: false };
@@ -291,21 +291,21 @@ export async function executeSystemAgentOperation(
       runtime.log(
         [
           "Changing model providers must happen outside the inference session that powers HSMA.",
-          "Stop the HSMA host through whatever started it. Run `openclaw onboard` on the machine running HSMA: it stages credentials, live-tests the candidate route, and saves only a passing setup. Then restart the host.",
+          "Stop the HSMA host through whatever started it. Run `hsma onboard` on the machine running HSMA: it stages credentials, live-tests the candidate route, and saves only a passing setup. Then restart the host.",
         ].join("\n"),
       );
       return { applied: false };
     case "open-setup": {
       const command =
         operation.target === "guided"
-          ? "openclaw onboard"
+          ? "hsma onboard"
           : operation.target === "classic"
-            ? "openclaw onboard --classic"
+            ? "hsma onboard --classic"
             : operation.target === "channels"
-              ? `openclaw channels add${operation.channel ? ` --channel ${operation.channel}` : ""}`
+              ? `hsma channels add${operation.channel ? ` --channel ${operation.channel}` : ""}`
               : operation.target === "search"
-                ? "openclaw configure --section web"
-                : "openclaw configure --section gateway";
+                ? "hsma configure --section web"
+                : "hsma configure --section gateway";
       runtime.log(
         `This session cannot host an interactive wizard. Run \`${command}\` on the machine running HSMA.`,
       );
@@ -350,7 +350,7 @@ export async function executeSystemAgentOperation(
       if (await isPluginBackingDefaultInferenceRoute(operation.pluginId)) {
         const message = [
           `Uninstalling ${operation.pluginId} could remove the provider behind HSMA's own active inference route.`,
-          `Removing it has to happen with HSMA stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
+          `Removing it has to happen with HSMA stopped: run \`hsma plugins uninstall ${operation.pluginId}\` on the machine running it.`,
         ].join("\n");
         runtime.log(message);
         return { applied: false, message };
@@ -374,7 +374,7 @@ export async function executeSystemAgentOperation(
             // moment so the destructive removal never hits the active route.
             if (await isPluginBackingDefaultInferenceRoute(operation.pluginId)) {
               throw new Error(
-                `Uninstall aborted: ${operation.pluginId} now backs the active inference route. Removing it has to happen with HSMA stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
+                `Uninstall aborted: ${operation.pluginId} now backs the active inference route. Removing it has to happen with HSMA stopped: run \`hsma plugins uninstall ${operation.pluginId}\` on the machine running it.`,
               );
             }
             await runPluginUninstall(operation.pluginId, createNoExitRuntime(ctx.runtime));
@@ -442,7 +442,7 @@ export async function executeSystemAgentOperation(
     }
     case "doctor-fix":
       runtime.log(
-        "Doctor repairs can change the inference route that powers this session, so they run with HSMA stopped: `openclaw doctor --fix` on the machine running it.",
+        "Doctor repairs can change the inference route that powers this session, so they run with HSMA stopped: `hsma doctor --fix` on the machine running it.",
       );
       return { applied: false };
     case "status": {

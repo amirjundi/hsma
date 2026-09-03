@@ -539,7 +539,7 @@ export function describeSystemAgentPersistentOperation(operation: SystemAgentOpe
     case "model-setup":
       return "configure a model provider and default model";
     case "doctor-fix":
-      return "run openclaw doctor --fix on the machine running HSMA, with HSMA stopped";
+      return "run hsma doctor --fix on the machine running HSMA, with HSMA stopped";
     case "plugin-install":
       return `install plugin ${operation.spec}`;
     case "plugin-uninstall":
@@ -563,10 +563,10 @@ export function describeSystemAgentPersistentOperation(operation: SystemAgentOpe
 }
 
 export const SYSTEM_AGENT_OPERATOR_APPROVAL_HANDOFF =
-  "This change needs operator approval and cannot be applied from this chat. Approve it in the HSMA operator UI (`openclaw dashboard` on the Gateway host), or run the change there with `openclaw setup`.";
+  "This change needs operator approval and cannot be applied from this chat. Approve it in the HSMA operator UI (`hsma dashboard` on the Gateway host), or run the change there with `hsma setup`.";
 
 export const SYSTEM_AGENT_OPERATOR_NAVIGATION_HANDOFF =
-  "Channel, model, and setup flows need a human operator in the HSMA app; they cannot run from a delegated agent request. Open `openclaw dashboard` or run `openclaw setup` on the Gateway host.";
+  "Channel, model, and setup flows need a human operator in the HSMA app; they cannot run from a delegated agent request. Open `hsma dashboard` or run `hsma setup` on the Gateway host.";
 
 /** Format the standard approval plan text for a persistent operation. */
 export function formatSystemAgentPersistentPlan(

@@ -27,8 +27,8 @@ const STEP_LABELS: Record<string, string> = {
   "ui:build": "Building UI assets",
   "ui:build (post-doctor repair)": "Restoring missing UI assets",
   "ui assets verify": "Validating UI assets",
-  "openclaw doctor entry": "Checking doctor entrypoint",
-  "openclaw doctor": "Running doctor checks",
+  "hsma doctor entry": "Checking doctor entrypoint",
+  "hsma doctor": "Running doctor checks",
   "git rev-parse HEAD (after)": "Verifying update",
   "global update": "Updating via package manager",
   "global update (omit optional)": "Retrying update without optional deps",
@@ -97,7 +97,7 @@ function inferUpdateFailureHints(result: UpdateRunResult): string[] {
     );
     hints.push("Example: npm config set prefix ~/.local && npm i -g openclaw@latest");
     hints.push(
-      "System install outline: openclaw gateway stop -> sudo <system-npm> i -g openclaw@latest -> openclaw gateway install --force -> openclaw gateway restart.",
+      "System install outline: hsma gateway stop -> sudo <system-npm> i -g openclaw@latest -> hsma gateway install --force -> hsma gateway restart.",
     );
   }
 

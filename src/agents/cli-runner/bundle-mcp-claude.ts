@@ -115,7 +115,7 @@ export async function writeClaudeMcpCaptureConfig(params: {
       withOpenClawMcpCaptureHeader(
         raw,
         params.captureKey,
-        "Claude MCP capture requires an openclaw server config",
+        "Claude MCP capture requires an hsma server config",
       ),
       null,
       2,

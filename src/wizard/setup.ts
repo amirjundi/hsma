@@ -116,7 +116,7 @@ async function runSetupWizardOnce(
       );
     }
     await prompter.outro(
-      `Config invalid. Run \`${formatCliCommand("openclaw doctor")}\` to repair it, then re-run setup.`,
+      `Config invalid. Run \`${formatCliCommand("hsma doctor")}\` to repair it, then re-run setup.`,
     );
     runtime.exit(1);
     return;
@@ -138,15 +138,15 @@ async function runSetupWizardOnce(
           ? [`- ... +${compatibilityNotices.length - 4} more`]
           : []),
         "",
-        `Review: ${formatCliCommand("openclaw doctor")}`,
-        `Inspect: ${formatCliCommand("openclaw plugins inspect --all")}`,
+        `Review: ${formatCliCommand("hsma doctor")}`,
+        `Inspect: ${formatCliCommand("hsma plugins inspect --all")}`,
       ].join("\n"),
       t("wizard.setup.pluginCompatibilityTitle"),
     );
   }
 
   const quickstartHint = t("wizard.setup.flowQuickstartHint", {
-    command: formatCliCommand("openclaw configure"),
+    command: formatCliCommand("hsma configure"),
   });
   const manualHint = t("wizard.setup.flowAdvancedHint");
   const hasExistingModelConfig =
@@ -165,7 +165,7 @@ async function runSetupWizardOnce(
     normalizedExplicitFlow !== "import"
   ) {
     runtime.error(
-      "Invalid --flow. Use quickstart, manual, advanced, or import. Example: openclaw onboard --flow quickstart",
+      "Invalid --flow. Use quickstart, manual, advanced, or import. Example: hsma onboard --flow quickstart",
     );
     runtime.exit(1);
     return;
@@ -243,7 +243,7 @@ async function runSetupWizardOnce(
         async commitConfigFile(cfg, expectedConfig) {
           const latest = await readSetupConfigFileSnapshot();
           if (!latest.valid) {
-            throw new Error("Migration target config became invalid. Run `openclaw doctor`.");
+            throw new Error("Migration target config became invalid. Run `hsma doctor`.");
           }
           const latestConfig = latest.exists ? (latest.sourceConfig ?? latest.config) : {};
           if (!isDeepStrictEqual(latestConfig, expectedConfig)) {
@@ -277,7 +277,7 @@ async function runSetupWizardOnce(
     acknowledgeMigrationPromotion = migrationOutcome.acknowledgePromotion;
     const migratedSnapshot = await readSetupConfigFileSnapshot();
     if (!migratedSnapshot.valid) {
-      throw new Error("Migration produced an invalid HSMA config. Run `openclaw doctor`.");
+      throw new Error("Migration produced an invalid HSMA config. Run `hsma doctor`.");
     }
     currentSetupSnapshot = migratedSnapshot;
     baseConfig = migratedSnapshot.runtimeConfig ?? migratedSnapshot.config;

@@ -318,7 +318,7 @@ export async function validateClawProject(
       : undefined;
   const openclaw =
     record?.openclaw && typeof record.openclaw === "object" && !Array.isArray(record.openclaw)
-      ? (record.openclaw as Record<string, unknown>)
+      ? (record.hsma as Record<string, unknown>)
       : undefined;
   const scripts = record?.scripts;
   const diagnostics: ClawDiagnostic[] = [];

@@ -161,15 +161,15 @@ export async function registerChannelsCli(
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw channels list", "List configured channels."],
-          ["openclaw channels list --all", "Show configured, bundled, and installable channels."],
-          ["openclaw channels add", "Open guided channel setup."],
-          ["openclaw channels status --probe", "Run channel status checks and probes."],
+          ["hsma channels list", "List configured channels."],
+          ["hsma channels list --all", "Show configured, bundled, and installable channels."],
+          ["hsma channels add", "Open guided channel setup."],
+          ["hsma channels status --probe", "Run channel status checks and probes."],
           [
-            "openclaw channels add --channel telegram --token <token>",
+            "hsma channels add --channel telegram --token <token>",
             "Add or update a channel account non-interactively.",
           ],
-          ["openclaw channels login --channel whatsapp", "Link a WhatsApp Web account."],
+          ["hsma channels login --channel whatsapp", "Link a WhatsApp Web account."],
         ])}\n\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/channels",
           "docs.openclaw.ai/cli/channels",
@@ -311,12 +311,12 @@ export async function registerChannelsCli(
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw channels add", "Open guided setup for available chat channels."],
+          ["hsma channels add", "Open guided setup for available chat channels."],
           [
-            "openclaw channels add --channel telegram --token <token>",
+            "hsma channels add --channel telegram --token <token>",
             "Add or update Telegram non-interactively.",
           ],
-          ["openclaw channels list --all", "Find channel ids before using --channel."],
+          ["hsma channels list --all", "Find channel ids before using --channel."],
         ])}\n`,
     )
     .option("--channel <name>", `Channel (${channelNames})`)

@@ -87,8 +87,8 @@ function noteFlowRecoveryHints() {
     [
       ...suspicious.slice(0, 5).map((finding) => finding.message),
       suspicious.length > 5 ? `...and ${suspicious.length - 5} more.` : null,
-      `Inspect: ${formatCliCommand("openclaw tasks flow show <flow-id>")}`,
-      `Cancel: ${formatCliCommand("openclaw tasks flow cancel <flow-id>")}`,
+      `Inspect: ${formatCliCommand("hsma tasks flow show <flow-id>")}`,
+      `Cancel: ${formatCliCommand("hsma tasks flow cancel <flow-id>")}`,
     ]
       .filter((line): line is string => Boolean(line))
       .join("\n"),
@@ -111,7 +111,7 @@ function pluginVersionDriftToHealthFindings(
       path: `plugins.entries.${entry.pluginId}`,
       target: entry.pluginId,
       requirement: "plugin-version-drift",
-      fixHint: `${updateCommand} && ${formatCliCommand("openclaw gateway restart")}`,
+      fixHint: `${updateCommand} && ${formatCliCommand("hsma gateway restart")}`,
     };
   });
 }
@@ -151,8 +151,8 @@ function taskFlowRecoveryToHealthFinding(finding: TaskFlowRecoveryFinding): Heal
     target: finding.flowId,
     requirement: "taskflow-recovery",
     fixHint: [
-      formatCliCommand(`openclaw tasks flow show ${finding.flowId}`),
-      formatCliCommand(`openclaw tasks flow cancel ${finding.flowId}`),
+      formatCliCommand(`hsma tasks flow show ${finding.flowId}`),
+      formatCliCommand(`hsma tasks flow cancel ${finding.flowId}`),
     ].join(" or "),
   };
 }
@@ -218,11 +218,11 @@ function notePluginVersionDrift(drift: PluginVersionDriftReport | undefined) {
       return `- ${entry.pluginId}: ${entry.installedVersion} (${sourceLabel}) -> expected ${drift.gatewayVersion}`;
     }),
     singleDrift
-      ? `Fix: ${updateCommands[0]} && ${formatCliCommand("openclaw gateway restart")}.`
+      ? `Fix: ${updateCommands[0]} && ${formatCliCommand("hsma gateway restart")}.`
       : [
           "Fix each drifted plugin:",
           ...updateCommands.map((command) => `- ${command}`),
-          `Then run ${formatCliCommand("openclaw gateway restart")}.`,
+          `Then run ${formatCliCommand("hsma gateway restart")}.`,
         ].join("\n"),
   ];
   note(lines.join("\n"), "Plugin version drift");

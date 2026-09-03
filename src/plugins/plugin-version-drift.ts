@@ -43,10 +43,10 @@ export function resolvePluginVersionDriftUpdateCommand(entry: PluginVersionDrift
   if (exactNpmPackageName) {
     const exactNpmTarget = `${exactNpmPackageName}@${resolveOpenClawReleaseCohortVersion(entry.gatewayVersion)}`;
     if (parseRegistryNpmSpec(exactNpmTarget)?.selectorKind === "exact-version") {
-      return `openclaw plugins update ${exactNpmTarget}`;
+      return `hsma plugins update ${exactNpmTarget}`;
     }
   }
-  return `openclaw plugins update ${entry.pluginId}`;
+  return `hsma plugins update ${entry.pluginId}`;
 }
 
 function isPluginEnabled(config: OpenClawConfig | undefined, pluginId: string): boolean {
@@ -84,7 +84,7 @@ function shouldCompareOfficialInstallToGateway(params: {
  * version and return any mismatches.
  *
  * @param params.gatewayVersion The gateway version string (typically the
- *   `version` field of the installed openclaw package.json).
+ *   `version` field of the installed hsma package.json).
  * @param params.installRecords The full set of recorded plugin installs (as
  *   produced by `loadInstalledPluginIndexInstallRecords`).
  * @param params.config The merged daemon-side OpenClawConfig (optional).

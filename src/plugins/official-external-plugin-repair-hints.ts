@@ -45,8 +45,8 @@ export function resolveOfficialExternalPluginRepairHint(
   const pluginId = resolveOfficialExternalPluginId(entry) ?? pluginIdOrChannelId.trim();
   const channelId = manifest?.channel?.id?.trim();
   const label = resolveOfficialExternalPluginLabel(entry);
-  const installCommand = `openclaw plugins install ${installSpec}`;
-  const doctorFixCommand = "openclaw doctor --fix";
+  const installCommand = `hsma plugins install ${installSpec}`;
+  const doctorFixCommand = "hsma doctor --fix";
   return {
     pluginId,
     ...(channelId ? { channelId } : {}),

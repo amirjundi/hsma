@@ -210,7 +210,7 @@ export async function persistActivatedSetupInference(input: {
         };
       }
       throw new SetupInferenceActivationIndeterminateError(
-        "Inference activation could not confirm whether its verified credential was saved or rolled back. No config commit was attempted; run openclaw doctor --fix before retrying.",
+        "Inference activation could not confirm whether its verified credential was saved or rolled back. No config commit was attempted; run hsma doctor --fix before retrying.",
       );
     }
     if (persistedManualAuth.status === "not-persisted") {
@@ -326,7 +326,7 @@ export async function persistActivatedSetupInference(input: {
         const rolledBack = await rollbackManualAuthProfiles(manualAuthReceipt, deps);
         if (!rolledBack) {
           throw new SetupInferenceActivationIndeterminateError(
-            "Inference activation stopped before its config commit, but could not confirm removal of its staged credential. Run openclaw doctor --fix before retrying.",
+            "Inference activation stopped before its config commit, but could not confirm removal of its staged credential. Run hsma doctor --fix before retrying.",
           );
         }
       }
@@ -356,13 +356,13 @@ export async function persistActivatedSetupInference(input: {
           configReferencesManualAuthProfiles(reconciledRuntime, manualAuthReceipt)
         ) {
           throw new SetupInferenceActivationIndeterminateError(
-            "Inference activation could not confirm its config commit state. The verified credential was retained because the current config may reference it. Run openclaw doctor --fix before retrying.",
+            "Inference activation could not confirm its config commit state. The verified credential was retained because the current config may reference it. Run hsma doctor --fix before retrying.",
           );
         }
         const rolledBack = await rollbackManualAuthProfiles(manualAuthReceipt, deps);
         if (!rolledBack) {
           throw new SetupInferenceActivationIndeterminateError(
-            "Inference activation failed and its staged credential could not be rolled back. Run openclaw doctor --fix before retrying.",
+            "Inference activation failed and its staged credential could not be rolled back. Run hsma doctor --fix before retrying.",
           );
         }
       }

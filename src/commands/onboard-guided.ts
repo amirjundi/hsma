@@ -147,8 +147,8 @@ async function runGuidedOnboardingFlow(
     );
     await prompter.outro(
       t("wizard.guided.invalidConfigRepair", {
-        fixCommand: formatCliCommand("openclaw doctor --fix"),
-        inspectCommand: formatCliCommand("openclaw config validate"),
+        fixCommand: formatCliCommand("hsma doctor --fix"),
+        inspectCommand: formatCliCommand("hsma config validate"),
       }),
     );
     runtime.exit(1);
@@ -551,7 +551,7 @@ async function runGuidedOnboardingFlow(
     if (workspaceConflict) {
       await prompter.note(
         t("wizard.guided.workspaceConflictClassic", {
-          command: formatCliCommand("openclaw onboard --classic"),
+          command: formatCliCommand("hsma onboard --classic"),
         }),
         t("wizard.setup.workspaceConflictTitle"),
       );

@@ -9,16 +9,16 @@ import { runConfigureWizard } from "./configure.wizard.js";
 
 /**
  * Non-interactive config subcommands surfaced when the wizard cannot run.
- * Mirrors the real `openclaw config <sub>` surface so the message only ever
+ * Mirrors the real `hsma config <sub>` surface so the message only ever
  * points users at commands that exist (see `src/cli/config-cli.ts`).
  */
 const CONFIGURE_NON_TTY_HINT = [
   "Interactive configuration requires an interactive terminal (TTY).",
   "For non-interactive setup, use these subcommands instead:",
-  `  ${formatCliCommand("openclaw config set <path> <value>")}  write a config entry`,
-  `  ${formatCliCommand("openclaw config get <path>")}          read a config entry`,
-  `  ${formatCliCommand("openclaw config patch")}              apply a JSON patch`,
-  `  ${formatCliCommand("openclaw config validate")}           validate configuration`,
+  `  ${formatCliCommand("hsma config set <path> <value>")}  write a config entry`,
+  `  ${formatCliCommand("hsma config get <path>")}          read a config entry`,
+  `  ${formatCliCommand("hsma config patch")}              apply a JSON patch`,
+  `  ${formatCliCommand("hsma config validate")}           validate configuration`,
 ].join("\n");
 
 /**
@@ -63,14 +63,14 @@ export async function configureCommandFromSectionsArg(
   const { sections, invalid } = parseConfigureWizardSections(rawSections);
   if (invalid.length > 0) {
     runtime.error(
-      `Invalid --section: ${invalid.map((section) => section || '""').join(", ")}. Expected one of: ${CONFIGURE_WIZARD_SECTIONS.join(", ")}. Run ${formatCliCommand("openclaw configure")} without --section to use the full wizard.`,
+      `Invalid --section: ${invalid.map((section) => section || '""').join(", ")}. Expected one of: ${CONFIGURE_WIZARD_SECTIONS.join(", ")}. Run ${formatCliCommand("hsma configure")} without --section to use the full wizard.`,
     );
     runtime.exit(1);
     return;
   }
 
-  // Fail closed once at the shared entry: both `openclaw configure` and the
-  // no-subcommand `openclaw config` route here, so a single guard keeps them
+  // Fail closed once at the shared entry: both `hsma configure` and the
+  // no-subcommand `hsma config` route here, so a single guard keeps them
   // consistent instead of partially entering the wizard on a non-TTY pipe.
   // `options.interactive` lets tests drive the fail-closed path directly
   // instead of mutating global `process` streams.

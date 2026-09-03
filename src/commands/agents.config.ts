@@ -1,4 +1,4 @@
-// Agent config mutation and summary builders used by `openclaw agents` commands.
+// Agent config mutation and summary builders used by `hsma agents` commands.
 import {
   normalizeOptionalString,
   resolvePrimaryStringValue,

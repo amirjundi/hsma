@@ -139,7 +139,7 @@ export function createGatewayControlUiRootLifecycle(
         const resolvedRoot = resolveAutoRoot();
         if (!resolvedRoot || !isControlUiStartupAssetsReady(resolvedRoot)) {
           const message = resolvedRoot
-            ? `Control UI assets at ${resolvedRoot} remain incomplete. Run \`openclaw doctor --fix\` or reinstall HSMA.`
+            ? `Control UI assets at ${resolvedRoot} remain incomplete. Run \`hsma doctor --fix\` or reinstall HSMA.`
             : "Control UI build completed, but its assets are still unavailable. Run `pnpm ui:build`.";
           Object.assign(preparingState, { kind: "failed" });
           params.log.warn(`gateway: ${message}`);

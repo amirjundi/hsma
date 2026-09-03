@@ -9,14 +9,14 @@ export class OpenClawAgentDatabaseMediaMigrationRequiredError extends Error {
     readonly schemaVersion: number,
   ) {
     super(
-      `HSMA agent database ${pathname} uses schema version ${schemaVersion}; run openclaw doctor --fix to migrate persisted media before using it.`,
+      `HSMA agent database ${pathname} uses schema version ${schemaVersion}; run hsma doctor --fix to migrate persisted media before using it.`,
     );
     this.name = "OpenClawAgentDatabaseMediaMigrationRequiredError";
   }
 }
 
 const AGENT_MEDIA_MIGRATION_REQUIRED_MESSAGE =
-  /^HSMA agent database (.+) uses schema version (\d+); run openclaw doctor --fix to migrate persisted media before using it\.$/u;
+  /^HSMA agent database (.+) uses schema version (\d+); run hsma doctor --fix to migrate persisted media before using it\.$/u;
 
 function parseAgentMediaMigrationRequiredMessage(
   message: unknown,

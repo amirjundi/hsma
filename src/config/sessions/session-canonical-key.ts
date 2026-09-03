@@ -24,7 +24,7 @@ import {
 } from "./store-entry.js";
 import type { SessionEntry } from "./types.js";
 
-const SESSION_CANONICAL_KEY_REPAIR_COMMAND = "openclaw doctor --fix";
+const SESSION_CANONICAL_KEY_REPAIR_COMMAND = "hsma doctor --fix";
 type CanonicalSessionDatabase = Pick<
   OpenClawAgentKyselyDatabase,
   "schema_meta" | "session_key_contract" | "session_nodes" | "session_windows"

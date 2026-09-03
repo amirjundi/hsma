@@ -22,7 +22,7 @@ function parseChannel(raw: unknown, channels: PairingChannel[]): PairingChannel 
   const value = normalizeLowercaseStringOrEmpty(normalizeStringifiedOptionalString(raw) ?? "");
   if (!value) {
     throw new Error(
-      `Missing channel. Use ${formatCliCommand("openclaw pairing list --channel <channel>")}.`,
+      `Missing channel. Use ${formatCliCommand("hsma pairing list --channel <channel>")}.`,
     );
   }
 
@@ -85,10 +85,10 @@ export function registerPairingCli(program: Command) {
       const channelRaw = opts.channel ?? channelArg ?? (channels.length === 1 ? channels[0] : "");
       if (!channelRaw) {
         if (channels.length === 0) {
-          // `pairing` is chat DM only; TUI/device approvals live under `openclaw devices`.
+          // `pairing` is chat DM only; TUI/device approvals live under `hsma devices`.
           throw new Error(
             `No chat DM pairing channels are configured. To approve a TUI or device request, ` +
-              `use ${formatCliCommand("openclaw devices approve")} instead.`,
+              `use ${formatCliCommand("hsma devices approve")} instead.`,
           );
         }
         throw new Error(`Channel required (expected one of: ${channelHint}).`);
@@ -163,12 +163,12 @@ export function registerPairingCli(program: Command) {
           : codeOrChannel;
       if (!channelRaw || !resolvedCode) {
         throw new Error(
-          `Usage: ${formatCliCommand("openclaw pairing approve <channel> <code>")} (or: ${formatCliCommand("openclaw pairing approve --channel <channel> <code>")})`,
+          `Usage: ${formatCliCommand("hsma pairing approve <channel> <code>")} (or: ${formatCliCommand("hsma pairing approve --channel <channel> <code>")})`,
         );
       }
       if (opts.channel && code != null) {
         throw new Error(
-          `Too many arguments. Use: ${formatCliCommand("openclaw pairing approve --channel <channel> <code>")}`,
+          `Too many arguments. Use: ${formatCliCommand("hsma pairing approve --channel <channel> <code>")}`,
         );
       }
       const channel = parseChannel(channelRaw, channels);
@@ -185,7 +185,7 @@ export function registerPairingCli(program: Command) {
           });
       if (!approved) {
         throw new Error(
-          `No pending pairing request found for code "${String(resolvedCode)}". Run ${formatCliCommand(`openclaw pairing list --channel ${channel}`)} to list pending requests.`,
+          `No pending pairing request found for code "${String(resolvedCode)}". Run ${formatCliCommand(`hsma pairing list --channel ${channel}`)} to list pending requests.`,
         );
       }
 

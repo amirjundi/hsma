@@ -82,15 +82,9 @@ export async function hasLoadedLaunchdKeepAliveSupervisor(params: {
 }
 
 function formatPostUpdateGatewayRecoveryLine(platform: NodeJS.Platform): string {
-  const restartCommand = replaceCliName(formatCliCommand("openclaw gateway restart"), CLI_NAME);
-  const installCommand = replaceCliName(
-    formatCliCommand("openclaw gateway install --force"),
-    CLI_NAME,
-  );
-  const statusCommand = replaceCliName(
-    formatCliCommand("openclaw gateway status --deep"),
-    CLI_NAME,
-  );
+  const restartCommand = replaceCliName(formatCliCommand("hsma gateway restart"), CLI_NAME);
+  const installCommand = replaceCliName(formatCliCommand("hsma gateway install --force"), CLI_NAME);
+  const statusCommand = replaceCliName(formatCliCommand("hsma gateway status --deep"), CLI_NAME);
   if (platform === "darwin") {
     return `Recovery: run \`${restartCommand}\`; if the LaunchAgent is installed but not loaded, run \`${installCommand}\` from the logged-in macOS user session, then rerun \`${statusCommand}\`.`;
   }
@@ -111,7 +105,7 @@ export function formatPostUpdateGatewayRecoveryInstructions(
   const beforeVersion = normalizeOptionalString(result.before?.version);
   if (isPackageManagerUpdateMode(result.mode) && beforeVersion) {
     lines.push(
-      `Rollback: reinstall HSMA ${beforeVersion} with the same package manager, then rerun \`${replaceCliName(formatCliCommand("openclaw gateway install --force"), CLI_NAME)}\`.`,
+      `Rollback: reinstall HSMA ${beforeVersion} with the same package manager, then rerun \`${replaceCliName(formatCliCommand("hsma gateway install --force"), CLI_NAME)}\`.`,
     );
   }
   return lines;

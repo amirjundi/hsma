@@ -362,7 +362,7 @@ export class ChatTurnRouter {
       : "";
     const loopInput = `${resolutionMarker}${uiContextMarker}${
       this.pending
-        ? `[pending-proposal] Awaiting the user's approval: ${formatPendingOperationForAssistant(this.pending)}. It is already host-seeded; if they want it (or a variant), drive it through the openclaw tool yourself.\n${text}`
+        ? `[pending-proposal] Awaiting the user's approval: ${formatPendingOperationForAssistant(this.pending)}. It is already host-seeded; if they want it (or a variant), drive it through the hsma tool yourself.\n${text}`
         : text
     }`;
     let agentFailure: unknown;
@@ -479,7 +479,7 @@ export class ChatTurnRouter {
     if (recordedOperation.kind === "open-tui") {
       this.clearPendingProposals();
       return {
-        text: "Opening your normal agent TUI. Use /openclaw there to come back.",
+        text: "Opening your normal agent TUI. Use /hsma there to come back.",
         action: "open-tui",
         handoff: recordedOperation,
       };
@@ -488,13 +488,13 @@ export class ChatTurnRouter {
       this.clearPendingProposals();
       if (this.options.surface === "gateway") {
         return {
-          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `openclaw onboard` on the machine running HSMA.",
+          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `hsma onboard` on the machine running HSMA.",
           action: "none",
         };
       }
       if (!["channels", "search", "gateway"].includes(recordedOperation.target)) {
         return {
-          text: "Setup can replace the inference route powering this session. Exit HSMA and run `openclaw onboard`; it saves only a route that passes a live test. Then start HSMA again.",
+          text: "Setup can replace the inference route powering this session. Exit HSMA and run `hsma onboard`; it saves only a route that passes a live test. Then start HSMA again.",
           action: "none",
         };
       }
@@ -619,7 +619,7 @@ export class ChatTurnRouter {
     return {
       text: [
         "Changing provider credentials would replace the inference route powering this session.",
-        "Stop the HSMA host through whatever started it. Run `openclaw onboard` on the machine running HSMA: it stages credentials, live-tests the new route, and saves only a passing setup. Then restart the host and return to HSMA.",
+        "Stop the HSMA host through whatever started it. Run `hsma onboard` on the machine running HSMA: it stages credentials, live-tests the new route, and saves only a passing setup. Then restart the host and return to HSMA.",
       ].join("\n"),
       action: "none",
     };
@@ -657,7 +657,7 @@ export class ChatTurnRouter {
     return operation?.kind === "model-setup"
       ? [
           "No usable inference route is configured, so HSMA cannot continue.",
-          "Run `openclaw onboard` on the machine running HSMA; it saves only a route that passes a live test.",
+          "Run `hsma onboard` on the machine running HSMA; it saves only a route that passes a live test.",
         ].join("\n")
       : null;
   }

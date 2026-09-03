@@ -110,18 +110,18 @@ export async function printAvailablePromotionsSection(params: {
         const alias = model.alias ? ` (${safe(model.alias)})` : "";
         runtime.log(`    · ${safe(model.modelRef)}${alias}`);
       }
-      runtime.log(`    Claim: ${formatCliCommand(`openclaw promos claim ${safe(entry.slug)}`)}`);
+      runtime.log(`    Claim: ${formatCliCommand(`hsma promos claim ${safe(entry.slug)}`)}`);
     }
     if (unclaimed.length > PROMOTIONS_SECTION_MAX_ENTRIES) {
       const more = unclaimed.length - PROMOTIONS_SECTION_MAX_ENTRIES;
-      runtime.log(`  …and ${more} more: ${formatCliCommand("openclaw promos list")}`);
+      runtime.log(`  …and ${more} more: ${formatCliCommand("hsma promos list")}`);
     }
   }
   const unseen = live.filter((entry) => !state.notifiedSlugs.has(entry.slug));
   if (unseen.length > 0) {
     runtime.log("");
     runtime.log(
-      `🎁 New promotional model offers available — ${formatCliCommand("openclaw promos list")} for details.`,
+      `🎁 New promotional model offers available — ${formatCliCommand("hsma promos list")} for details.`,
     );
     markPromotionSlugsNotified(unseen.map((entry) => entry.slug));
   }

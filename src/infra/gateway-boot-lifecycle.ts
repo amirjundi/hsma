@@ -43,7 +43,7 @@ export function formatGatewayCrashLoopManualChannelStartHint(target?: {
     channel: target?.channelId ?? "<id>",
     ...(target?.accountId ? { accountId: target.accountId } : {}),
   });
-  const command = formatCliCommand("openclaw gateway call channels.start");
+  const command = formatCliCommand("hsma gateway call channels.start");
   return `Start a channel manually with: ${command} --params '${params}'`;
 }
 

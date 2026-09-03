@@ -140,7 +140,7 @@ function resolveKnownAgentId(cfg: OpenClawConfig, rawAgentId: string): string {
   const agentId = normalizeAgentId(rawAgentId);
   if (!listAgentIds(cfg).includes(agentId)) {
     throw new Error(
-      `Unknown agent id "${rawAgentId}". Use "${formatCliCommand("openclaw agents list")}" to see configured agents.`,
+      `Unknown agent id "${rawAgentId}". Use "${formatCliCommand("hsma agents list")}" to see configured agents.`,
     );
   }
   return agentId;

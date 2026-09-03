@@ -175,7 +175,7 @@ export function assertNoUnmigratedWorkspaceState(params: { workspaceDir: string 
     );
   if (hasLegacy) {
     throw new Error(
-      `Legacy workspace setup state requires migration for ${identity.workspacePath}; run openclaw doctor --fix.`,
+      `Legacy workspace setup state requires migration for ${identity.workspacePath}; run hsma doctor --fix.`,
     );
   }
   checkedWorkspaceSourceSets.add(sourceSetKey);

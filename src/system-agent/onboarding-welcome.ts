@@ -135,7 +135,7 @@ export async function buildOnboardingWelcome(params: {
   }
   if (!defaultModel) {
     throw new Error(
-      "HSMA onboarding requires working inference first. Run `openclaw onboard` on the machine running HSMA to configure and verify a default model.",
+      "HSMA onboarding requires working inference first. Run `hsma onboard` on the machine running HSMA to configure and verify a default model.",
     );
   }
 

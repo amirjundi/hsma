@@ -376,7 +376,7 @@ export async function assertConfigWriteDoesNotBypassInferenceVerification(
   throw new Error(
     denialReason
       ? `Direct config writes cannot change \`${deniedRoot}\` (${denialReason}).`
-      : "Direct config writes cannot change the default inference route or include alternate config. Use `set_default_model` (optionally with agentId) for an already configured route; changing provider or auth access is `openclaw onboard` on the machine running HSMA.",
+      : "Direct config writes cannot change the default inference route or include alternate config. Use `set_default_model` (optionally with agentId) for an already configured route; changing provider or auth access is `hsma onboard` on the machine running HSMA.",
   );
 }
 
@@ -392,14 +392,14 @@ async function verifyCurrentSetupInference(
   const before = await readConfigFileSnapshot();
   if (!before.exists || !before.valid) {
     throw new Error(
-      "HSMA setup requires a valid configured inference route. Run `openclaw onboard` on the machine running HSMA, then retry.",
+      "HSMA setup requires a valid configured inference route. Run `hsma onboard` on the machine running HSMA, then retry.",
     );
   }
   const beforeConfig = before.runtimeConfig ?? before.config;
   const beforeRoute = await projectDefaultInferenceRoute(beforeConfig);
   if (!beforeRoute.route) {
     throw new Error(
-      "HSMA setup requires working inference first. Run `openclaw onboard` on the machine running HSMA, then retry.",
+      "HSMA setup requires working inference first. Run `hsma onboard` on the machine running HSMA, then retry.",
     );
   }
   const verifyInferenceConfig =
@@ -408,7 +408,7 @@ async function verifyCurrentSetupInference(
   const verification = await verifyInferenceConfig({ config: beforeConfig, runtime });
   if (!verification.ok) {
     throw new Error(
-      `HSMA setup requires working inference first. The configured route failed a live check: ${verification.error} Run \`openclaw onboard\` on the machine running HSMA, then retry.`,
+      `HSMA setup requires working inference first. The configured route failed a live check: ${verification.error} Run \`hsma onboard\` on the machine running HSMA, then retry.`,
     );
   }
 
@@ -444,13 +444,13 @@ export async function executeSetup(
   const defaultModel = overview.defaultModel?.trim();
   if (!defaultModel) {
     throw new Error(
-      "HSMA setup requires working inference first. Run `openclaw onboard` on the machine running HSMA to configure and verify a default model, then start HSMA again.",
+      "HSMA setup requires working inference first. Run `hsma onboard` on the machine running HSMA to configure and verify a default model, then start HSMA again.",
     );
   }
   const requestedModel = operation.model?.trim();
   if (requestedModel && requestedModel !== defaultModel) {
     throw new Error(
-      `HSMA setup will preserve the verified default model ${defaultModel}. Staging, live-testing, and saving a different inference route is \`openclaw onboard\` on the machine running HSMA.`,
+      `HSMA setup will preserve the verified default model ${defaultModel}. Staging, live-testing, and saving a different inference route is \`hsma onboard\` on the machine running HSMA.`,
     );
   }
   if (!opts.approved) {
@@ -464,7 +464,7 @@ export async function executeSetup(
   const verified = await verifyCurrentSetupInference(runtime, opts.deps);
   if (requestedModel && requestedModel !== verified.modelRef) {
     throw new Error(
-      `The verified default model is now ${verified.modelRef}, not ${requestedModel}. Review the current route, or run \`openclaw onboard\` on the machine running HSMA, before retrying setup.`,
+      `The verified default model is now ${verified.modelRef}, not ${requestedModel}. Review the current route, or run \`hsma onboard\` on the machine running HSMA, before retrying setup.`,
     );
   }
   return await applyPersistentOperation({

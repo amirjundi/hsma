@@ -130,12 +130,12 @@ export function assertOpenClawAgentCurrentRuntimeSchema(
   assertExistingAgentSchemaOwner(metadata, agentId, options.pathname);
   if (metadata.schemaVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `HSMA agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before using it.`,
+      `HSMA agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run hsma doctor --fix before using it.`,
     );
   }
   if (hasRetiredAgentStateLeaseSchema(database)) {
     throw new Error(
-      `HSMA agent database ${options.pathname} retains retired state_leases storage; run openclaw doctor --fix before using it.`,
+      `HSMA agent database ${options.pathname} retains retired state_leases storage; run hsma doctor --fix before using it.`,
     );
   }
   assertOpenClawAgentSchemaContains(database, options.pathname, OPENCLAW_AGENT_SCHEMA_SQL);
@@ -257,7 +257,7 @@ export function assertCanonicalAgentPersistenceVersion(db: DatabaseSync, pathnam
   }
   if (userVersion < OPENCLAW_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new Error(
-      `HSMA agent database ${pathname} uses schema version ${userVersion}; stop active agents and run openclaw doctor --fix to migrate participant identities before using it.`,
+      `HSMA agent database ${pathname} uses schema version ${userVersion}; stop active agents and run hsma doctor --fix to migrate participant identities before using it.`,
     );
   }
 }

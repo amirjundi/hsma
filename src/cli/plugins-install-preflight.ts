@@ -56,10 +56,10 @@ export type PluginInstallPreflight =
 
 function resolveMarketplaceOptionError(opts: RunPluginInstallCommandParams["opts"]): string | null {
   if (opts.link) {
-    return `--link is not supported with --marketplace. Remove --link, or install a local path with ${formatCliCommand(`openclaw plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
+    return `--link is not supported with --marketplace. Remove --link, or install a local path with ${formatCliCommand(`hsma plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
   }
   if (opts.pin) {
-    return `--pin is not supported with --marketplace. Use ${formatCliCommand(`openclaw plugins install <plugin> --marketplace <name> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} without --pin.`;
+    return `--pin is not supported with --marketplace. Use ${formatCliCommand(`hsma plugins install <plugin> --marketplace <name> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} without --pin.`;
   }
   return null;
 }
@@ -69,10 +69,10 @@ function resolveSourceOptionError(
   sourcePlan: ResolvedPluginInstallSourcePlan,
 ): string | null {
   if (sourcePlan.request.source === "git" && opts.link) {
-    return `--link is not supported with git: installs. Use ${formatCliCommand(`openclaw plugins install git:<repo>@<ref> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} for Git installs or ${formatCliCommand(`openclaw plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} for local paths.`;
+    return `--link is not supported with git: installs. Use ${formatCliCommand(`hsma plugins install git:<repo>@<ref> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} for Git installs or ${formatCliCommand(`hsma plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)} for local paths.`;
   }
   if (sourcePlan.request.source === "git" && opts.pin) {
-    return `--pin is not supported with git: installs. Pin the ref in the spec instead, for example ${formatCliCommand(`openclaw plugins install git:<repo>@<ref> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
+    return `--pin is not supported with git: installs. Pin the ref in the spec instead, for example ${formatCliCommand(`hsma plugins install git:<repo>@<ref> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
   }
   if (
     opts.pin &&
@@ -83,7 +83,7 @@ function resolveSourceOptionError(
     return "--pin is only supported with npm registry installs.";
   }
   if (opts.link && sourcePlan.request.source !== "local") {
-    return `--link requires a local path. Run ${formatCliCommand(`openclaw plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
+    return `--link requires a local path. Run ${formatCliCommand(`hsma plugins install --link <path> ${NON_CLAWHUB_INSTALL_FORCE_FLAG}`)}.`;
   }
   return null;
 }

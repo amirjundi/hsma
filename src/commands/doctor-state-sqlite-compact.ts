@@ -84,7 +84,7 @@ export async function runDoctorStateSqliteCompact(
             afterSuccess: () => {
               if (!clearOpenClawDatabaseQuarantine(sqlitePath, { env })) {
                 throw new Error(
-                  `HSMA state database ${sqlitePath} was compacted, but its persisted quarantine record could not be cleared. Rerun openclaw doctor --fix so the database is not refused again.`,
+                  `HSMA state database ${sqlitePath} was compacted, but its persisted quarantine record could not be cleared. Rerun hsma doctor --fix so the database is not refused again.`,
                 );
               }
               clearOpenClawStateDatabaseOpenFailure(sqlitePath);

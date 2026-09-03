@@ -274,14 +274,14 @@ export function enforceSupportedNodeRuntime(
   }
 
   const requirement = engine
-    ? `this OpenClaw release requires Node ${engine}.`
-    : "could not read this OpenClaw release's Node requirement.";
+    ? `this HSMA release requires Node ${engine}.`
+    : "could not read this HSMA release's Node requirement.";
   reportError(
     [
-      `[openclaw] error: ${requirement}`,
-      `[openclaw] detected Node ${detectedRuntime?.version ?? "missing"} (exec: ${detectedRuntime?.execPath || "unknown"}).`,
-      "[openclaw] install Node: https://nodejs.org/en/download",
-      "[openclaw] upgrade Node, then retry the OpenClaw update.",
+      `[hsma] error: ${requirement}`,
+      `[hsma] detected Node ${detectedRuntime?.version ?? "missing"} (exec: ${detectedRuntime?.execPath || "unknown"}).`,
+      "[hsma] install Node: https://nodejs.org/en/download",
+      "[hsma] upgrade Node, then retry the HSMA update.",
     ].join("\n"),
   );
   return false;
@@ -308,7 +308,7 @@ export function completePackageInstallGuard(
     return true;
   } catch (error) {
     reportError(
-      `[openclaw] error: could not complete package preinstall: ${
+      `[hsma] error: could not complete package preinstall: ${
         error instanceof Error ? error.message : String(error)
       }`,
     );
@@ -376,9 +376,9 @@ export function createPackageManagerWarningMessage(packageManager) {
   }
 
   return [
-    `[openclaw] warning: detected ${normalizedPackageManager} for install lifecycle.`,
-    "[openclaw] this repo works best with pnpm; npm-compatible installs are slower and much larger here.",
-    "[openclaw] prefer: corepack pnpm install",
+    `[hsma] warning: detected ${normalizedPackageManager} for install lifecycle.`,
+    "[hsma] this repo works best with pnpm; npm-compatible installs are slower and much larger here.",
+    "[hsma] prefer: corepack pnpm install",
   ].join("\n");
 }
 

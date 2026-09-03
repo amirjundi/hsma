@@ -356,7 +356,7 @@ function throwManagedPluginCapabilityConsentRequired(review: PluginCapabilityCon
     }
   }
   throw new ManagedPluginLifecycleError(
-    `Plugin "${review.pluginId}" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.`,
+    `Plugin "${review.pluginId}" requires capability consent. Use hsma plugins install or hsma plugins enable with --accept-capabilities, then retry.`,
     {
       capabilityConsent: {
         pluginId: review.pluginId,

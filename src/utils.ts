@@ -73,7 +73,7 @@ export function resolveConfigDir(
   if (configPath) {
     return path.dirname(resolveUserPath(configPath, env, homedir));
   }
-  // HSMA keeps its state in ~/.hsma. An existing ~/.openclaw is still honoured
+  // HSMA keeps its state in ~/.hsma. An existing ~/.hsma is still honoured
   // when ~/.hsma does not exist yet, so upgrading in place does not orphan a
   // working config -- the gateway token lives there, and losing it looks like a
   // broken install rather than a moved directory.

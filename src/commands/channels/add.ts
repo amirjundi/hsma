@@ -1,5 +1,5 @@
 import { parseStrictNonNegativeInteger } from "@openclaw/normalization-core/number-coercion";
-// Implements guided and non-interactive `openclaw channels add` account setup.
+// Implements guided and non-interactive `hsma channels add` account setup.
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { resolveAgentOperationAgentId } from "../../agents/agent-scope-config.js";
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
@@ -166,7 +166,7 @@ async function channelsAddCommandImpl(
     }
     if (!isTerminalInteractive()) {
       runtime.error(
-        "Interactive channel setup requires a TTY. Use `openclaw channels add --channel <id> --use-env` or pass the channel's credential flags for non-interactive setup.",
+        "Interactive channel setup requires a TTY. Use `hsma channels add --channel <id> --use-env` or pass the channel's credential flags for non-interactive setup.",
       );
       runtime.exit(1);
       return;
@@ -258,7 +258,7 @@ async function channelsAddCommandImpl(
 
   if (!channel) {
     const hint = catalogEntry
-      ? `Plugin ${catalogEntry.meta.label} could not be loaded after install. Run openclaw doctor --fix, then retry openclaw channels add.`
+      ? `Plugin ${catalogEntry.meta.label} could not be loaded after install. Run hsma doctor --fix, then retry hsma channels add.`
       : formatUnknownChannelMessage({ channel: rawChannel });
     runtime.error(hint);
     runtime.exit(1);
@@ -271,7 +271,7 @@ async function channelsAddCommandImpl(
       `${formatUnsupportedChannelActionMessage({
         channel,
         action: "non-interactive add",
-      })} Run ${formatCliCommand("openclaw channels add")} with no flags for guided setup.`,
+      })} Run ${formatCliCommand("hsma channels add")} with no flags for guided setup.`,
     );
     runtime.exit(1);
     return;
@@ -293,7 +293,7 @@ async function channelsAddCommandImpl(
         ? `${formatUnsupportedChannelActionMessage({
             channel,
             action: "non-interactive add",
-          })} Run ${formatCliCommand("openclaw channels add")} with no flags for guided setup.`
+          })} Run ${formatCliCommand("hsma channels add")} with no flags for guided setup.`
         : prepared.error.message,
     );
     runtime.exit(1);

@@ -33,8 +33,7 @@ export async function withLegacyMigrationStateLock(
       error instanceof GatewayLockError
         ? "the Gateway or another SQLite maintenance command owns this state directory"
         : (options.formatAcquireError?.(error) ?? String(error));
-    const guidance =
-      options.retryGuidance ?? "Stop the Gateway and run `openclaw doctor --fix` again.";
+    const guidance = options.retryGuidance ?? "Stop the Gateway and run `hsma doctor --fix` again.";
     return {
       changes: [],
       warnings: [`Failed migrating ${options.label}: ${detail}. ${guidance}`],

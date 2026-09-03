@@ -301,7 +301,7 @@ function parsePackageJson(value: unknown): PackageJson | undefined {
   if (!openclaw || typeof openclaw !== "object" || Array.isArray(openclaw)) {
     return undefined;
   }
-  const claw = (openclaw as Record<string, unknown>).claw;
+  const claw = (hsma as Record<string, unknown>).claw;
   if (
     typeof record.name !== "string" ||
     !isCanonicalClawHubPackageName(record.name) ||

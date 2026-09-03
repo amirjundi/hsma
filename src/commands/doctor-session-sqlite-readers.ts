@@ -217,7 +217,7 @@ function assertTranscriptFileUnchanged(
     current.size !== expected.size
   ) {
     throw new Error(
-      "Legacy transcript changed during import; stop active session writers and rerun `openclaw doctor --fix`.",
+      "Legacy transcript changed during import; stop active session writers and rerun `hsma doctor --fix`.",
     );
   }
 }

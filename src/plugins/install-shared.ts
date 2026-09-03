@@ -46,7 +46,7 @@ type PluginCompatibilityRuntime = Pick<
 export const defaultLogger: PluginInstallLogger = {};
 
 export function formatUnresolvedOpenClawPeerLinkError(packageName: string): string {
-  return `Installed plugin ${packageName} declares an openclaw dependency, but HSMA could not create a plugin-local node_modules/openclaw link. Run from a packaged HSMA install or reinstall HSMA, then retry.`;
+  return `Installed plugin ${packageName} declares an hsma dependency, but HSMA could not create a plugin-local node_modules/hsma link. Run from a packaged HSMA install or reinstall HSMA, then retry.`;
 }
 
 const MISSING_EXTENSIONS_ERROR =
@@ -361,7 +361,7 @@ export async function runInstallSourceScan(params: {
     });
     return {
       ok: false,
-      error: `${params.subject} installation blocked: code safety scan failed (${String(err)}). Run "openclaw security audit --deep" for details.`,
+      error: `${params.subject} installation blocked: code safety scan failed (${String(err)}). Run "hsma security audit --deep" for details.`,
       code: PLUGIN_INSTALL_ERROR_CODE.SECURITY_SCAN_FAILED,
     };
   }

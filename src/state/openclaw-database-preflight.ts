@@ -155,7 +155,7 @@ export function assertOpenClawDatabasesReady(
   const action =
     options.operation === "doctor" ? "Doctor could not complete repair" : "Gateway refused restart";
   throw new Error(
-    `${action} because persisted database readiness could not be verified: ${shown.join("; ")}${omitted > 0 ? `; +${omitted} more` : ""}. Stop the Gateway and other HSMA processes, run openclaw doctor --fix, then retry.`,
+    `${action} because persisted database readiness could not be verified: ${shown.join("; ")}${omitted > 0 ? `; +${omitted} more` : ""}. Stop the Gateway and other HSMA processes, run hsma doctor --fix, then retry.`,
   );
 }
 

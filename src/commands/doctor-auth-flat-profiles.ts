@@ -959,7 +959,7 @@ export async function maybeMigrateAuthProfileJsonStoresToSqlite(params: {
           `- ${shortenHomePath(candidate.authPath)} / ${shortenHomePath(candidate.statePath)}`,
       ),
       ...(hasLegacyOAuth ? [`- ${shortenHomePath(oauthPath)} (shared-main owner)`] : []),
-      `- ${formatCliCommand("openclaw doctor --fix")} imports legacy auth profile JSON into SQLite, verifies it, records a receipt, and archives the original bytes.`,
+      `- ${formatCliCommand("hsma doctor --fix")} imports legacy auth profile JSON into SQLite, verifies it, records a receipt, and archives the original bytes.`,
     ].join("\n"),
     "Auth profile SQLite migration",
   );
@@ -1327,7 +1327,7 @@ export async function maybeMigrateAuthProfileJsonStoresToSqlite(params: {
   ].some((pathname) => fs.existsSync(pathname));
   if (hasLegacyOAuth && sharedMainCredentialSourceRemains) {
     result.warnings.push(
-      `Deferred shared legacy OAuth migration until higher-priority shared-main credential sources are resolved by ${formatCliCommand("openclaw doctor --fix")}.`,
+      `Deferred shared legacy OAuth migration until higher-priority shared-main credential sources are resolved by ${formatCliCommand("hsma doctor --fix")}.`,
     );
   } else if (hasLegacyOAuth) {
     try {

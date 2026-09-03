@@ -389,11 +389,11 @@ export async function ensureConfigReady(
         ? new (await import("../../config/nix-mode-write-guard.js")).NixModeConfigMutationError({
             configPath: snapshot.path,
           }).message
-        : commandText(formatCliCommand("openclaw doctor --fix"));
+        : commandText(formatCliCommand("hsma doctor --fix"));
     params.runtime.error(`${muted("Fix:")} ${fixHint}`);
   }
   params.runtime.error(
-    `${muted("Inspect:")} ${commandText(formatCliCommand("openclaw config validate"))}`,
+    `${muted("Inspect:")} ${commandText(formatCliCommand("hsma config validate"))}`,
   );
   params.runtime.error(
     muted(

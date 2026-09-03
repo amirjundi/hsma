@@ -12,14 +12,14 @@ export class OpenClawStateDatabaseSchemaMigrationRequiredError extends Error {
     readonly pathname: string,
   ) {
     super(
-      `HSMA state database schema migration required (${kind}) at ${pathname}; run openclaw doctor --fix to migrate it.`,
+      `HSMA state database schema migration required (${kind}) at ${pathname}; run hsma doctor --fix to migrate it.`,
     );
     this.name = "OpenClawStateDatabaseSchemaMigrationRequiredError";
   }
 }
 
 const STATE_SCHEMA_MIGRATION_REQUIRED_MESSAGE =
-  /^HSMA state database schema migration required \((agent-databases-composite-primary-key|audit-events-v2)\) at (.+); run openclaw doctor --fix to migrate it\.$/u;
+  /^HSMA state database schema migration required \((agent-databases-composite-primary-key|audit-events-v2)\) at (.+); run hsma doctor --fix to migrate it\.$/u;
 
 function parseStateSchemaMigrationRequiredMessage(
   message: unknown,

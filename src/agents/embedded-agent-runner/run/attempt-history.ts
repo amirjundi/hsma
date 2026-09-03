@@ -205,7 +205,7 @@ function readPersistedSender(message: AgentMessage): PersistedSender | undefined
   if (!openclaw || typeof openclaw !== "object" || Array.isArray(openclaw)) {
     return undefined;
   }
-  const meta = openclaw as Record<string, unknown>;
+  const meta = hsma as Record<string, unknown>;
   const sender = {
     id: normalizePersistedSenderValue(meta["senderId"]),
     name: normalizePersistedSenderValue(meta["senderName"]),

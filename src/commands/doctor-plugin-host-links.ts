@@ -105,7 +105,7 @@ export async function maybeRepairPluginOpenClawHostLinks(
         [
           "Managed npm HSMA host peer links need repair:",
           ...audit.peerLinkIssues.map((issue) => `- ${issue.packageName}: ${issue.reason}`),
-          `Repair with ${formatCliCommand("openclaw doctor --fix")} to relink managed npm plugin packages.`,
+          `Repair with ${formatCliCommand("hsma doctor --fix")} to relink managed npm plugin packages.`,
         ].join("\n"),
         "Plugin registry",
       );
@@ -139,7 +139,7 @@ export async function maybeRepairPluginOpenClawHostLinks(
           ...audit.registeredPeerLinkIssues.map(
             (issue) => `- ${issue.packageName}: ${issue.reason}`,
           ),
-          `Repair with ${formatCliCommand("openclaw doctor --fix")} to relink registered npm plugin packages.`,
+          `Repair with ${formatCliCommand("hsma doctor --fix")} to relink registered npm plugin packages.`,
         ].join("\n"),
         "Plugin registry",
       );

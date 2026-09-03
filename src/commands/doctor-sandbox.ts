@@ -41,7 +41,7 @@ function resolveSandboxScript(
   scriptRel: string,
   options: { argv1?: string; cwd?: string } = {},
 ): SandboxScriptInfo | null {
-  // Scan every openclaw package root the shared resolver finds (symlinked launcher via realpath,
+  // Scan every hsma package root the shared resolver finds (symlinked launcher via realpath,
   // then cwd) and return the first that actually holds the script. The resolver follows npm/pnpm
   // global bins and version-manager links, but a published package root can resolve first and ship
   // without scripts/sandbox-setup.sh (the npm files allowlist drops scripts/); stopping at the
@@ -336,7 +336,7 @@ export async function maybeRepairSandboxImages(
             "",
             "Options:",
             "- Install Docker and restart the gateway",
-            "- Disable sandbox mode: openclaw config set agents.defaults.sandbox.mode off",
+            "- Disable sandbox mode: hsma config set agents.defaults.sandbox.mode off",
           ]
         : [
             `Sandbox mode is enabled (mode: "${mode}") but Podman is not available.`,
@@ -345,7 +345,7 @@ export async function maybeRepairSandboxImages(
             "",
             "Options:",
             "- Install Podman and restart the gateway",
-            "- Disable sandbox mode: openclaw config set agents.defaults.sandbox.mode off",
+            "- Disable sandbox mode: hsma config set agents.defaults.sandbox.mode off",
           ];
     note(lines.join("\n"), "Sandbox");
     return cfg;
@@ -443,7 +443,7 @@ export function legacySandboxRegistryInspectionToHealthFinding(
     message: `Legacy sandbox registry file detected.
 ${formatLegacyRegistryInspectionLine(file)}`,
     path: file.path,
-    fixHint: `Run ${formatCliCommand("openclaw doctor --fix")} to migrate valid entries to SQLite.`,
+    fixHint: `Run ${formatCliCommand("hsma doctor --fix")} to migrate valid entries to SQLite.`,
   };
 }
 
@@ -475,7 +475,7 @@ export async function maybeRepairSandboxRegistryFiles(prompter: DoctorPrompter):
       [
         "Legacy sandbox registry files detected.",
         ...legacyFiles.map(formatLegacyRegistryInspectionLine),
-        `Run ${formatCliCommand("openclaw doctor --fix")} to migrate them to SQLite.`,
+        `Run ${formatCliCommand("hsma doctor --fix")} to migrate them to SQLite.`,
       ].join("\n"),
       "Sandbox",
     );

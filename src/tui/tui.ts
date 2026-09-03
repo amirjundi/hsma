@@ -305,7 +305,7 @@ export function resolveInitialTuiAgentId(params: {
       tryResolveLegacyCompatibilityAgentId(params.cfg) ??
       resolveDefaultAgentId(params.cfg, {
         surface: "TUI startup",
-        hint: `Pass an agent-scoped --session key (e.g., '${formatCliCommand("openclaw tui --session agent:agentname:main")}').`,
+        hint: `Pass an agent-scoped --session key (e.g., '${formatCliCommand("hsma tui --session agent:agentname:main")}').`,
       }),
   );
 }
@@ -655,7 +655,7 @@ export function scheduleProcessExitAfterTuiReturn(
     });
   const onTimeout = () => {
     try {
-      writeStderr("openclaw tui forcing process exit after return\n");
+      writeStderr("hsma tui forcing process exit after return\n");
     } catch {
       // Best effort only; forced exit must not depend on stderr.
     }
@@ -746,7 +746,7 @@ function resolveEmptySessionInfoDefaults(config: OpenClawConfig): SessionInfo {
 }
 
 function formatActiveGatewayTuiRefusal(identity: GatewayLockIdentity): string {
-  return `A Gateway is running for this state directory (pid ${identity.pid}, port ${identity.port}). Run without --local to use it, or stop the Gateway first (${formatCliCommand("openclaw gateway stop")}).`;
+  return `A Gateway is running for this state directory (pid ${identity.pid}, port ${identity.port}). Run without --local to use it, or stop the Gateway first (${formatCliCommand("hsma gateway stop")}).`;
 }
 
 /** Hold canonical state ownership for the complete lifetime of a local TUI. */
@@ -1154,7 +1154,7 @@ async function runTuiUnlocked(opts: RunTuiOptions): Promise<TuiResult> {
   const updateHeader = () => {
     const sessionLabel = formatSessionKey(state.currentSessionKey);
     const agentLabel = formatAgentLabel(state.currentAgentId);
-    const title = opts.title ?? "openclaw tui";
+    const title = opts.title ?? "hsma tui";
     const text = `${title} - ${client.connection.url} - agent ${agentLabel} - session ${sessionLabel}`;
     header.setText(theme.header(sanitizeRenderableLine(text)));
   };
@@ -1567,7 +1567,7 @@ async function runTuiUnlocked(opts: RunTuiOptions): Promise<TuiResult> {
   let disposeSubmitBurst = () => {};
   const forceExit = () => {
     try {
-      process.stderr.write("openclaw tui forcing exit\n");
+      process.stderr.write("hsma tui forcing exit\n");
     } catch {
       // Best effort only; force exit must not depend on stderr.
     }
@@ -1602,7 +1602,7 @@ async function runTuiUnlocked(opts: RunTuiOptions): Promise<TuiResult> {
       onError: (err) => {
         if (!isTuiTerminalLossError(err)) {
           try {
-            process.stderr.write(`openclaw tui shutdown failed: ${formatTuiErrorMessage(err)}\n`);
+            process.stderr.write(`hsma tui shutdown failed: ${formatTuiErrorMessage(err)}\n`);
           } catch {
             // Best effort only; exit must still complete.
           }

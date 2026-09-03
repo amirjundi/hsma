@@ -115,7 +115,7 @@ export async function exportTrajectoryCommand(
   const sessionKey = resolvedOpts.sessionKey?.trim();
   if (!sessionKey) {
     throwTrajectoryExportError(
-      `--session-key is required. Run ${formatCliCommand("openclaw sessions")} to choose a session.`,
+      `--session-key is required. Run ${formatCliCommand("hsma sessions")} to choose a session.`,
     );
   }
   const requestedAgent = resolvedOpts.agent?.trim();
@@ -152,7 +152,7 @@ export async function exportTrajectoryCommand(
   });
   if (!entry?.sessionId) {
     throwTrajectoryExportError(
-      `Session not found: ${sessionKey}. Run ${formatCliCommand("openclaw sessions")} to see available sessions.`,
+      `Session not found: ${sessionKey}. Run ${formatCliCommand("hsma sessions")} to see available sessions.`,
     );
   }
 

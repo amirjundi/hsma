@@ -92,7 +92,7 @@ export async function completeStartupMigrationPreflight(params: {
       throwStartupMigrationRefusal(
         formatStartupMigrationFailure({
           warnings: [],
-          blockers: ['HSMA config is invalid; run "openclaw doctor --fix" before startup.'],
+          blockers: ['HSMA config is invalid; run "hsma doctor --fix" before startup.'],
         }),
       );
     }

@@ -52,6 +52,6 @@ export async function promosListCommand(opts: { json?: boolean }, runtime: Runti
       const suggested = model.suggestedDefault ? " — suggested default" : "";
       runtime.log(`  · ${safe(model.modelRef)}${alias}${suggested}`);
     }
-    runtime.log(`  Claim: ${formatCliCommand(`openclaw promos claim ${safe(promotion.slug)}`)}`);
+    runtime.log(`  Claim: ${formatCliCommand(`hsma promos claim ${safe(promotion.slug)}`)}`);
   }
 }

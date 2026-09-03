@@ -1,5 +1,5 @@
 import type { AuthProfileStore } from "../../agents/auth-profiles/types.js";
-/** Auth availability index for `openclaw models list` rows. */
+/** Auth availability index for `hsma models list` rows. */
 import {
   createModelAuthAvailabilityResolver,
   type ModelAuthAvailabilityEvaluation,

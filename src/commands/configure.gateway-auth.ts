@@ -193,7 +193,7 @@ export function buildGatewayAuthConfig(params: {
   if (params.mode === "trusted-proxy") {
     if (!params.trustedProxy) {
       throw new Error(
-        `trustedProxy config is required when mode is trusted-proxy. Run ${formatCliCommand("openclaw configure --section gateway")} to configure Gateway auth interactively.`,
+        `trustedProxy config is required when mode is trusted-proxy. Run ${formatCliCommand("hsma configure --section gateway")} to configure Gateway auth interactively.`,
       );
     }
     return { ...base, mode: "trusted-proxy", trustedProxy: params.trustedProxy };

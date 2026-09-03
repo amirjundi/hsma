@@ -146,15 +146,15 @@ function printGatewayNotReadyHints(
   nativeServiceCanRecover = true,
 ): void {
   runtime.log(reason);
-  runtime.log("Run `openclaw gateway status --deep` for details.");
+  runtime.log("Run `hsma gateway status --deep` for details.");
   if (!nativeServiceCanRecover) {
     runtime.log(
       "Use the owning environment or supervisor to start or repair the selected Gateway.",
     );
     return;
   }
-  runtime.log("Run `openclaw gateway start` to start a managed gateway.");
-  runtime.log("Run `openclaw gateway run` for a foreground gateway.");
+  runtime.log("Run `hsma gateway start` to start a managed gateway.");
+  runtime.log("Run `hsma gateway run` for a foreground gateway.");
 }
 
 async function confirmRecovery(params: {

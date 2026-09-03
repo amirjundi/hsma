@@ -13,7 +13,7 @@ type SpawnGh = (
 
 const GITHUB_ISSUE_CREATE_TIMEOUT_MS = 30_000;
 
-/** Creates an openclaw/openclaw issue through the GitHub CLI using sanitized stdin. */
+/** Creates an openclaw/hsma issue through the GitHub CLI using sanitized stdin. */
 export function createSessionSqliteGithubIssue(
   issue: SessionSqliteMigrationFailureIssue,
   spawnGh: SpawnGh = defaultSpawnGh,

@@ -51,7 +51,7 @@ export async function modelsAuthLogoutCommand(
   const profileId = opts.profileId?.trim();
   if (!profileId) {
     throw new Error(
-      `Missing profile id. Run ${formatCliCommand("openclaw models auth list")} to see saved profile ids.`,
+      `Missing profile id. Run ${formatCliCommand("hsma models auth list")} to see saved profile ids.`,
     );
   }
 
@@ -63,14 +63,14 @@ export async function modelsAuthLogoutCommand(
   const credential = store.profiles[profileId];
   if (!credential) {
     throw new Error(
-      `Auth profile "${profileId}" not found for agent "${agentId}". Run ${formatCliCommand(`openclaw models auth list --agent ${agentId}`)} to see saved profile ids.`,
+      `Auth profile "${profileId}" not found for agent "${agentId}". Run ${formatCliCommand(`hsma models auth list --agent ${agentId}`)} to see saved profile ids.`,
     );
   }
 
   const boundProvider = findProviderEntryBoundToProfile({ cfg, store, profileId });
   if (boundProvider) {
     throw new Error(
-      `Auth profile "${profileId}" is referenced by models.providers.${boundProvider}.apiKey. Change that config value first, then rerun ${formatCliCommand(`openclaw models auth logout ${profileId}`)}.`,
+      `Auth profile "${profileId}" is referenced by models.providers.${boundProvider}.apiKey. Change that config value first, then rerun ${formatCliCommand(`hsma models auth logout ${profileId}`)}.`,
     );
   }
 
@@ -116,7 +116,7 @@ export async function modelsAuthLogoutCommand(
   );
   if (remaining.length === 0) {
     runtime.log(
-      `No auth profiles remain for ${credential.provider}. Run ${formatCliCommand(`openclaw models auth login --provider ${credential.provider}`)} to sign in again.`,
+      `No auth profiles remain for ${credential.provider}. Run ${formatCliCommand(`hsma models auth login --provider ${credential.provider}`)} to sign in again.`,
     );
   }
 }

@@ -29,5 +29,5 @@ export function parsePackageOpenClawSchemaVersions(
   if (!openclaw || typeof openclaw !== "object" || Array.isArray(openclaw)) {
     return undefined;
   }
-  return parseOpenClawSchemaVersions((openclaw as Record<string, unknown>).schemaVersions);
+  return parseOpenClawSchemaVersions((hsma as Record<string, unknown>).schemaVersions);
 }

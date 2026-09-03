@@ -1050,9 +1050,7 @@ export async function runPostSessionPluginDoctorStateRepairs(params: {
         warnings: [
           ...warnings,
           ...plans.flatMap((plan) => plan.preview),
-          ...(plans.length
-            ? ['Run "openclaw doctor --fix" to repair plugin session ownership.']
-            : []),
+          ...(plans.length ? ['Run "hsma doctor --fix" to repair plugin session ownership.'] : []),
         ],
       };
     }
@@ -1097,7 +1095,7 @@ export async function runPostSessionPluginDoctorStateRepairs(params: {
     return {
       changes: [],
       warnings: [
-        `Skipped plugin session repair: ${String(error)}. Stop active agents and run openclaw doctor --fix again.`,
+        `Skipped plugin session repair: ${String(error)}. Stop active agents and run hsma doctor --fix again.`,
       ],
     };
   }

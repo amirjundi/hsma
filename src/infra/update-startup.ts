@@ -1139,7 +1139,7 @@ export async function runGatewayUpdateCheck(params: {
     const shouldNotify =
       state.lastNotifiedVersion !== resolved.version || state.lastNotifiedTag !== tag;
     if (shouldNotify) {
-      const updateNotice = `update available (${tag}): v${resolved.version} (current v${VERSION}). Run: ${formatCliCommand("openclaw update")}`;
+      const updateNotice = `update available (${tag}): v${resolved.version} (current v${VERSION}). Run: ${formatCliCommand("hsma update")}`;
       const note = telemetryUpdate?.note
         ? sanitizeTerminalText(telemetryUpdate.note).trim().slice(0, 500)
         : undefined;

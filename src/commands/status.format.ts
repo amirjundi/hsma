@@ -21,7 +21,7 @@ export const formatStatusConfigDiagnosticEntries = (
 ): string[] => [
   `- Config file is invalid: ${sanitizeTerminalText(diagnostics.path)}`,
   ...formatConfigIssueLines(diagnostics.issues, "-", { normalizeRoot: true }),
-  `- Fix: ${formatCliCommand("openclaw doctor --fix")}`,
+  `- Fix: ${formatCliCommand("hsma doctor --fix")}`,
 ];
 
 /** Formats a duration or returns `unknown` for missing/non-finite values. */

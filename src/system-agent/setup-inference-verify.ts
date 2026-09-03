@@ -72,7 +72,7 @@ export async function verifySetupInference(
     return {
       ok: false,
       status: "unavailable",
-      error: "No HSMA config exists. Run `openclaw onboard` first.",
+      error: "No HSMA config exists. Run `hsma onboard` first.",
     };
   }
   if (!snapshot.valid) {
@@ -240,7 +240,7 @@ export async function verifySetupInferenceConfig(params: {
     return {
       ok: false,
       status: "unavailable",
-      error: "No agent model is configured. Run `openclaw onboard` first.",
+      error: "No agent model is configured. Run `hsma onboard` first.",
     };
   }
   const tempDir = await (

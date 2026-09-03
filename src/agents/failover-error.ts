@@ -735,7 +735,7 @@ export function buildFailoverRemediationHint(err: unknown): string | undefined {
     return undefined;
   }
   if (provider === "google-gemini-cli") {
-    return `Authenticate in Gemini CLI directly, or configure a supported Google API key with: ${formatCliCommand("openclaw configure")}`;
+    return `Authenticate in Gemini CLI directly, or configure a supported Google API key with: ${formatCliCommand("hsma configure")}`;
   }
   const command = buildProviderReauthCommand(provider);
   return command ? `Re-authenticate with: ${command}` : undefined;
@@ -755,7 +755,7 @@ export function buildProviderReauthCommand(
     return undefined;
   }
   return formatCliCommand(
-    `openclaw models auth login --provider ${quotePosixShellArg(trimmed)} --force`,
+    `hsma models auth login --provider ${quotePosixShellArg(trimmed)} --force`,
     env,
   );
 }

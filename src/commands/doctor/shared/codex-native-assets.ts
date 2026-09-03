@@ -199,7 +199,7 @@ export async function collectCodexNativeAssetInfoNotes(params: {
   return [
     [
       `- Personal Codex CLI assets found (${counts.join(", ")}) in ${resolveCodexHome(env)} and ${resolvePersonalAgentSkillsDir(env)}; native Codex-mode agents use isolated per-agent homes and will not load them.`,
-      "- To review or promote them: install the Codex plugin (openclaw plugins install npm:@openclaw/codex), then run openclaw migrate plan codex.",
+      "- To review or promote them: install the Codex plugin (hsma plugins install npm:@openclaw/codex), then run hsma migrate plan codex.",
     ].join("\n"),
   ];
 }

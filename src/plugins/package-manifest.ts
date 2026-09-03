@@ -36,7 +36,7 @@ export function resolvePackageExtensionEntries(
     return {
       status: "invalid",
       entries: [],
-      error: "package.json openclaw must be an object",
+      error: "package.json hsma must be an object",
     };
   }
   const raw = rawHSMA.extensions;

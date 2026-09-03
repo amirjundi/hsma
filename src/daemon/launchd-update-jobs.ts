@@ -43,7 +43,7 @@ function normalizeOpenClawUpdateLaunchdLabel(label: unknown): string | null {
     return trimmed;
   }
   // Manual update jobs include a timestamp-like suffix and should be cleaned up
-  // without matching arbitrary ai.openclaw labels.
+  // without matching arbitrary ai.hsma labels.
   return MANUAL_UPDATE_LAUNCHD_LABEL_PATTERN.test(trimmed) ? trimmed : null;
 }
 
