@@ -15,6 +15,7 @@
  * and cannot fail to install on a bad connection — which on this deployment is the
  * normal condition rather than the exception.
  */
+import fs from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import type { Exemption } from "./exemptions.js";
 import type { LexiconHit } from "./lexicon.js";
@@ -81,6 +82,16 @@ export class EvidenceStore {
   private readonly db: DatabaseSync;
 
   constructor(path: string) {
+    // Create the directory first. The default path is ~/.hsma/evidence.db and on a
+    // fresh machine that directory does not exist yet, so SQLite fails with a bare
+    // "unable to open database file" -- which reads like a corrupt install rather
+    // than a missing folder, on the agent's very first action.
+    if (path !== ":memory:") {
+      const cut = Math.max(path.lastIndexOf("/"), path.lastIndexOf(String.fromCharCode(92)));
+      if (cut > 0) {
+        fs.mkdirSync(path.slice(0, cut), { recursive: true });
+      }
+    }
     this.db = new DatabaseSync(path);
     migrate(this.db as never);
   }
