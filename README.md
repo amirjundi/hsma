@@ -91,7 +91,7 @@ This is a pnpm workspace; plain `npm install` at the root is not supported.
 git clone https://github.com/amirjundi/hsma.git
 cd hsma
 pnpm install
-pnpm build
+pnpm build            # ~6 minutes
 npm install -g . --allow-scripts=openclaw
 ```
 

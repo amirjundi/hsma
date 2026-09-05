@@ -57,7 +57,14 @@ const workerDeployVersion = (
   JSON.parse(fs.readFileSync("package.json", "utf8")) as { version: string }
 ).version;
 const OUTPUT_SOURCE_MAPS = process.env.OUTPUT_SOURCE_MAPS === "1";
-const RUN_NODE_SKIP_DTS_BUILD = process.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD === "1";
+// HSMA is an application, not a library: nothing consumes its .d.ts files. Generating
+// them failed the whole build with 129 MISSING_EXPORT errors from postcss, vite and
+// esbuild -- and because tsdown-unified aborted, ui:build never ran, so every build
+// silently shipped a stale Control UI. That is how the dashboard stayed unbranded.
+//
+// Declarations are therefore off by default here and opt-in, the reverse of upstream.
+// Skipping them also takes the build from about 19 minutes to under 6.
+const RUN_NODE_SKIP_DTS_BUILD = process.env.OPENCLAW_RUN_NODE_SKIP_DTS_BUILD !== "0";
 const TSDOWN_DECLARATIONS = !RUN_NODE_SKIP_DTS_BUILD;
 export { createStateSchemaInlinePlugin, STATE_SCHEMA_INLINE_PLUGIN_NAME };
 
